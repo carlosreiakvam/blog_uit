@@ -7,8 +7,8 @@ class Kommentar:
     def __init__(self,
                  id: int = None,
                  innhold: int = None,
-                 brukernavn: str = None,
-                 dato: str = None):
+                 dato: str = None,
+                 brukernavn: str = None):
         self.id = id
         self.innhold = innhold
         self.brukernavn = brukernavn
