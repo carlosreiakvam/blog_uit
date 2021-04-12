@@ -3,16 +3,15 @@ from extensions import db
 from flask import abort
 
 
+# TODO: Test og reparer :)
 class Kommentar:
     def __init__(self,
                  id: int = None,
                  innhold: int = None,
-                 brukernavn: str = None,
-                 innlegg_id: int = None):
+                 brukernavn: str = None):
         self.id = id
         self.innhold = innhold
         self.brukernavn = brukernavn
-        self.innlegg_id = innlegg_id
 
     @staticmethod
     def get_all() -> List["Kommentar"]:
@@ -40,7 +39,27 @@ class Kommentar:
             abort(404)
 
 
+def insert_kommentar(self) -> "Kommentar":
+    # TODO: Få inn innlegg_id fra innlegg model
+    query = """
+    insert into kommentar(kommentar_id, kommentar_innhold,brukernavn,innlegg_id )
+    values(%s, %s, %s, %s) 
+    """
 
-# def insert_kommentar(self) -> "Kommentar":
-# def delete_kommentar(self):
-# def update_kommentar(self) -> "Kommentar": # Ikke nødvendig?
+    db.cursor.execute(
+        query, (self.id, self.inhold, self.brukernavn, self.innlegg_id)
+    )
+    db.connection.commit()
+    return self.get_post(db.cursor.lastrowid)
+
+
+def delete_kommentar(self):
+    query = """
+    delete *
+    from kommentar where
+    id = % s
+    """
+    db.cursor.execute(query, (self.id,))
+    db.connection.commit()
+
+# def update_kommentar(self) -> "Kommentar": # Eventuell oppdatering av kommentar?
