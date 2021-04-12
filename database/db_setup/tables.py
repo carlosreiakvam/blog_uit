@@ -58,6 +58,7 @@ TABLES["kommentarer"] = """
 CREATE TABLE `kommentarer` (
   `kommentar_id` INT NOT NULL AUTO_INCREMENT,
   `kommentar_innhold` TINYTEXT NULL,
+  `kommentar_dato` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `bruker_navn` VARCHAR(24) NOT NULL,
   `innlegg_id` INT NOT NULL,
   PRIMARY KEY (`kommentar_id`, `bruker_navn`, `innlegg_id`),
@@ -95,6 +96,7 @@ TABLES["kommentar_logg"] = """
 CREATE TABLE `kommentar_logg` (
   `kommentar_id` INT NOT NULL,
   `kommentar_innhold` TINYTEXT NULL,
+  `kommentar_dato` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `bruker_navn` VARCHAR(24) NOT NULL,
   `innlegg_id` INT NOT NULL,
   `slettet_dato` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
