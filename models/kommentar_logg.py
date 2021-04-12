@@ -52,7 +52,12 @@ class Kommentar_logg:
                     from kommentar_logg 
                     where kommentar_id = %s
                     """
+        deletequery = """ 
+                delete from kommentarer 
+                where kommentar_id = %s"""
         db.cursor.execute(query, (kommentar_id,))
+        db.cursor.execute(deletequery, (kommentar_id,))
+        db.connection.commit()
         result = Kommentar_logg(*db.cursor.fetchone())
         Kommentar.insert_kommentar(result, id)
 
