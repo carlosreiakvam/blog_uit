@@ -1,6 +1,7 @@
 from typing import List
 from extensions import db
 from flask import abort
+from models.kommentar import Kommentar
 
 class Kommentar_logg:
     def __init__(self,
@@ -53,8 +54,7 @@ class Kommentar_logg:
                     """
         db.cursor.execute(query, (kommentar_id,))
         result = Kommentar_logg(*db.cursor.fetchone())
-        Kommentar.insert_kommentar(result, id) #må klassen Kommentar importeres eller noe?
-
+        Kommentar.insert_kommentar(result, id)
 
 
         '''
