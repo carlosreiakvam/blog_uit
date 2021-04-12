@@ -23,7 +23,7 @@ class Kommentar:
         where innlegg_id = %s
         order by kommentar_dato
         """
-        db.cursor.execute(query, (innlegg_id,) )
+        db.cursor.execute(query, (innlegg_id,))
         result = [Kommentar(*x) for x in db.cursor.fetchall()]
         return result
 
@@ -44,12 +44,12 @@ class Kommentar:
 
     def insert_kommentar(self, innlegg_id) -> "Kommentar":
         query = """
-            insert into kommentarer(kommentar_id, kommentar_innhold, bruker_navn, innlegg_id )
-        values((select innlegg_id from innlegg where innlegg_id = %s), %s, %s, %s, %s) 
+        insert into kommentarer(kommentar_innhold, bruker_navn, innlegg_id )
+        values(%s, %s, %s) 
         """
-        db.cursor.execute(query, (innlegg_id, self.id, self.inhold, self.brukernavn, self.innlegg_id))
+        db.cursor.execute(query, (self.innhold, self.brukernavn, innlegg_id))
         db.connection.commit()
-        return self.get_post(db.cursor.lastrowid)
+        return self.get_kommentar(db.cursor.lastrowid)
 
     def delete_kommentar(self):
         query = """ 
