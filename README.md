@@ -17,7 +17,7 @@ DATABASE_USER=blog
 DATABASE_PASSWORD=super-secret
 ```
 
-Vytt ut verdiene med verdier som stemmer for ditt milø.
+Bytt ut verdiene med verdier som stemmer for ditt milø.
 
 
 ## Opprette database tabeller
