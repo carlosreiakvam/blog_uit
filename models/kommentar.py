@@ -3,7 +3,7 @@ from extensions import db
 from flask import abort
 
 
-# TODO: Test og reparer :)
+# TODO: Test og reparer :). Legg merke til TODO lenger ned også
 class Kommentar:
     def __init__(self,
                  id: int = None,
