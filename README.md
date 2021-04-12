@@ -1,12 +1,15 @@
 # Prosjekoppgave - Blog
+
 ## Gruppe 1
+
+Thomas Melchiord Ytterdahl, Hanstein Rommerud, Jan Erik Skaiå Bisseth, Carlos Reiakvam.
 
 ## Konfigurasjon
 
-Applikasjonen kan konfigurers ved å sette kjøremiljø variabler som hentes inn av applikasjonen. 
+Applikasjonen kan konfigureres ved å sette kjøremiljø variabler som hentes inn av applikasjonen.
 
-Den letteste måten å sette disse på er å opprette en `.env` fil lokalt.
-I denne filen kan du sette verdier for kjøremiljø variablene og de vil automatisk bli fanget opp av Flask.
+Den letteste måten å sette disse på er å opprette en `.env` fil lokalt. I denne filen kan du sette verdier for
+kjøremiljø variablene og de vil automatisk bli fanget opp av Flask.
 
 Eksemper på en `.env` fil:
 
@@ -17,8 +20,7 @@ DATABASE_USER=blog
 DATABASE_PASSWORD=super-secret
 ```
 
-Bytt ut verdiene med verdier som stemmer for ditt milø.
-
+Bytt ut verdiene med verdier som stemmer for ditt miljø.
 
 ## Opprette database tabeller
 
