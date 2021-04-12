@@ -57,9 +57,7 @@ def delete_kommentar(self):
     query = """
     delete *
     from kommentar where
-    id = % s
+    id = %s
     """
     db.cursor.execute(query, (self.id,))
     db.connection.commit()
-
-# def update_kommentar(self) -> "Kommentar": # Eventuell oppdatering av kommentar?
