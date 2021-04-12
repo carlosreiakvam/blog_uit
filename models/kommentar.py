@@ -38,26 +38,24 @@ class Kommentar:
         else:
             abort(404)
 
+    def insert_kommentar(self) -> "Kommentar":
+        # TODO: Få inn innlegg_id fra innlegg model
+        query = """
+            insert into kommentar(kommentar_id, kommentar_innhold,brukernavn,innlegg_id )
+        values(%s, %s, %s, %s) 
+        """
 
-def insert_kommentar(self) -> "Kommentar":
-    # TODO: Få inn innlegg_id fra innlegg model
-    query = """
-    insert into kommentar(kommentar_id, kommentar_innhold,brukernavn,innlegg_id )
-    values(%s, %s, %s, %s) 
-    """
+        db.cursor.execute(
+            query, (self.id, self.inhold, self.brukernavn, self.innlegg_id)
+        )
+        db.connection.commit()
+        return self.get_post(db.cursor.lastrowid)
 
-    db.cursor.execute(
-        query, (self.id, self.inhold, self.brukernavn, self.innlegg_id)
-    )
-    db.connection.commit()
-    return self.get_post(db.cursor.lastrowid)
-
-
-def delete_kommentar(self):
-    query = """
-    delete *
-    from kommentar where
-    id = %s
-    """
-    db.cursor.execute(query, (self.id,))
-    db.connection.commit()
+    def delete_kommentar(self):
+        query = """
+        delete *
+        from kommentar where
+        id = %s
+        """
+        db.cursor.execute(query, (self.id,))
+        db.connection.commit()
