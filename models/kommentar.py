@@ -2,6 +2,9 @@ from typing import List
 from extensions import db
 from flask import abort
 
+# Legg til disse imports når de er klare
+# from database.db_setup import innlegg
+# from database.db_setup import bruker
 
 class Kommentar:
     def __init__(self,
@@ -13,6 +16,7 @@ class Kommentar:
         self.innhold = innhold
         self.brukernavn = brukernavn
         self.dato = dato
+
 
     @staticmethod
     def get_all(innlegg_id: int) -> List["Kommentar"]:
@@ -42,6 +46,8 @@ class Kommentar:
         else:
             abort(404)
 
+    # brukernavn må importeres og hentes fra tabell bruker
+    # innlegg_id må importeres og hentes fra tabell innlegg
     def insert_kommentar(self, innlegg_id) -> "Kommentar":
         query = """
         insert into kommentarer(kommentar_innhold, bruker_navn, innlegg_id )
