@@ -46,7 +46,7 @@ class Innlegg:
                innlegg_dato, 
                innlegg_endret, 
                innlegg_treff
-        from innlegg where blog_blog_navn = %s and innlegg_dato > CURRENT_TIMESTAMP
+        from innlegg where blog_navn = %s and innlegg_dato > CURRENT_TIMESTAMP
         """
 
         db.cursor.execute(query, (blog_navn,))
