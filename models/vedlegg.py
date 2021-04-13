@@ -24,9 +24,9 @@ class Vedlegg:
                vedlegg_navn, 
                vedlegg_beskrivelse, 
                vedlegg_path, 
-               innlegg_innlegg_id
+               innlegg_id
         from vedlegg
-        where innlegg_innlegg_id = %s
+        where innlegg_id = %s
         """
         db.cursor.execute(query, (innlegg_id,))
         result = [Vedlegg(*vedlegg) for vedlegg in db.cursor.fetchall()]
@@ -39,9 +39,9 @@ class Vedlegg:
                        vedlegg_navn, 
                        vedlegg_beskrivelse, 
                        vedlegg_path, 
-                       innlegg_innlegg_id
+                       innlegg_id
                 from vedlegg
-                where innlegg_innlegg_id = %s
+                where innlegg_id = %s
                 """
         db.cursor.execute(query, (innlegg_id,))
         result = db.cursor.fetchone()
@@ -52,7 +52,7 @@ class Vedlegg:
 
     def insert(self) -> "Vedlegg":
         query = """
-        insert into vedlegg(vedlegg_navn, vedlegg_beskrivelse, vedlegg_path, innlegg_innlegg_id)
+        insert into vedlegg(vedlegg_navn, vedlegg_beskrivelse, vedlegg_path, innlegg_id)
         values (%s, %s, %s, %s)
         """
         db.cursor.execute(query, (self.vedlegg_navn, self.vedlegg_beskrivelse, self.vedlegg_path, self.innlegg_id))
