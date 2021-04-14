@@ -1,6 +1,7 @@
 from app import create_app
 from database.db_setup.tables import create_tables, drop_tables
 from database.db_setup.triggers import create_triggers
+from database.db_setup.eksempelverdier.brukere import *
 from flask.cli import AppGroup
 
 app = create_app()
