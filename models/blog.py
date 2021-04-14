@@ -20,8 +20,8 @@ class Blog:
         query = """
             select blog_navn, 
                     blog_tittel,
-                    blog_brukere_brukernavn,  
-                    blog_opprettet,
+                    bruker_navn,  
+                    blog_opprettet
             from blog
             """
 
@@ -31,42 +31,45 @@ class Blog:
 
 
     @staticmethod
-    def get_one(blog_navn: str, bruker: str) -> "Blog":
+    def get_one(blog_navn: str) -> "Blog":
         query = """
             select blog_navn, 
                     blog_tittel,
-                    blog_brukere_brukernavn,  
-                    blog_opprettet,
-            from blog where (blog_navn = %s and blog_brukere_brukernavn = %s)
+                    bruker_navn,  
+                    blog_opprettet
+            from blog where blog_navn = %s
             """
 
-        db.cursor.execute(query, (blog_navn, bruker,))
+        db.cursor.execute(query, (blog_navn, ))
         result = Blog(*db.cursor.fetchone())
         if result.blog_navn:
             return result
         else:
             abort(404)
 
-    @staticmethod
-    def get_all_by_user_name(bruker_navn: str) -> "Blog":
-        query = """
-            select blog_navn, 
-                    blog_tittel,
-                    blog_brukere_brukernavn,  
-                    blog_opprettet,
-            from blog where blog_brukere_brukernavn = %s
-            """
-
-        db.cursor.execute(query, (bruker_navn,))
-        result = [Blog(*x) for x in db.cursor.fetchall()]
-        return result
-
     def insert_blog(self) -> "Blog":
         query = """
-        insert into blog(blog_navn, blog_tittel, blog_bruker_navn)
+        insert into blog(blog_navn, blog_tittel, bruker_navn)
         values(%s, %s, %s) 
         """
 
         db.cursor.execute(query, (self.blog_navn, self.blog_tittel, self.blog_bruker_navn))
         db.connection.commit()
         return self.get_one(db.cursor.lastrowid)
+
+
+    def update_blog(self) -> "Blog":
+        query = """
+        update blog
+        set blog_tittel =%s 
+        where blog_navn = %s
+        """
+        db.cursor.execute(
+            query,
+            (
+                self.blog_tittel,
+                self.blog_navn,
+            )
+        )
+        db.connection.commit()
+        return Blog.get_one(self.blog_navn)
