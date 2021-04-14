@@ -8,7 +8,7 @@ TABLES["brukere"] = """
 CREATE TABLE `brukere` (
   `bruker_navn` VARCHAR(24) NOT NULL,
   `bruker_epost` VARCHAR(45) NOT NULL,
-  `bruker_passord_hash` VARCHAR(45) NOT NULL,
+  `bruker_passord_hash` VARCHAR(100) NOT NULL,
   `bruker_opprettet` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `bruker_fornavn` VARCHAR(45) NOT NULL,
   `bruker_etternavn` VARCHAR(45) NOT NULL,
