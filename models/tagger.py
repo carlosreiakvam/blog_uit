@@ -1,9 +1,10 @@
-from werkzeug.exceptions import abort
+from typing import List
 
+from flask import abort
 from extensions import db
 
 
-class Tagger():
+class Tagger:
     def __init__(self,
                  tagnavn: str = None,
                  innleggid: int = None):
@@ -11,7 +12,7 @@ class Tagger():
         self.innleggid = innleggid
 
 
-def add_tags(self) -> "Tagger":
+def add_tag(self) -> "Tagger":
     query = """
     insert into tagger(tag_navn, innlegg_id)
     values (%s, %s)
@@ -21,21 +22,21 @@ def add_tags(self) -> "Tagger":
     return Tagger.get_tags(db.cursor.lastrowid)
 
 
-def get_tags(innlegg_id) -> "Tagger":
+def get_tags(innlegg_id) -> List["Tagger"]:
     query = """
     select tag_navn
     from tagger
     where innlegg_id = %s
     """
     db.cursor.execute(query, (innlegg_id,))
-    result = Tagger(*db.cursor.fetchall())
+    result = [Tagger (*tagger) for tagger in db.cursor.fetchall()]
     if result.tagnavn:
         return result
     else:
         abort(404)
 
 
-def delete_tag(self) -> "Tagger":
+def delete_tag(self):
     query = """
     delete from tagger
     where tag_navn = %s and innlegg_id = %s"""
