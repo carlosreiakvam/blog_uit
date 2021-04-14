@@ -11,6 +11,16 @@ class Tagger():
         self.innleggid = innleggid
 
 
+def add_tags(self) -> "Tagger":
+    query = """
+    insert into tagger(tag_navn, innlegg_id)
+    values (%s, %s)
+    """
+    db.cursor.execute(query, (self.tagnavn, self.innleggid))
+    db.connection.commit()
+    return Tagger.get_tags(db.cursor.lastrowid)
+
+
 def get_tags(innlegg_id) -> "Tagger":
     query = """
     select tag_navn
