@@ -33,3 +33,11 @@ def get_tags(innlegg_id) -> "Tagger":
         return result
     else:
         abort(404)
+
+
+def delete_tag(self) -> "Tagger":
+    query = """
+    delete from tagger
+    where tag_navn = %s and innlegg_id = %s"""
+    db.cursor.execute(query, (self.tagnavn, self.innleggid))
+    db.connection.commit()
