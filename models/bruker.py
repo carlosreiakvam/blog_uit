@@ -33,7 +33,7 @@ class Bruker:
         where bruker_navn = %s
         """
         db.cursor.execute(query, (username,))
-        result = Bruker(*db.cursor.fetchone())
+        result = db.cursor.fetchone()
         if result.brukernavn:
             return result
         else:

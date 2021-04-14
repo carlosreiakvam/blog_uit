@@ -6,3 +6,7 @@ def legg_inn_bruker():
     bruker.hash_password("asdasd")
     bruker.insert_user()
 
+
+def sjekk_passord():
+    bruker = Bruker.get_user("janerik")
+    bruker.check_password("test")

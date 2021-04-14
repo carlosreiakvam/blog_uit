@@ -18,6 +18,10 @@ def init_db():
 def eksempelbruker():
     legg_inn_bruker()
 
+@database_cli.command("sjekkpassord")
+def sjekkpassord():
+    sjekk_passord()
+
 
 app.cli.add_command(database_cli)
 
