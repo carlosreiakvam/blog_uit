@@ -47,29 +47,26 @@ class Kommentarlogg:
             abort(404)
 
     @staticmethod
-    def undo_Delete(kommentar_id: int) -> "kommentar_logg":
+    def undo_delete(kommentar_id: int) -> Kommentar:
+        delete_query = """ 
+        delete from kommentar_logg 
+        where kommentar_id = %s
+        """
 
-        deletequery = """ 
-                delete from kommentar_logg 
-                where kommentar_id = %s"""
-
+        insert_query = """
+        insert into kommentarer(kommentar_id, kommentar_innhold, kommentar_dato, bruker_navn, innlegg_id)
+        values (%s, %s, %s, %s, %s)
+        """
 
         result = Kommentarlogg.get_kommentar(kommentar_id)
 
-        kommentar = Kommentar(
-            id=result.id,
-            innhold=result.innhold,
-            dato=result.dato,
-            brukernavn=result.brukernavn,
-            innlegg_id=result.innlegg_id
+        db.cursor.execute(
+            insert_query,
+            (result.id, result.innhold, result.dato, result.brukernavn, result.innlegg_id)
         )
-        kommentar.insert_kommentar(result.innlegg_id)
-
-
-        db.cursor.execute(deletequery, (kommentar_id,))
-        date_query = "insert into kommentar(dato) values (%s);"
-        db.cursor.execute(date_query, result.dato, )
+        db.cursor.execute(delete_query, (kommentar_id,))
         db.connection.commit()
-        Kommentar.insert_kommentar(result, id)
+        return Kommentar.get_kommentar(result.id)
+
 
 
