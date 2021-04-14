@@ -10,11 +10,12 @@ class Tagger():
         self.tagnavn = tagnavn
         self.innleggid = innleggid
 
+
 def get_tags(innlegg_id) -> "Tagger":
     query = """
     select tag_navn
     from tagger
-    where innlegg_innlegg_id = %s
+    where innlegg_id = %s
     """
     db.cursor.execute(query, (innlegg_id,))
     result = Tagger(*db.cursor.fetchall())
@@ -22,4 +23,3 @@ def get_tags(innlegg_id) -> "Tagger":
         return result
     else:
         abort(404)
-
