@@ -67,6 +67,9 @@ class Kommentarlogg:
 
 
         db.cursor.execute(deletequery, (kommentar_id,))
+        date_query = "insert into kommentar(dato) values (%s);"
+        db.cursor.execute(date_query, result.dato, )
         db.connection.commit()
         Kommentar.insert_kommentar(result, id)
+
 
