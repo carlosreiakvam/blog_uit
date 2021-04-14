@@ -23,21 +23,21 @@ class Bruker:
     def hash_password(self, password):
         self._passwordhash = generate_password_hash(password)
 
-    def check_password(self, username, password):
-        return bool(check_password_hash(self.get_password(username), password))
+    def check_password(self, password):
+        return bool(check_password_hash(self._get_password(), password))
 
-    def get_password(self, username: str) -> "Bruker":
+    def _get_password(self) -> str:
         query = """
         select bruker_passord_hash
         from brukere
         where bruker_navn = %s
         """
-        db.cursor.execute(query, (username,))
+        db.cursor.execute(query, (self.brukernavn,))
         result = db.cursor.fetchone()
-        if result.brukernavn:
-            return result
-        else:
+        if not result:
             abort(404)
+        else:
+            return result[0]
 
     @staticmethod
     def get_user(username) -> "Bruker":
