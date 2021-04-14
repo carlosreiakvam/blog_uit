@@ -9,18 +9,20 @@ class Kommentarlogg:
                  innhold: int = None,
                  dato: str = None,
                  brukernavn: str = None,
+                 innlegg_id: str = None,
                  slettet_dato: str = None):
         self.id = id
         self.innhold = innhold
         self.brukernavn = brukernavn
         self.dato = dato
+        self.innlegg_id = innlegg_id
         self.slettet_dato = slettet_dato
 
     @staticmethod
-    def get_all(innlegg_id: int) -> List["Kommentar_logg"]:
+    def get_all(innlegg_id: int) -> List["Kommentarlogg"]:
         query = """
         select 
-            kommentar_id, kommentar_innhold, kommentar_dato, bruker_navn, slettet_dato
+            kommentar_id, kommentar_innhold, kommentar_dato, bruker_navn, innlegg_id, slettet_dato
         from kommentar_logg
         where innlegg_id = %s
         order by kommentar_dato
@@ -30,10 +32,10 @@ class Kommentarlogg:
         return result
 
     @staticmethod
-    def get_kommentar(kommentar_id: int) -> "Kommentar_logg":
+    def get_kommentar(kommentar_id: int) -> "Kommentarlogg":
         query = """
             select 
-                kommentar_id, kommentar_innhold, kommentar_dato, bruker_navn, slettet_dato
+                kommentar_id, kommentar_innhold, kommentar_dato, bruker_navn, innlegg_id, slettet_dato
             from kommentar_logg 
             where kommentar_id = %s
             """
@@ -51,16 +53,18 @@ class Kommentarlogg:
                 delete from kommentar_logg 
                 where kommentar_id = %s"""
 
-        result = Kommentarlogg(*db.cursor.fetchone())
-        #result = Kommentarlogg.get_kommentar(kommentar_id)
-        #den andre vil vel også funke så lenge metoden er statisk?
+
+        result = Kommentarlogg.get_kommentar(kommentar_id)
+
         kommentar = Kommentar(
             id=result.id,
             innhold=result.innhold,
             dato=result.dato,
-            brukernavn=result.brukernavn
+            brukernavn=result.brukernavn,
+            innlegg_id=result.innlegg_id
         )
         kommentar.insert_kommentar(result.innlegg_id)
+
 
         db.cursor.execute(deletequery, (kommentar_id,))
         db.connection.commit()
