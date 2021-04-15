@@ -1,7 +1,7 @@
 from app import create_app
 from database.db_setup.tables import create_tables, drop_tables
 from database.db_setup.triggers import create_triggers
-from database.db_setup.eksempelverdier.brukere import opprett_brukere
+from database.db_setup.insert_data import insert_test_data
 from flask.cli import AppGroup
 
 app = create_app()
@@ -12,7 +12,7 @@ database_cli = AppGroup("db")
 def init_db():
     create_tables()
     create_triggers()
-    opprett_brukere()
+    insert_test_data()
 
 
 @database_cli.command("reset")
@@ -25,7 +25,17 @@ def reset_db():
         create_tables()
         print(20 * "-")
         create_triggers()
-        opprett_brukere()
+        insert_test_data()
+    else:
+        print("Har ikke gjort noen endringer")
+
+
+@database_cli.command("delete")
+def delete_db():
+    print("Denne kommandoen vil slette databasen (ALL DATA VIL BLI SLETTET)")
+    answer = input("Er du sikker på at du vil fortsette? (ja/nei): ")
+    if answer.upper() == "JA":
+        drop_tables()
     else:
         print("Har ikke gjort noen endringer")
 
