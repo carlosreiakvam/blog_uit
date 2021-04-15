@@ -69,4 +69,4 @@ class Bruker:
         db.cursor.execute(query, (self.brukernavn, self.epost, self._passwordhash, self.fornavn,
                                   self.etternavn))
         db.connection.commit()
-        return Bruker.get_user(db.cursor.lastrowid)
+        return Bruker.get_user(self.brukernavn)
