@@ -8,7 +8,7 @@ TABLES["brukere"] = """
 CREATE TABLE `brukere` (
   `bruker_navn` VARCHAR(24) NOT NULL,
   `bruker_epost` VARCHAR(45) NOT NULL,
-  `bruker_passord_hash` VARCHAR(45) NOT NULL,
+  `bruker_passord_hash` VARCHAR(100) NOT NULL,
   `bruker_opprettet` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `bruker_fornavn` VARCHAR(45) NOT NULL,
   `bruker_etternavn` VARCHAR(45) NOT NULL,
@@ -21,13 +21,13 @@ TABLES["blog"] = """
 CREATE TABLE `blog` (
   `blog_navn` VARCHAR(20) NOT NULL,
   `blog_tittel` VARCHAR(45) NOT NULL,
-  `brukere_bruker_navn` VARCHAR(24) NOT NULL,
+  `bruker_navn` VARCHAR(24) NOT NULL,
   `blog_opprettet` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`blog_navn`, `brukere_bruker_navn`),
+  PRIMARY KEY (`blog_navn`, `bruker_navn`),
   UNIQUE INDEX `blog_navn_UNIQUE` (`blog_navn` ASC),
-  INDEX `fk_blog_brukere_idx` (`brukere_bruker_navn` ASC),
+  INDEX `fk_blog_brukere_idx` (`bruker_navn` ASC),
   CONSTRAINT `fk_blog_brukere`
-    FOREIGN KEY (`brukere_bruker_navn`)
+    FOREIGN KEY (`bruker_navn`)
     REFERENCES `brukere` (`bruker_navn`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -42,12 +42,12 @@ CREATE TABLE `innlegg` (
   `innlegg_dato` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `innlegg_endret` DATETIME NULL,
   `innlegg_treff` INT NULL DEFAULT 0,
-  `blog_blog_navn` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`innlegg_id`, `blog_blog_navn`),
+  `blog_navn` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`innlegg_id`, `blog_navn`),
   UNIQUE INDEX `innlegg_id_UNIQUE` (`innlegg_id` ASC),
-  INDEX `fk_innlegg_blog1_idx` (`blog_blog_navn` ASC),
+  INDEX `fk_innlegg_blog1_idx` (`blog_navn` ASC),
   CONSTRAINT `fk_innlegg_blog1`
-    FOREIGN KEY (`blog_blog_navn`)
+    FOREIGN KEY (`blog_navn`)
     REFERENCES `blog` (`blog_navn`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
@@ -81,11 +81,11 @@ ENGINE = InnoDB
 TABLES["tagger"] = """
 CREATE TABLE `tagger` (
   `tag_navn` VARCHAR(45) NOT NULL,
-  `innlegg_innlegg_id` INT NOT NULL,
-  PRIMARY KEY (`innlegg_innlegg_id`, `tag_navn`),
-  INDEX `fk_tagger_innlegg1_idx` (`innlegg_innlegg_id` ASC),
+  `innlegg_id` INT NOT NULL,
+  PRIMARY KEY (`innlegg_id`, `tag_navn`),
+  INDEX `fk_tagger_innlegg1_idx` (`innlegg_id` ASC),
   CONSTRAINT `fk_tagger_innlegg1`
-    FOREIGN KEY (`innlegg_innlegg_id`)
+    FOREIGN KEY (`innlegg_id`)
     REFERENCES `innlegg` (`innlegg_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -122,12 +122,12 @@ CREATE TABLE `vedlegg` (
   `vedlegg_navn` VARCHAR(45) NOT NULL,
   `vedlegg_beskrivelse` VARCHAR(45) NULL,
   `vedlegg_path` VARCHAR(100) NULL,
-  `innlegg_innlegg_id` INT NOT NULL,
-  PRIMARY KEY (`vedlegg_id`, `innlegg_innlegg_id`),
+  `innlegg_id` INT NOT NULL,
+  PRIMARY KEY (`vedlegg_id`, `innlegg_id`),
   UNIQUE INDEX `vedlegg_id_UNIQUE` (`vedlegg_id` ASC),
-  INDEX `fk_vedlegg_innlegg1_idx` (`innlegg_innlegg_id` ASC),
+  INDEX `fk_vedlegg_innlegg1_idx` (`innlegg_id` ASC),
   CONSTRAINT `fk_vedlegg_innlegg1`
-    FOREIGN KEY (`innlegg_innlegg_id`)
+    FOREIGN KEY (`innlegg_id`)
     REFERENCES `innlegg` (`innlegg_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -145,6 +145,25 @@ def create_tables():
         except Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
                 print("already exists.")
+            else:
+                print(err.msg)
+        else:
+            print("OK")
+
+    cursor.close()
+
+
+def drop_tables():
+    cursor = db.connection.cursor()
+    cursor.execute("USE {}".format(current_app.config['DATABASE_NAME']))
+    tables = ["vedlegg", "kommentar_logg", "tagger", "kommentarer", "innlegg", "blog", "brukere"]
+    for table_name in tables:
+        try:
+            print(f"Dropping table {table_name}: ", end="")
+            cursor.execute("drop table {}".format(table_name))
+        except Error as err:
+            if err.errno == errorcode.ER_BAD_TABLE_ERROR:
+                print("Does not exist")
             else:
                 print(err.msg)
         else:
