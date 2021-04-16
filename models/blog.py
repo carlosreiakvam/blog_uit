@@ -5,21 +5,21 @@ from typing import List
 
 class Blog:
     def __init__(self,
+                 blog_prefix: str,
                  blog_navn: str,
-                 blog_tittel: str,
                  brukere_bruker_navn: str,
                  blog_opprettet: str
                  ):
+        self.blog_prefix = blog_prefix
         self.blog_navn = blog_navn
-        self.blog_tittel = blog_tittel
         self.blog_bruker_navn = brukere_bruker_navn
         self.blog_opprettet = blog_opprettet
 
     @staticmethod
     def get_all() -> List["Blog"]:
         query = """
-            select blog_navn, 
-                    blog_tittel,
+            select blog_prefix, 
+                    blog_navn,
                     bruker_navn,  
                     blog_opprettet
             from blog
@@ -31,29 +31,29 @@ class Blog:
 
 
     @staticmethod
-    def get_one(blog_navn: str) -> "Blog":
+    def get_one(blog_prefix: str) -> "Blog":
         query = """
-            select blog_navn, 
-                    blog_tittel,
+            select blog_prefix, 
+                    blog_navn,
                     bruker_navn,  
                     blog_opprettet
-            from blog where blog_navn = %s
+            from blog where blog_prefix = %s
             """
 
-        db.cursor.execute(query, (blog_navn, ))
+        db.cursor.execute(query, (blog_prefix, ))
         result = Blog(*db.cursor.fetchone())
-        if result.blog_navn:
+        if result.blog_prefix:
             return result
         else:
             abort(404)
 
     def insert_blog(self) -> "Blog":
         query = """
-        insert into blog(blog_navn, blog_tittel, bruker_navn)
+        insert into blog(blog_prefix, blog_navn, bruker_navn)
         values(%s, %s, %s) 
         """
 
-        db.cursor.execute(query, (self.blog_navn, self.blog_tittel, self.blog_bruker_navn))
+        db.cursor.execute(query, (self.blog_prefix, self.blog_navn, self.blog_bruker_navn))
         db.connection.commit()
         return self.get_one(db.cursor.lastrowid)
 
@@ -61,15 +61,15 @@ class Blog:
     def update_blog(self) -> "Blog":
         query = """
         update blog
-        set blog_tittel =%s 
-        where blog_navn = %s
+        set blog_navn =%s 
+        where blog_prefix = %s
         """
         db.cursor.execute(
             query,
             (
-                self.blog_tittel,
                 self.blog_navn,
+                self.blog_prefix,
             )
         )
         db.connection.commit()
-        return Blog.get_one(self.blog_navn)
+        return Blog.get_one(self.blog_prefix)
