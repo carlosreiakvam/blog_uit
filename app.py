@@ -1,5 +1,6 @@
 from flask import Flask
 
+from blueprints.auth import router as auth_blueprint
 from config import config
 from extensions import db
 
@@ -13,6 +14,8 @@ def create_app(config_name="default"):
     @app.route('/')
     def hello_world():
         return 'Hello World!'
+
+    app.register_blueprint(auth_blueprint)
 
     return app
 
