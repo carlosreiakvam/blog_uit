@@ -19,12 +19,12 @@ ENGINE = InnoDB
 
 TABLES["blog"] = """
 CREATE TABLE `blog` (
-  `blog_navn` VARCHAR(20) NOT NULL,
-  `blog_tittel` VARCHAR(45) NOT NULL,
+  `blog_prefix` VARCHAR(20) NOT NULL,
+  `blog_navn` VARCHAR(45) NOT NULL,
   `bruker_navn` VARCHAR(24) NOT NULL,
   `blog_opprettet` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`blog_navn`, `bruker_navn`),
-  UNIQUE INDEX `blog_navn_UNIQUE` (`blog_navn` ASC),
+  PRIMARY KEY (`blog_prefix`),
+  UNIQUE INDEX `blog_navn_UNIQUE` (`blog_prefix` ASC),
   INDEX `fk_blog_brukere_idx` (`bruker_navn` ASC),
   CONSTRAINT `fk_blog_brukere`
     FOREIGN KEY (`bruker_navn`)
@@ -42,13 +42,13 @@ CREATE TABLE `innlegg` (
   `innlegg_dato` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `innlegg_endret` DATETIME NULL,
   `innlegg_treff` INT NULL DEFAULT 0,
-  `blog_navn` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`innlegg_id`, `blog_navn`),
+  `blog_prefix` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`innlegg_id`),
   UNIQUE INDEX `innlegg_id_UNIQUE` (`innlegg_id` ASC),
-  INDEX `fk_innlegg_blog1_idx` (`blog_navn` ASC),
+  INDEX `fk_innlegg_blog1_idx` (`blog_prefix` ASC),
   CONSTRAINT `fk_innlegg_blog1`
-    FOREIGN KEY (`blog_navn`)
-    REFERENCES `blog` (`blog_navn`)
+    FOREIGN KEY (`blog_prefix`)
+    REFERENCES `blog` (`blog_prefix`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

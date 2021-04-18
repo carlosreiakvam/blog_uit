@@ -7,12 +7,12 @@ class Blog:
     def __init__(self,
                  blog_prefix: str,
                  blog_navn: str,
-                 brukere_bruker_navn: str,
+                 bruker_navn: str,
                  blog_opprettet: str
                  ):
         self.blog_prefix = blog_prefix
         self.blog_navn = blog_navn
-        self.blog_bruker_navn = brukere_bruker_navn
+        self.blog_bruker_navn = bruker_navn
         self.blog_opprettet = blog_opprettet
 
     @staticmethod
