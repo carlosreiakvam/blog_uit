@@ -3,6 +3,7 @@ from flask import Flask
 from blueprints.auth import router as auth_blueprint
 from config import config
 from extensions import db, login_manager
+from models.bruker import Bruker
 
 
 def create_app(config_name="default"):
@@ -11,6 +12,10 @@ def create_app(config_name="default"):
 
     db.init_app(app)
     login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return Bruker.get_user(user_id)
 
     @app.route('/')
     def hello_world():
