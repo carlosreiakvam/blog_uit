@@ -28,6 +28,7 @@ def opprett_brukere():
             "etternavn": "Reiakvam"
         }
     ]
+    print(20 * "-")
     for bruker in brukere:
         bruker_object = Bruker(**bruker)
         bruker_object.hash_password("super-secret")
