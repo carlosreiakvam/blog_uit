@@ -1,3 +1,5 @@
 Flask
+flask-login
+Flask-WTF
 mysql-connector-python
 python-dotenv
