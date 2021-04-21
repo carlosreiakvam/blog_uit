@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 from config import config
 from extensions import db
@@ -12,7 +12,7 @@ def create_app(config_name="default"):
 
     @app.route('/')
     def hello_world():
-        return 'Hello World!'
+        return render_template('base.html')
 
     return app
 
