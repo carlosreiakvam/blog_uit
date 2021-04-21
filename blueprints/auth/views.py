@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 from models.bruker import Bruker
+from forms import LoginForm
 
 router = Blueprint('auth', __name__, url_prefix="/auth")
 
@@ -18,6 +19,8 @@ def login():
     if form.validate_on_submit():
         # Login and validate the user.
         # user should be an instance of your `User` class
+        with Bruker() as db:
+            user = Bruker(*db.get_bruker(username)) #kopiert disse linjene fra under her.
         login_user(user)
 
         flask.flash('Logged in successfully.')
