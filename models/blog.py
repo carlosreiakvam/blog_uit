@@ -25,7 +25,7 @@ class Blog:
             from blog
             """
 
-        db.cursor.execute(query, )
+        db.cursor.execute(query)
         result = [Blog(*x) for x in db.cursor.fetchall()]
         return result
 
