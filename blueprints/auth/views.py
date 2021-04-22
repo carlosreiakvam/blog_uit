@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, abort, flash, url_for, redirect, request
+from flask_login import login_user
+
 from models.bruker import Bruker
-from forms import LoginForm
+from blueprints.auth.forms import LoginForm
 
 router = Blueprint('auth', __name__, url_prefix="/auth")
 
@@ -12,27 +14,29 @@ def example():
 
 @router.route('/login', methods=['GET', 'POST'])
 def login():
-    # Here we use a class of some kind to represent and validate our
-    # client-side form data. For example, WTForms is a library that will
-    # handle this for us, and we use a custom LoginForm to validate.
+
     form = LoginForm()
     if form.validate_on_submit():
-        # Login and validate the user.
-        # user should be an instance of your `User` class
-        with Bruker() as db:
-            user = Bruker(*db.get_bruker(username)) #kopiert disse linjene fra under her.
-        login_user(user)
 
-        flask.flash('Logged in successfully.')
+        bruker = Bruker.get_user(form.username.data)
+        if bruker is None or not bruker.check_password(form.password.data):
+            flash('Feil brukernavn og/eller passord', 'error')
+            print('test')
+            return render_template('login.html', form=form)
 
-        next = flask.request.args.get('next')
+        login_user(bruker)
+
+        flash('Logged in successfully.')
+
+        next = request.args.get('next')
         # is_safe_url should check if the url is safe for redirects.
         # See http://flask.pocoo.org/snippets/62/ for an example.
-        if not is_safe_url(next):
-            return flask.abort(400)
+        #if not is_safe_url(next):
+        #    return flask.abort(400)
 
-        return flask.redirect(next or flask.url_for('index'))
-    return flask.render_template('login.html', form=form)
+        return redirect(next or url_for('hello_world'))
+    print('test2')
+    return render_template('login.html', form=form)
 
 
 '''
