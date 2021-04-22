@@ -2,7 +2,7 @@
 {% block body %}
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <div class="flashes">
+            <div class="alert alert-warning" role="alert">
                 {% for message in messages %}
                     <!-- Do something with the message -->
                     {{ message }}
@@ -10,12 +10,16 @@
             </div>
         {% endif %}
     {% endwith %}
+
+
     <form method="POST" action="{{ url_for('auth.login') }}">
-    {{ form.csrf_token }}
-    {{ form.username.label }}
-    {{ form.username }}
-    {{ form.password.label }}
-    {{ form.password }}
-    {{ form.submit(class_="btn btn-primary") }}
+        <div class="form-group mb-4">
+        {{ form.csrf_token }}
+        {{ form.username.label }}
+        {{ form.username(class="form-control") }}
+        {{ form.password.label }}
+        {{ form.password(class="form-control") }}
+        {{ form.submit(class_="btn btn-primary") }}
+        </div>
     </form>
 {% endblock %}
