@@ -25,10 +25,9 @@ class Blog:
             from blog
             """
 
-        db.cursor.execute(query,)
+        db.cursor.execute(query)
         result = [Blog(*x) for x in db.cursor.fetchall()]
         return result
-
 
     @staticmethod
     def get_one(blog_prefix: str) -> "Blog":
@@ -40,10 +39,10 @@ class Blog:
             from blog where blog_prefix = %s
             """
 
-        db.cursor.execute(query, (blog_prefix, ))
-        result = Blog(*db.cursor.fetchone())
-        if result.blog_prefix:
-            return result
+        db.cursor.execute(query, (blog_prefix,))
+        result = db.cursor.fetchone()
+        if result:
+            return Blog(*result)
         else:
             abort(404)
 
@@ -56,7 +55,6 @@ class Blog:
         db.cursor.execute(query, (self.blog_prefix, self.blog_navn, self.blog_bruker_navn))
         db.connection.commit()
         return self.get_one(db.cursor.lastrowid)
-
 
     def update_blog(self) -> "Blog":
         query = """

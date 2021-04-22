@@ -70,9 +70,9 @@ class Innlegg:
         """
 
         db.cursor.execute(query, (innlegg_id,))
-        result = Innlegg(*db.cursor.fetchone())
-        if result.innlegg_id:
-            return result
+        result = db.cursor.fetchone()
+        if result:
+            return Innlegg(*result)
         else:
             abort(404)
 
