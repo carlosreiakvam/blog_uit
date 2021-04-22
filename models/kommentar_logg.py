@@ -41,7 +41,7 @@ class Kommentarlogg:
             """
         db.cursor.execute(query, (kommentar_id,))
         result = db.cursor.fetchone()
-        if result.id:
+        if result:
             return Kommentarlogg(*result)
         else:
             abort(404)
