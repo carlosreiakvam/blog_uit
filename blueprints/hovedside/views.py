@@ -1,4 +1,3 @@
-
 from flask import Blueprint
 
 router = Blueprint('hovedside', __name__)
