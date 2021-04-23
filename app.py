@@ -18,10 +18,6 @@ def create_app(config_name="default"):
     def load_user(user_id):
         return Bruker.get_user(user_id)
 
-    @app.route('/')
-    def hello_world():
-        return 'Hello World!'
-
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(hovedside_blueprint)
 
