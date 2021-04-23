@@ -66,11 +66,10 @@ class Bruker:
         where bruker_navn = %s
         """
         db.cursor.execute(query, (username,))
-        result = Bruker(*db.cursor.fetchone())
-        if result.brukernavn:
-            return result
-        else:
-            abort(404)
+        result = db.cursor.fetchone()
+        if result:
+            result = Bruker(*result)
+        return result
 
     def insert_user(self) -> "Bruker":
         query = """
