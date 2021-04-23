@@ -1,6 +1,7 @@
 from flask import Flask
 
 from blueprints.auth import router as auth_blueprint
+from blueprints.hovedside import router as hovedside_blueprint
 from config import config
 from extensions import db, login_manager
 from models.bruker import Bruker
@@ -22,6 +23,7 @@ def create_app(config_name="default"):
         return 'Hello World!'
 
     app.register_blueprint(auth_blueprint)
+    app.register_blueprint(hovedside_blueprint)
 
     return app
 
