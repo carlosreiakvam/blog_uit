@@ -15,7 +15,8 @@ class Innlegg:
                  innlegg_dato: datetime = None,
                  innlegg_endret: datetime = None,
                  innlegg_treff: int = None,
-                 blog_prefix: str = None
+                 blog_prefix: str = None,
+                 blog_navn: str = None
                  ):
         self.innlegg_id = innlegg_id
         self.innlegg_tittel = innlegg_tittel
@@ -24,9 +25,9 @@ class Innlegg:
         self.innlegg_endret = innlegg_endret
         self.innlegg_treff = innlegg_treff
         self.blog_prefix = blog_prefix
+        self.blog_navn = blog_navn
         self._kommentarer = None
         self._vedlegg = None
-        self.blog_navn = None
 
     @property
     def kommentarer(self) -> List[Kommentar]:
@@ -85,8 +86,9 @@ class Innlegg:
             innlegg_dato, 
             innlegg_endret, 
             innlegg_treff,
-            blog_prefix
-         from innlegg order by innlegg_dato desc limit 10
+            innlegg.blog_prefix,
+            blog.blog_navn
+         from innlegg, blog where blog.blog_prefix = innlegg.blog_prefix order by innlegg_dato desc limit 10
          """
 
         db.cursor.execute(query)
