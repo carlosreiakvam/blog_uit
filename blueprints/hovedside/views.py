@@ -8,7 +8,6 @@ router = Blueprint('hovedside', __name__)
 def index():
     new10 = Innlegg.get_ten_newest()
     if new10:
-        result = Innlegg.get_ten_newest()
-    return render_template('index.html',
-                           innlegg=result)
+        return render_template('index.html',
+                           innlegg=new10)
 

@@ -75,7 +75,8 @@ class Innlegg:
         else:
             abort(404)
 
-    def get_ten_newest() -> "Innlegg":
+    @staticmethod
+    def get_ten_newest() -> List["Innlegg"]:
         query = """
          select innlegg_id, 
             innlegg_tittel, 
