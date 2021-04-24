@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="container mt-5">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="row justify-content-center">
+                        <div class="alert alert-danger alert-dismissible fade show col-sm-12" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="row align-items-center">
+            <div class="card p-3 m-auto">
+                {% if innlegg_id %}
+                    <h2>Rediger innlegg #{{ innlegg_id }}</h2>
+                    <form method="POST" action="{{ url_for('blog.rediger_innlegg', post_id=post_id) }}"
+                          class="post-edit-form">
+                {% else %}
+                    <h2>Nytt innlegg</h2>
+                    <form method="POST" action="{{ url_for('blog.nytt_innlegg', blog_prefix=blog_prefix) }}"
+                          class="post-edit-form">
+                {% endif %}
+                {{ form.csrf_token }}
+
+                <div class="mb-3">
+                    {{ form.tittel.label(class_="form-label") }}
+                    {{ form.tittel(class_="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.innhold.label(class_="form-label") }}
+                    {{ form.innhold(class_="form-control") }}
+                </div>
+                <div class="row justify-content-end">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <input type="button" value="Tilbake" onclick="history.back()"
+                               class="btn btn-outline-success">
+                        <input type="submit" value="Lagre" class="btn btn-success">
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(name="innhold", custom_config="width: '100%''") }}
+{% endblock %}
