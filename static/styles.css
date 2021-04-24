@@ -23,14 +23,14 @@
 }
 
 
-#loginregister {
+.loginregister {
     width: 15%;
     white-space: nowrap;
+    padding-right: 60px !important;
 }
 
 #register {
     margin-left: 15px;
-
 }
 
 /* Overstyr tekstboks-gløden til bootstrap*/
