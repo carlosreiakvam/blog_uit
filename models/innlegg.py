@@ -75,7 +75,7 @@ class Innlegg:
         else:
             abort(404)
 
-    def get_ten_newest(self) -> "Innlegg":
+    def get_ten_newest() -> "Innlegg":
         query = """
          select innlegg_id, 
             innlegg_tittel, 

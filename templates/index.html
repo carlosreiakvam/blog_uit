@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body %}
+    {% if innlegg %}
+        {% for x in innlegg %}
+            <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header">Blognavn her</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ innlegg.innlegg_tittel }}</h5>
+                    <p class="card-text">{{ innlegg.innlegg_innhold }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
