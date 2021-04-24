@@ -26,6 +26,7 @@ class Innlegg:
         self.blog_prefix = blog_prefix
         self._kommentarer = None
         self._vedlegg = None
+        self.blog_navn = None
 
     @property
     def kommentarer(self) -> List[Kommentar]:
@@ -83,7 +84,8 @@ class Innlegg:
             innlegg_innhold, 
             innlegg_dato, 
             innlegg_endret, 
-            innlegg_treff
+            innlegg_treff,
+            blog_prefix
          from innlegg order by innlegg_dato desc limit 10
          """
 
