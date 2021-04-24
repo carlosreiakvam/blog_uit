@@ -6,11 +6,11 @@
     align-content: center;
 }
 
-.navbar-brand{
+.navbar-brand {
     vertical-align: center;
 }
 
-.container-fluid{
+.container-fluid {
     width: 100%;
     vertical-align: center;
     padding-left: 60px !important;
@@ -33,17 +33,17 @@
     margin-left: 15px;
 }
 
-.cards{
+.cards {
     padding-top: 30px;
 }
 
-.card{
+.card {
     max-width: 50rem;
     float: none;
     margin: auto;
 }
 
-.innleggdato{
+.innleggdato {
     float: right;
     font-size: 0.8em;
 }
