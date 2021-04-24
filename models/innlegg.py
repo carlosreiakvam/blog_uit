@@ -68,13 +68,27 @@ class Innlegg:
                blog_prefix
         from innlegg where innlegg_id = %s
         """
-
         db.cursor.execute(query, (innlegg_id,))
         result = db.cursor.fetchone()
         if result:
             return Innlegg(*result)
         else:
             abort(404)
+
+    def get_ten_newest(self) -> "Innlegg":
+        query = """
+         select innlegg_id, 
+            innlegg_tittel, 
+            innlegg_innhold, 
+            innlegg_dato, 
+            innlegg_endret, 
+            innlegg_treff
+         from innlegg order by innlegg_dato desc limit 10
+         """
+
+        db.cursor.execute(query)
+        result = [Innlegg(*x) for x in db.cursor.fetchall()]
+        return result
 
     def insert(self) -> "Innlegg":
         query = """
