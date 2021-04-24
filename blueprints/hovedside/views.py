@@ -1,9 +1,10 @@
-from flask import Blueprint
+
+from flask import Blueprint, render_template
 
 router = Blueprint('hovedside', __name__)
 
 
 @router.route("/")
 def example():
-    return "hello from hovedside"
+    return render_template('base.html')
 
