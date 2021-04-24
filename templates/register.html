@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block body %}
-    <p>dette er register page</p>
     <div class="container mt-5">
         {#        {% with messages = get_flashed_messages() %}#}
         {#            {% if messages %}#}
@@ -17,28 +16,28 @@
         <div class="row align-items-center">
             <div class="card p-3 m-auto" style="width: 50%;">
                 <form method="POST" action="{{ url_for('auth.register') }}">
-                    {#                                        {{ form.csrf_token }}#}
+                    {{ form.csrf_token }}
                     <div class="row mb-3 g-2 justify-content-center">
                         <div class="col-sm-2">
                             {{ form.username.label(class_="col-form-label") }}
                         </div>
-                        {#                        <div class="col-sm-10">#}
-                        {#                            {{ form.username(class="form-control") }}#}
-                        {#                        </div>#}
-                        {#                    </div>#}
-                        {#                    <div class="row mb-3 g-2 justify-content-center">#}
-                        {#                        <div class="col-sm-2">#}
-                        {#                            {{ form.password.label(class_="col-form-label") }}#}
-                        {#                        </div>#}
-                        {#                        <div class="col-sm-10">#}
-                        {#                            {{ form.password(class="form-control") }}#}
-                        {#                        </div>#}
-                        {#                    </div>#}
-                        {#                    <div class="row justify-content-end">#}
-                        {#                        <div class="col-sm-2">#}
-                        {#                            {{ form.submit(class_="btn btn-success") }}#}
-                        {#                        </div>#}
-                        {#                    </div>#}
+                        <div class="col-sm-10">
+                            {{ form.username(class="form-control") }}
+                        </div>
+                    </div>
+                    <div class="row mb-3 g-2 justify-content-center">
+                        <div class="col-sm-2">
+                            {{ form.password.label(class_="col-form-label") }}
+                        </div>
+                        <div class="col-sm-10">
+                            {{ form.password(class="form-control") }}
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-sm-2">
+                            {{ form.submit(class_="btn btn-success") }}
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
