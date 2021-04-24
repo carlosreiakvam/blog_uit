@@ -38,6 +38,7 @@
 }
 
 .card{
+    max-width: 50rem;
     float: none;
     margin: auto;
 }
