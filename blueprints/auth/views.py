@@ -13,9 +13,13 @@ def example():
     return "hello from auth"
 
 
+@router.route('/register', methods=['GET', 'POST'])
+def register():
+    return render_template('register.html')  # form=form
+
+
 @router.route('/login', methods=['GET', 'POST'])
 def login():
-
     form = LoginForm()
     if form.validate_on_submit():
 
@@ -34,6 +38,7 @@ def login():
 
         return redirect(next or url_for('hello_world'))
     return render_template('login.html', form=form)
+
 
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
