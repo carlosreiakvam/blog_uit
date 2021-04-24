@@ -1,7 +1,10 @@
 from flask import Flask, render_template
 
+from blueprints.auth import router as auth_blueprint
+from blueprints.hovedside import router as hovedside_blueprint
 from config import config
-from extensions import db
+from extensions import db, login_manager
+from models.bruker import Bruker
 
 
 def create_app(config_name="default"):
@@ -9,10 +12,14 @@ def create_app(config_name="default"):
     app.config.from_object(config[config_name])
 
     db.init_app(app)
+    login_manager.init_app(app)
 
-    @app.route('/')
-    def hello_world():
-        return render_template('base.html')
+    @login_manager.user_loader
+    def load_user(user_id):
+        return Bruker.get_user(user_id)
+
+    app.register_blueprint(auth_blueprint)
+    app.register_blueprint(hovedside_blueprint)
 
     return app
 

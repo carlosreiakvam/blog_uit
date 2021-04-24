@@ -1,0 +1,1 @@
+from blueprints.hovedside.views import router
