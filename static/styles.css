@@ -33,6 +33,15 @@
     margin-left: 15px;
 }
 
+.cards{
+    padding-top: 30px;
+}
+
+.card{
+    float: none;
+    margin: auto;
+}
+
 /* Overstyr tekstboks-gløden til bootstrap*/
 textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
     border-color: rgba(85, 107, 47, 0.8);

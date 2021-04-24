@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-<div class="cards">
-    {% block body %}
+{% block body %}
+    <div class="cards">
         {% if innlegg %}
             {% for x in innlegg %}
                 <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
@@ -12,5 +12,5 @@
                 </div>
             {% endfor %}
         {% endif %}
-    {% endblock %}
-</div>
+    </div>
+{% endblock %}
