@@ -1,0 +1,49 @@
+<div class="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light w-100 shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><h2 class="text-success" ><img src="{{url_for('static', filename='img/duckface.png')}}" height="40px" /> Le blöög</h2></a>
+                <div class="linkmenu">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mob-navbar"
+                        aria-label="Toggle">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mob-navbar">
+                    <ul class="navbar-nav mb-2 mb-lg-0 mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Link 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link 2</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Dropdown 1</a></li>
+                                <li><a class="dropdown-item" href="#">Dropdown 2</a></li>
+                                <li><a class="dropdown-item" href="#">Dropdown 3</a></li>
+                                <li>
+                                    <hr class="dropdown-divider"/>
+                                </li>
+                                <li><a class="dropdown-item" href="#">Dropdown 4</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link 3</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="search">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Søk" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Søk</button>
+                </form>
+            </div>
+                <form class="d-flex" id="loginregister">
+                    <button class="btn btn-outline-success" type="submit" id="login">Logg inn</button>
+                    <button class="btn btn-outline-success" type="submit" id="register">Ny bruker</button>
+                </form>
+        </div>
+    </nav>
+</div>
