@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 from blueprints.auth import router as auth_blueprint
 from blueprints.hovedside import router as hovedside_blueprint
