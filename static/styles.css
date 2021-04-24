@@ -43,6 +43,11 @@
     margin: auto;
 }
 
+.innleggdato{
+    float: right;
+    font-size: 0.8em;
+}
+
 /* Overstyr tekstboks-gløden til bootstrap*/
 textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
     border-color: rgba(85, 107, 47, 0.8);
