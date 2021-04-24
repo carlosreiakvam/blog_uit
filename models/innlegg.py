@@ -1,10 +1,10 @@
 from datetime import datetime
 from typing import List
-from extensions import db
+
 from flask import abort
 
+from extensions import db
 from models.kommentar import Kommentar
-from models.vedlegg import Vedlegg
 
 
 class Innlegg:
