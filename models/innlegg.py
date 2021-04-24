@@ -25,19 +25,12 @@ class Innlegg:
         self.innlegg_treff = innlegg_treff
         self.blog_prefix = blog_prefix
         self._kommentarer = None
-        self._vedlegg = None
 
     @property
     def kommentarer(self) -> List[Kommentar]:
         if not self._kommentarer:
             self._kommentarer = Kommentar.get_all(self.innlegg_id)
         return self._kommentarer
-
-    @property
-    def vedlegg(self) -> List[Vedlegg]:
-        if not self._vedlegg:
-            self._vedlegg = Vedlegg.get_all(self.innlegg_id)
-        return self._vedlegg
 
     @staticmethod
     def get_all(blog_navn: str) -> List["Innlegg"]:
