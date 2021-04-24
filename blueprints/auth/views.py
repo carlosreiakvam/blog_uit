@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, abort, flash, url_for, redirect, r
 from flask_login import login_user
 from urllib.parse import urlparse, urljoin
 from models.bruker import Bruker
-from blueprints.auth.forms import LoginForm
+from blueprints.auth.forms import LoginForm, RegisterForm
 
 router = Blueprint('auth', __name__, url_prefix="/auth")
 
@@ -15,7 +15,8 @@ def example():
 
 @router.route('/register', methods=['GET', 'POST'])
 def register():
-    return render_template('register.html')  # form=form
+    form = RegisterForm()
+    return render_template('register.html',form=form)
 
 
 @router.route('/login', methods=['GET', 'POST'])
