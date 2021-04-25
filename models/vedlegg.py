@@ -6,16 +6,19 @@ from flask import abort
 class Vedlegg:
     def __init__(self,
                  vedlegg_id=None,
-                 vedlegg_navn=None
+                 vedlegg_navn=None,
+                 bruker_navn=None
                  ):
         self.vedlegg_id = vedlegg_id
         self.vedlegg_navn = vedlegg_navn
+        self.bruker_navn = bruker_navn
 
     @staticmethod
     def get_all(vedlegg_id: int) -> List["Vedlegg"]:
         query = """
         select vedlegg_id, 
-               vedlegg_navn
+               vedlegg_navn,
+               bruker_navn
         from vedlegg
         where vedlegg_id = %s
         """
@@ -27,7 +30,8 @@ class Vedlegg:
     def get_by_id(vedlegg_id: int):
         query = """
                 select vedlegg_id, 
-                       vedlegg_navn
+                       vedlegg_navn,
+                       bruker_navn
                 from vedlegg
                 where vedlegg_id = %s
                 """
@@ -40,10 +44,10 @@ class Vedlegg:
 
     def insert(self) -> "Vedlegg":
         query = """
-        insert into vedlegg(vedlegg_id, vedlegg_navn)
-        values (%s, %s)
+        insert into vedlegg(vedlegg_id, vedlegg_navn, bruker_navn)
+        values (%s, %s, %s)
         """
-        db.cursor.execute(query, (self.vedlegg_id, self.vedlegg_navn))
+        db.cursor.execute(query, (self.vedlegg_id, self.vedlegg_navn, self.bruker_navn))
         db.connection.commit()
         return Vedlegg.get_by_id(db.cursor.lastrowid)
 

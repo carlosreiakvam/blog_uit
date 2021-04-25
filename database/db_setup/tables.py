@@ -120,8 +120,14 @@ TABLES["vedlegg"] = """
 CREATE TABLE `vedlegg` (
   `vedlegg_id` VARCHAR(32),
   `vedlegg_navn` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`vedlegg_id`),
-  UNIQUE INDEX `vedlegg_id_UNIQUE` (`vedlegg_id` ASC))
+  `bruker_navn` VARCHAR(24) NOT NULL,
+  PRIMARY KEY (`vedlegg_id`, `bruker_navn`),
+  UNIQUE INDEX `vedlegg_id_UNIQUE` (`vedlegg_id` ASC),
+  CONSTRAINT `fk_vedlegg_brukere1`
+    FOREIGN KEY (`bruker_navn`)
+    REFERENCES `brukere` (`bruker_navn`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 """
 
