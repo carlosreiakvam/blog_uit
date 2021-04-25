@@ -1,9 +1,45 @@
 from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import Field, StringField
 from wtforms.validators import DataRequired, Length
+from wtforms.widgets import TextInput
+
+
+class TagListField(Field):
+    widget = TextInput()
+
+    def __init__(self, label='', validators=None, remove_duplicates=True, **kwargs):
+        super(TagListField, self).__init__(label, validators, **kwargs)
+        self.remove_duplicates = remove_duplicates
+
+    def process_formdata(self, valuelist):
+        super(TagListField, self).process_formdata(valuelist)
+        if self.remove_duplicates:
+            self.data = list(self._remove_duplicates(self.data))
+
+    def _value(self):
+        if self.data:
+            return u', '.join(self.data)
+        else:
+            return u''
+
+    def process_formdata(self, value_list):
+        if value_list:
+            self.data = [x.strip() for x in value_list[0].split(',')]
+        else:
+            self.data = []
+
+    @classmethod
+    def _remove_duplicates(cls, seq):
+        """Remove duplicates in a case insensitive, but case preserving manner"""
+        d = {}
+        for item in seq:
+            if item.lower() not in d:
+                d[item.lower()] = True
+                yield item
 
 
 class InnleggForm(FlaskForm):
     tittel = StringField("Tittel", validators=[Length(min=2, max=50)])
     innhold = CKEditorField("Innhold", validators=[DataRequired()])
+    tagger = TagListField("Tagger", validators=[Length(max=8, message="You can only use up to 8 tags.")])
