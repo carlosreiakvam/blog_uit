@@ -32,7 +32,7 @@ def login():
         if not is_safe_url(next):
             return flask.abort(400)
 
-        return redirect(next or url_for('hovedside.index'))
+        return redirect(next or url_for("hovedside.index"))
     return render_template('login.html', form=form)
 
 def is_safe_url(target):
