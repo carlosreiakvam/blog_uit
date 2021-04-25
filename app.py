@@ -1,11 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask
 
 from blueprints.auth import router as auth_blueprint
-from blueprints.hovedside import router as hovedside_blueprint
 from blueprints.blog import router as blog_blueprint
+from blueprints.hovedside import router as hovedside_blueprint
 from blueprints.vedlegg import router as vedlegg_blueprint
 from config import config
-from extensions import db, login_manager, ck, csrf
+from extensions import ck, db, login_manager, csrf
 from models.bruker import Bruker
 
 

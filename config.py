@@ -15,6 +15,7 @@ class Config:
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
     CKEDITOR_FILE_UPLOADER = "vedlegg.upload"
     CKEDITOR_ENABLE_CSRF = True
+    CKEDITOR_HEIGHT = 500
 
     @staticmethod
     def init_app(app):
