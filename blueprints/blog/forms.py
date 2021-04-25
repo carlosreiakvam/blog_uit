@@ -25,7 +25,7 @@ class TagListField(Field):
 
     def process_formdata(self, value_list):
         if value_list:
-            self.data = [x.strip() for x in value_list[0].split(',')]
+            self.data = [x.strip() for x in value_list[1].split(',')]
         else:
             self.data = []
 
