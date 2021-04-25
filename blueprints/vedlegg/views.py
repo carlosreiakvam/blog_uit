@@ -1,6 +1,6 @@
 from flask import Blueprint, current_app, request, send_from_directory
 from flask_ckeditor import upload_fail, upload_success, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 from models.vedlegg import Vedlegg
 import os
 import uuid
@@ -17,7 +17,7 @@ def upload():
     if extension not in ['.jpg', '.gif', '.png', '.jpeg']:
         return upload_fail(message='Image only!')
     file_uuid = uuid.uuid4().hex
-    vedlegg = Vedlegg(vedlegg_id=file_uuid, vedlegg_navn=f.filename)
+    vedlegg = Vedlegg(vedlegg_id=file_uuid, vedlegg_navn=f.filename, bruker_navn=current_user.brukernavn)
     vedlegg.insert()
     f.save(os.path.join(upload_dir, file_uuid))
     url = url_for('vedlegg.uploaded_files', file_uuid=file_uuid)

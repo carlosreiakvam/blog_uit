@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template
 from models.innlegg import Innlegg
-from models.tagger import Tagger
 
 router = Blueprint('hovedside', __name__)
 
