@@ -49,8 +49,15 @@
                 </form>
             </div>
         </div>
+        <div>
+        <h4>Tidligere brukte tagger:</h4>
+            {% for tag in available_tags %}
+                <span class="badge bg-success rounded-pill available-tag"
+                      onclick="$('#tagger').tagsinput('add', '{{ tag }}')">{{ tag }}</span>
+            {% endfor %}
+        </div>
     </div>
 
     {{ ckeditor.load() }}
-    {{ ckeditor.config(name="innhold", custom_config="width: '100%''") }}
+    {{ ckeditor.config(name="innhold") }}
 {% endblock %}
