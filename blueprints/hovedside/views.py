@@ -5,6 +5,6 @@ router = Blueprint('hovedside', __name__)
 
 
 @router.route("/")
-def example():
-    return render_template('base.html')
+def index():
+    return render_template('index.html')
 
