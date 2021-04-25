@@ -17,8 +17,8 @@ def upload():
     file_uuid = uuid.uuid4().hex
     vedlegg = Vedlegg(vedlegg_id=file_uuid, vedlegg_navn=f.filename)
     vedlegg.insert()
-    f.save(upload_dir / file_uuid)
-    url = url_for('vedlegg.uploaded_files', filename=file_uuid)
+    f.save(os.path.join(upload_dir, file_uuid))
+    url = url_for('vedlegg.uploaded_files', file_uuid=file_uuid)
     return upload_success(url=url)
 
 

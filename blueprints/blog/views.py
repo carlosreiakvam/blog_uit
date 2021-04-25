@@ -21,7 +21,7 @@ def nytt_innlegg(blog_prefix: str):
     blog = Blog.get_one(blog_prefix)
     if blog.blog_bruker_navn != current_user.brukernavn:
         flash("Du må være eieren av en blog for å legge inn ett nytt innlegg!")
-        return redirect(url_for("hovedside.example"))
+        return redirect(url_for("hovedside.index"))
 
     available_tags = Tagger.get_all_available_tags()
 
@@ -33,7 +33,7 @@ def nytt_innlegg(blog_prefix: str):
             print(tag)
             tag = Tagger(tagnavn=tag, innleggid=innlegg.innlegg_id)
             tag.add_tag()
-        return redirect(url_for('hovedside.example'))
+        return redirect(url_for('hovedside.index'))
     for fieldName, error_messages in form.errors.items():
         for error_message in error_messages:
             flash(f"{fieldName}: {error_message}")

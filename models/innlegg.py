@@ -4,6 +4,7 @@ from extensions import db
 from flask import abort
 
 from models.kommentar import Kommentar
+from models.tagger import Tagger
 from models.vedlegg import Vedlegg
 
 
