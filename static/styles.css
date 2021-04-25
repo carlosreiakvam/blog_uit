@@ -42,6 +42,23 @@
     margin: auto;
 }
 
+.tagger {
+    padding-bottom: 12px;
+    font-size: 0.8em;
+}
+
+.tag {
+    border-radius: 25px;
+    border: 1px solid darkgray;
+    background: ghostwhite;
+    width: 200px;
+    height: auto;
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
 .innleggdato {
     float: right;
     font-size: 0.8em;
