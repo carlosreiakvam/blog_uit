@@ -1,6 +1,6 @@
 import os
 import binascii
-from pathlib import Path
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -11,7 +11,7 @@ class Config:
     DATABASE_NAME = os.environ.get("DATABASE_NAME", "BlogDB")
     DATABASE_USER = os.environ.get("DATABASE_USER", "user")
     DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD", "super-secret")
-    UPLOAD_DIR = Path(os.environ.get("UPLOAD_DIR", os.path.join(basedir, "upload")))
+    UPLOAD_DIR = os.environ.get("UPLOAD_DIR", os.path.join(basedir, "upload"))
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
     CKEDITOR_FILE_UPLOADER = "vedlegg.upload"
     CKEDITOR_ENABLE_CSRF = True
