@@ -1,5 +1,6 @@
 from flask import Blueprint, current_app, request, send_from_directory
 from flask_ckeditor import upload_fail, upload_success, url_for
+from flask_login import login_required
 from models.vedlegg import Vedlegg
 import os
 import uuid
@@ -8,6 +9,7 @@ router = Blueprint('vedlegg', __name__, url_prefix="/vedlegg")
 
 
 @router.route('/upload', methods=['POST'])
+@login_required
 def upload():
     upload_dir = current_app.config.get("UPLOAD_DIR")
     f = request.files.get('upload')
