@@ -17,8 +17,7 @@ class Innlegg:
                  innlegg_endret: datetime = None,
                  innlegg_treff: int = None,
                  blog_prefix: str = None,
-                 blog_navn: str = None,
-                 tag_navn: str = None
+                 blog_navn: str = None
                  ):
         self.innlegg_id = innlegg_id
         self.innlegg_tittel = innlegg_tittel
@@ -28,7 +27,6 @@ class Innlegg:
         self.innlegg_treff = innlegg_treff
         self.blog_prefix = blog_prefix
         self.blog_navn = blog_navn
-        self.innlegg_tagg = tag_navn
         self._kommentarer = None
         self._vedlegg = None
         self._tagger = None
