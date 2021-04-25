@@ -29,6 +29,7 @@ class Innlegg:
         self.blog_navn = blog_navn
         self._kommentarer = None
         self._vedlegg = None
+        self._tagger = None
 
     @property
     def kommentarer(self) -> List[Kommentar]:

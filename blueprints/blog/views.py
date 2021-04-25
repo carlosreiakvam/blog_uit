@@ -28,9 +28,7 @@ def nytt_innlegg(blog_prefix: str):
     if form.validate_on_submit():
         innlegg = Innlegg(innlegg_tittel=form.tittel.data, innlegg_innhold=form.innhold.data, blog_prefix=blog_prefix)
         innlegg = innlegg.insert()
-        print(form.tagger.data)
         for tag in form.tagger.data:
-            print(tag)
             tag = Tagger(tagnavn=tag, innleggid=innlegg.innlegg_id)
             tag.add_tag()
         return redirect(url_for('hovedside.index'))
