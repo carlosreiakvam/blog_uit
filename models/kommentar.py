@@ -40,9 +40,9 @@ class Kommentar:
         where kommentar_id = %s
         """
         db.cursor.execute(query, (kommentar_id,))
-        result = Kommentar(*db.cursor.fetchone())
-        if result.id:
-            return result
+        result = db.cursor.fetchone()
+        if result:
+            return Kommentar(*result)
         else:
             abort(404)
 

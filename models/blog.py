@@ -28,9 +28,10 @@ class Blog:
             from blog
             """
 
-        db.cursor.execute(query, )
+        db.cursor.execute(query)
         result = [Blog(*x) for x in db.cursor.fetchall()]
         return result
+
 
     @staticmethod
     def get_one(blog_prefix: str) -> "Blog":
@@ -43,9 +44,9 @@ class Blog:
             """
 
         db.cursor.execute(query, (blog_prefix,))
-        result = Blog(*db.cursor.fetchone())
-        if result.blog_prefix:
-            return result
+        result = db.cursor.fetchone()
+        if result:
+            return Blog(*result)
         else:
             abort(404)
 
