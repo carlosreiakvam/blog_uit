@@ -48,19 +48,7 @@
 
 /* Overstyrer bootstrap css på tag-knapper */
 .tagger .badge {
-    border-radius: 25px;
-    border-style: solid;
-    border-width: 1px;
-    font-size: 0.75em;
-    padding-right: 12px;
-    padding-left: 12px;
-    padding-top: 3px;
-    padding-bottom: 3px;
     margin-right: 5px;
-    text-decoration: none;
-    background-color: white !important;
-    color: #198754;
-    height: auto;
 }
 
 .tagger .badge:hover{

@@ -7,10 +7,10 @@
                     <div class="card-header">{{ x.blog_navn }}<span class="innleggdato">{{ x.innlegg_dato }}</span>
                     </div>
                     <div class="card-body">
-                        <div class="tagger">
+                        <div class="tagger pb-4">
                             {% for tag in x.tagger %}
                                 <a href="{{ url_for('hovedside.tag', tag_navn=tag.tagnavn) }}"
-                                   class="badge bg-success">{{ tag.tagnavn }}</a>
+                                   class="badge border border-success link-success rounded-pill bg-white px-2 py-1 mr-3 text-decoration-none">{{ tag.tagnavn }}</a>
                             {% endfor %}
                         </div>
                         <h5 class="card-title">{{ x.innlegg_tittel }}</h5>
