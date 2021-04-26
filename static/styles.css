@@ -44,7 +44,6 @@
 
 .tagger {
     padding-bottom: 20px;
-    font-size: 0.8em;
 }
 
 /* Overstyrer bootstrap css på tag-knapper */
@@ -52,7 +51,7 @@
     border-radius: 25px;
     border-style: solid;
     border-width: 1px;
-    font-size: 0.9em;
+    font-size: 0.75em;
     padding-right: 12px;
     padding-left: 12px;
     padding-top: 3px;
