@@ -8,6 +8,7 @@
 
 .navbar-brand {
     vertical-align: center;
+
 }
 
 .container-fluid {
@@ -20,7 +21,6 @@
 .search {
     width: 30%;
 }
-
 
 .loginregister {
     width: 15%;
@@ -44,20 +44,16 @@
 
 .tagger {
     padding-bottom: 20px;
-    font-size: 0.8em;
 }
 
-.tag {
-    border-radius: 25px;
-    border: 1px solid darkgray;
-    background: ghostwhite;
-    width: 200px;
-    height: auto;
-    padding-right: 12px;
-    padding-left: 12px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+/* Overstyrer bootstrap css på tag-knapper */
+.tagger .badge {
     margin-right: 5px;
+}
+
+.tagger .badge:hover{
+    color: white;
+    background-color: #198754 !important;
 }
 
 .innleggdato {
