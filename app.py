@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 
-from blueprints.error import router as error_blueprint
 from blueprints.auth import router as auth_blueprint
 from blueprints.hovedside import router as hovedside_blueprint
 from blueprints.blog import router as blog_blueprint
@@ -23,9 +22,13 @@ def create_app(config_name="default"):
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(hovedside_blueprint)
     app.register_blueprint(blog_blueprint)
-    app.register_blueprint(error_blueprint)
+
+    app.register_error_handler(404, page_not_found)
 
     return app
+
+def page_not_found(e):
+  return render_template('404.html'), 404
 
 
 
