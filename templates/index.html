@@ -3,7 +3,7 @@
     <div class="cards">
         {% if innlegg %}
             {% for x in innlegg %}
-                <div class="card text-dark bg-light mb-3">
+                <div class="card text-dark bg-light mb-3 frontpage-card">
                     <div class="card-header">{{ x.blog_navn }}<span class="innleggdato">{{ x.innlegg_dato }}</span>
                     </div>
                     <div class="card-body">
@@ -14,7 +14,7 @@
                             {% endfor %}
                         </div>
                         <h5 class="card-title">{{ x.innlegg_tittel }}</h5>
-                        <p class="card-text">{{ x.innlegg_innhold }}</p>
+                        <p class="card-text">{{ x.innlegg_innhold | safe }}</p>
                     </div>
                 </div>
             {% endfor %}

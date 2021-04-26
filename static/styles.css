@@ -42,6 +42,11 @@
     margin: auto;
 }
 
+.frontpage-card {
+    max-height: 20em;
+    overflow: hidden;
+}
+
 .tagger {
     padding-bottom: 20px;
 }
