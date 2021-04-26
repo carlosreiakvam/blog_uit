@@ -8,6 +8,7 @@
 
 .navbar-brand {
     vertical-align: center;
+
 }
 
 .container-fluid {
@@ -47,8 +48,10 @@
 }
 
 /* Overstyrer bootstrap css på tag-knapper */
-.tagger .btn-outline-success {
+.tagger .badge {
     border-radius: 25px;
+    border-style: solid;
+    border-width: 1px;
     font-size: 0.9em;
     padding-right: 12px;
     padding-left: 12px;
@@ -56,7 +59,14 @@
     padding-bottom: 3px;
     margin-right: 5px;
     text-decoration: none;
+    background-color: white !important;
+    color: #5cb85c;
     height: auto;
+}
+
+.tagger .badge:hover{
+    color: white;
+    background-color: #5cb85c !important;
 }
 
 .innleggdato {

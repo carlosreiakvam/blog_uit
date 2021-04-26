@@ -9,9 +9,8 @@
                     <div class="card-body">
                         <div class="tagger">
                             {% for tag in x.tagger %}
-                                <a href="{{ url_for('hovedside.tag', tag_navn=tag.tagnavn) }}">
-                                    <button class="btn btn-outline-success">{{ tag.tagnavn }}</button>
-                                </a>
+                                <a href="{{ url_for('hovedside.tag', tag_navn=tag.tagnavn) }}"
+                                   class="badge bg-success">{{ tag.tagnavn }}</a>
                             {% endfor %}
                         </div>
                         <h5 class="card-title">{{ x.innlegg_tittel }}</h5>
