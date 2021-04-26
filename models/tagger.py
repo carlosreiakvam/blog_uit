@@ -16,7 +16,6 @@ class Tagger:
         """
         db.cursor.execute(query, (self.tagnavn, self.innleggid))
         db.connection.commit()
-        return self.get_tags(*db.cursor.lastrowid)
 
     @staticmethod
     def get_tags(innlegg_id) -> List["Tagger"]:

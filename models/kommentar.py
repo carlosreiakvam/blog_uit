@@ -8,17 +8,19 @@ class Kommentar:
                  id: int = None,
                  innhold: int = None,
                  dato: str = None,
-                 brukernavn: str = None):
+                 brukernavn: str = None,
+                 innlegg_id: int = None):
         self.id = id
         self.innhold = innhold
-        self.brukernavn = brukernavn
         self.dato = dato
+        self.brukernavn = brukernavn
+        self.innlegg_id = innlegg_id
 
     @staticmethod
     def get_all(innlegg_id: int) -> List["Kommentar"]:
         query = """
         select 
-            kommentar_id, kommentar_innhold, kommentar_dato, bruker_navn
+            kommentar_id, kommentar_innhold, kommentar_dato, bruker_navn, innlegg_id
         from kommentarer
         where innlegg_id = %s
         order by kommentar_dato
@@ -31,7 +33,7 @@ class Kommentar:
     def get_kommentar(kommentar_id: int) -> "Kommentar":
         query = """
         select 
-            kommentar_id, kommentar_innhold, kommentar_dato, bruker_navn
+            kommentar_id, kommentar_innhold, kommentar_dato, bruker_navn, innlegg_id
         from kommentarer 
         where kommentar_id = %s
         """
@@ -42,12 +44,12 @@ class Kommentar:
         else:
             abort(404)
 
-    def insert_kommentar(self, innlegg_id) -> "Kommentar":
+    def insert_kommentar(self) -> "Kommentar":
         query = """
         insert into kommentarer(kommentar_innhold, bruker_navn, innlegg_id )
         values(%s, %s, %s) 
         """
-        db.cursor.execute(query, (self.innhold, self.brukernavn, innlegg_id))
+        db.cursor.execute(query, (self.innhold, self.brukernavn, self.innlegg_id))
         db.connection.commit()
         return self.get_kommentar(db.cursor.lastrowid)
 

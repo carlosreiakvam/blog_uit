@@ -120,3 +120,11 @@ class Innlegg:
         """
         db.cursor.execute(query, (self.innlegg_id,))
         db.connection.commit()
+
+    def add_tag(self, tag_navn):
+        tag = Tagger(tagnavn=tag_navn, innleggid=self.innlegg_id)
+        tag.add_tag()
+
+    def add_kommentar(self, kommentar_innhold, bruker_navn) -> Kommentar:
+        kommentar = Kommentar(innhold=kommentar_innhold, brukernavn=bruker_navn, innlegg_id=self.innlegg_id)
+        return kommentar.insert_kommentar()
