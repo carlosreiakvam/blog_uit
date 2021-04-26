@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <div class="tagger">
                             {% for tag in x.tagger %}
-                                <span class="tag"> {{ tag.tagnavn }}</span>
+                                <a href="{{ url_for('hovedside.tag', tag_navn=tag.tagnavn)}}"><span class="tag"> {{ tag.tagnavn }}</span></a>
                             {% endfor %}
                         </div>
                         <h5 class="card-title">{{ x.innlegg_tittel }}</h5>
