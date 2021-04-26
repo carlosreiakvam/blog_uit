@@ -60,13 +60,13 @@
     margin-right: 5px;
     text-decoration: none;
     background-color: white !important;
-    color: #5cb85c;
+    color: #198754;
     height: auto;
 }
 
 .tagger .badge:hover{
     color: white;
-    background-color: #5cb85c !important;
+    background-color: #198754 !important;
 }
 
 .innleggdato {
