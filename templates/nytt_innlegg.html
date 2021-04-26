@@ -49,11 +49,11 @@
                 </form>
             </div>
         </div>
-        <div>
+        <div class="mb-5">
         <h4>Tidligere brukte tagger:</h4>
             {% for tag in available_tags %}
-                <span class="badge bg-success rounded-pill available-tag"
-                      onclick="$('#tagger').tagsinput('add', '{{ tag }}')">{{ tag }}</span>
+                <span class="badge border border-success text-success rounded-pill bg-white p-2 m-2 text-decoration-none available-tag"
+                      onclick="$('#tagger').tagsinput('add', '{{ tag }}');  $(this).hide();">{{ tag }}</span>
             {% endfor %}
         </div>
     </div>
