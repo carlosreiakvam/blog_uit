@@ -10,7 +10,7 @@
                         <div class="tagger">
                             {% for tag in x.tagger %}
                                 <a href="{{ url_for('hovedside.tag', tag_navn=tag.tagnavn) }}">
-                                    <button class="btn btn-outline-success" type="submit">{{ tag.tagnavn }}</button>
+                                    <button class="btn btn-outline-success">{{ tag.tagnavn }}</button>
                                 </a>
                             {% endfor %}
                         </div>
