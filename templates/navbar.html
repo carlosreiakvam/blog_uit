@@ -43,7 +43,21 @@
             </div>
             <div class="loginregister">
                 {% if current_user.is_authenticated %}
-                        Logget inn som <span id="brukernavn">{{ current_user.brukernavn }}</span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            {{ current_user.brukernavn }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">...</a></li>
+                            <li><a class="dropdown-item" href="#">...</a></li>
+                            <li><a class="dropdown-item" href="#">...</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Logg ut</a></li>
+                        </ul>
+                    </div>
                 {% else %}
                     <a href="{{ url_for('auth.login') }}">
                         <button class="btn btn-outline-success" type="submit" id="login">Logg inn</button>
