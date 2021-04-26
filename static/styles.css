@@ -21,7 +21,6 @@
     width: 30%;
 }
 
-
 .loginregister {
     width: 15%;
     white-space: nowrap;
@@ -47,17 +46,17 @@
     font-size: 0.8em;
 }
 
-.tag {
+/* Overstyrer bootstrap css på tag-knapper */
+.tagger .btn-outline-success {
     border-radius: 25px;
-    border: 1px solid darkgray;
-    background: ghostwhite;
-    width: 200px;
-    height: auto;
+    font-size: 0.9em;
     padding-right: 12px;
     padding-left: 12px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     margin-right: 5px;
+    text-decoration: none;
+    height: auto;
 }
 
 .innleggdato {
