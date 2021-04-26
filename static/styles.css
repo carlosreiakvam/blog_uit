@@ -28,6 +28,10 @@
     padding-right: 60px !important;
 }
 
+.loginregister .btn-group{
+    float: right;
+}
+
 #brukernavn{
     font-weight: bold;
     font-size: 1.2em;
