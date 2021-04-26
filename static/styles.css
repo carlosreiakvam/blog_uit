@@ -67,3 +67,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
     box-shadow: 0 1px 1px rgba(85, 107, 47, 0.075) inset, 0 0 8px rgba(85, 107, 47, 0.6);
     outline: 0 none;
 }
+
+.alert-container {
+    width: 25%;
+}
