@@ -103,6 +103,23 @@ class Innlegg:
         result = [Innlegg(*x) for x in db.cursor.fetchall()]
         return result
 
+    @staticmethod
+    def get_with_tag(tag_navn :str) -> List["Innlegg"]:
+        query = """
+        select innlegg.innlegg_id,
+            innlegg_tittel,
+            innlegg_innhold,
+            innlegg_dato,
+            innlegg_endret,
+            innlegg_treff,
+            innlegg.blog_prefix,
+            blog.blog_navn
+        from innlegg, blog, tagger where blog.blog_prefix = innlegg.blog_prefix and tagger.innlegg_id = innlegg.innlegg_id and tagger.tag_navn = %s order by innlegg_dato
+        """
+        db.cursor.execute(query, (tag_navn,))
+        result = [Innlegg(*x) for x in db.cursor.fetchall()]
+        return result
+
     def insert(self) -> "Innlegg":
         query = """
         insert into innlegg(innlegg_tittel, innlegg_innhold, blog_prefix)
