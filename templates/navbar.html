@@ -40,10 +40,14 @@
                     <button class="btn btn-outline-success" type="submit">Søk</button>
                 </form>
             </div>
+            {% if current_user.is_authenticated %}
+            <div class="userloggedin">Logget inn som {{ current_user.brukernavn }}</div>
+                    {% else %}
                 <div class="loginregister">
                     <a href="{{ url_for('auth.login') }}"><button class="btn btn-outline-success" type="submit" id="login">Logg inn</button></a>
                     <button class="btn btn-outline-success" type="submit" id="register">Ny bruker</button>
                 </div>
+            {% endif %}
         </div>
     </nav>
 </div>
