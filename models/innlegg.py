@@ -4,8 +4,8 @@ from extensions import db
 from flask import abort
 
 from models.kommentar import Kommentar
-from models.vedlegg import Vedlegg
 from models.tagger import Tagger
+from models.vedlegg import Vedlegg
 
 
 class Innlegg:
@@ -78,6 +78,7 @@ class Innlegg:
                blog_prefix
         from innlegg where innlegg_id = %s
         """
+
         db.cursor.execute(query, (innlegg_id,))
         result = db.cursor.fetchone()
         if result:

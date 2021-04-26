@@ -16,6 +16,7 @@ class Tagger:
         """
         db.cursor.execute(query, (self.tagnavn, self.innleggid))
         db.connection.commit()
+        return self.get_tags(db.cursor.lastrowid)
 
     @staticmethod
     def get_tags(innlegg_id) -> List["Tagger"]:
@@ -34,3 +35,12 @@ class Tagger:
         where tag_navn = %s and innlegg_id = %s"""
         db.cursor.execute(query, (self.tagnavn, self.innleggid))
         db.connection.commit()
+
+    @staticmethod
+    def get_all_available_tags() -> List[str]:
+        query = """
+        select distinct tag_navn from tagger 
+        """
+        db.cursor.execute(query)
+        result = [x[0] for x in db.cursor.fetchall()]
+        return result

@@ -51,6 +51,11 @@
     margin: auto;
 }
 
+.frontpage-card {
+    max-height: 20em;
+    overflow: hidden;
+}
+
 .tagger {
     padding-bottom: 20px;
 }
@@ -75,4 +80,15 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
     border-color: rgba(85, 107, 47, 0.8);
     box-shadow: 0 1px 1px rgba(85, 107, 47, 0.075) inset, 0 0 8px rgba(85, 107, 47, 0.6);
     outline: 0 none;
+}
+
+.available-tag {
+    font-size: 0.8em !important;
+}
+
+.available-tag:hover {
+    cursor: pointer;
+    color: white !important;
+    background-color: #198754 !important;
+    font-size: 0.8em;
 }
