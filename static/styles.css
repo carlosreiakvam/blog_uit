@@ -92,3 +92,8 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
     background-color: #198754 !important;
     font-size: 0.8em;
 }
+
+.alert-container {
+    width: 25%;
+    z-index: 10;
+}

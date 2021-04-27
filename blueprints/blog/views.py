@@ -34,5 +34,5 @@ def nytt_innlegg(blog_prefix: str):
         return redirect(url_for('hovedside.index'))
     for fieldName, error_messages in form.errors.items():
         for error_message in error_messages:
-            flash(f"{fieldName}: {error_message}")
+            flash(f"{fieldName}: {error_message}", "danger")
     return render_template("nytt_innlegg.html", form=form, blog_prefix=blog_prefix, available_tags=available_tags)
