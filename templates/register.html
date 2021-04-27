@@ -2,19 +2,18 @@
 {% block body %}
     <div class="container mt-5">
 
-        {#   Flashbang grenade error messages#}
-        {#        {% with messages = get_flashed_messages() %}#}
-        {#            {% if messages %}#}
-        {#                {% for message in messages %}#}
-        {#                    <div class="row justify-content-center">#}
-        {#                        <div class="alert alert-danger alert-dismissible fade show col-sm-6" role="alert">#}
-        {#                            {{ message }}#}
-        {#                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>#}
-        {#                        </div>#}
-        {#                    </div>#}
-        {#                {% endfor %}#}
-        {#            {% endif %}#}
-        {#        {% endwith %}#}
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="row justify-content-center">
+                                <div class="alert alert-danger alert-dismissible fade show col-sm-6" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
 
         <div class="row align-items-center">
 
@@ -24,12 +23,12 @@
                     {{ form.csrf_token }}
 
                     {#                    wtforms error messages#}
-                    {% for field, errors in form.errors.items() %}
-                        <small class="form-text text-muted">
-                            {{ ', '.join(errors) }}
-                            </br>
-                        </small>
-                    {% endfor %}
+{#                    {% for field, errors in form.errors.items() %}#}
+{#                        <small class="form-text text-muted">#}
+{#                            {{ ', '.join(errors) }}#}
+{#                            </br>#}
+{#                        </small>#}
+{#                    {% endfor %}#}
 
                     <div class="row mb-3 g-2 justify-content-center">
                         <div class="col-sm-3">

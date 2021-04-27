@@ -17,7 +17,6 @@ def example():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-
         bruker = Bruker(brukernavn=form.brukernavn.data, epost=form.epost.data, opprettet=None,
                         fornavn=form.fornavn.data, etternavn=form.etternavn.data)
 
@@ -25,6 +24,10 @@ def register():
         bruker.insert_user()
 
         return 'Suksess!'
+
+    for fieldName, error_messages in form.errors.items():
+        for error_message in error_messages:
+            flash(f"{error_message}", "danger")
 
     return render_template('register.html', form=form)
 
