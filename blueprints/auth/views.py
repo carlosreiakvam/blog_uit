@@ -1,7 +1,7 @@
 from urllib.parse import urljoin, urlparse
 
 from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
-from flask_login import login_user
+from flask_login import login_user, logout_user, login_required
 
 from blueprints.auth.forms import LoginForm
 from models.bruker import Bruker
@@ -36,8 +36,14 @@ def login():
     return render_template('login.html', form=form)
 
 
+@router.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("hovedside.index"))
+
+
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
     test_url = urlparse(urljoin(request.host_url, target))
-    return test_url.scheme in ('http', 'https') and \
-           ref_url.netloc == test_url.netloc
+    return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
