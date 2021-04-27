@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block body %}
     <div class="container mt-5">
+
+        {#   Flashbang grenade error messages#}
         {#        {% with messages = get_flashed_messages() %}#}
         {#            {% if messages %}#}
         {#                {% for message in messages %}#}
@@ -13,10 +15,21 @@
         {#                {% endfor %}#}
         {#            {% endif %}#}
         {#        {% endwith %}#}
+
         <div class="row align-items-center">
+
+
             <div class="card p-3 m-auto" style="width: 50%;">
                 <form method="POST" action="{{ url_for('auth.register') }}">
                     {{ form.csrf_token }}
+
+                    {#                    wtforms error messages#}
+                    {% for field, errors in form.errors.items() %}
+                        <small class="form-text text-muted">
+                            {{ ', '.join(errors) }}
+                            </br>
+                        </small>
+                    {% endfor %}
 
                     <div class="row mb-3 g-2 justify-content-center">
                         <div class="col-sm-3">

@@ -16,7 +16,17 @@ def example():
 @router.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
-    return render_template('register.html',form=form)
+    if form.validate_on_submit():
+
+        bruker = Bruker(brukernavn=form.brukernavn.data, epost=form.epost.data, opprettet=None,
+                        fornavn=form.fornavn.data, etternavn=form.etternavn.data)
+
+        bruker.hash_password(form.passord.data)
+        bruker.insert_user()
+
+        return 'Suksess!'
+
+    return render_template('register.html', form=form)
 
 
 @router.route('/login', methods=['GET', 'POST'])
