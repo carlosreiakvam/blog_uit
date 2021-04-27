@@ -16,4 +16,5 @@ class RegisterForm(FlaskForm):
     epost = StringField('Epost')
     brukernavn = StringField('Brukernavn')
     passord = PasswordField('Passord')
-    submit = SubmitField('Submit')
+    confirm = PasswordField('Gjenta passord')
+    submit = SubmitField('Registrer')
