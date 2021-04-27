@@ -5,6 +5,7 @@ from flask import abort
 
 from models.kommentar import Kommentar
 from models.vedlegg import Vedlegg
+from models.tagger import Tagger
 
 
 class Innlegg:
@@ -15,7 +16,8 @@ class Innlegg:
                  innlegg_dato: datetime = None,
                  innlegg_endret: datetime = None,
                  innlegg_treff: int = None,
-                 blog_prefix: str = None
+                 blog_prefix: str = None,
+                 blog_navn: str = None
                  ):
         self.innlegg_id = innlegg_id
         self.innlegg_tittel = innlegg_tittel
@@ -24,14 +26,22 @@ class Innlegg:
         self.innlegg_endret = innlegg_endret
         self.innlegg_treff = innlegg_treff
         self.blog_prefix = blog_prefix
+        self.blog_navn = blog_navn
         self._kommentarer = None
         self._vedlegg = None
+        self._tagger = None
 
     @property
     def kommentarer(self) -> List[Kommentar]:
         if not self._kommentarer:
             self._kommentarer = Kommentar.get_all(self.innlegg_id)
         return self._kommentarer
+
+    @property
+    def tagger(self) -> List[Tagger]:
+        if not self._tagger:
+            self._tagger = Tagger.get_tags(self.innlegg_id)
+        return self._tagger
 
     @property
     def vedlegg(self) -> List[Vedlegg]:
@@ -68,13 +78,30 @@ class Innlegg:
                blog_prefix
         from innlegg where innlegg_id = %s
         """
-
         db.cursor.execute(query, (innlegg_id,))
         result = db.cursor.fetchone()
         if result:
             return Innlegg(*result)
         else:
             abort(404)
+
+    @staticmethod
+    def get_ten_newest() -> List["Innlegg"]:
+        query = """
+         select innlegg.innlegg_id, 
+            innlegg_tittel, 
+            innlegg_innhold, 
+            innlegg_dato, 
+            innlegg_endret, 
+            innlegg_treff,
+            innlegg.blog_prefix,
+            blog.blog_navn
+         from innlegg, blog where blog.blog_prefix = innlegg.blog_prefix order by innlegg_dato desc limit 10
+         """
+
+        db.cursor.execute(query)
+        result = [Innlegg(*x) for x in db.cursor.fetchall()]
+        return result
 
     def insert(self) -> "Innlegg":
         query = """
