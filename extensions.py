@@ -7,3 +7,7 @@ db = MySQL()
 login_manager = LoginManager()
 ck = CKEditor()
 csrf = CSRFProtect()
+
+login_manager.login_view = "auth.login"
+login_manager.login_message_category = "info"
+login_manager.login_message = "Vennligst logg inn for å se denne siden."
