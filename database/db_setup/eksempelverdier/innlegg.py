@@ -15,12 +15,36 @@ KOMMENTARER = [
 def opprett_innlegg():
     innlegg = [
         {
-            "innlegg_tittel": "Heia Bloggen!",
-            "innlegg_innhold": "hei hei"
+            "innlegg_tittel": "Heia bloggen!",
+            "innlegg_innhold": """
+            <h1>DTE-2509</h1>
+
+            <p><img alt="" src="/vedlegg/c7719253eb944556a4954c7d9c83f512" style="height:73px; width:400px" /></p>
+            
+            <p>&nbsp;</p>
+            
+            <p>Datateknikk ved UiT er topp!</p>
+            
+            <p>&nbsp;</p>
+            """
         },
         {
             "innlegg_tittel": "Heia igjen Bloggen!",
-            "innlegg_innhold": "hei hei"
+            "innlegg_innhold": """
+            <p><img alt="hei hei" src="/vedlegg/e59aaab51e73433dba83ab3f1b00b831" style="height:390px; width:694px" /></p>
+
+            <p>Heia bloggen, se s&aring; fine bilder jeg fant p&aring; nettet</p>
+            
+            <p>&nbsp;</p>
+            
+            <p><strong>BOOOOOLD</strong></p>
+            
+            <p>&nbsp;</p>
+            
+            <p><code>monospace font ogs&aring;</code></p>
+            
+            <p>&nbsp;</p>
+            """
         },
         {
             "innlegg_tittel": "Hvor mye rosa er for mye rosa?",
