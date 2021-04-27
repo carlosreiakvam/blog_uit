@@ -95,4 +95,5 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 
 .alert-container {
     width: 25%;
+    z-index: 10;
 }
