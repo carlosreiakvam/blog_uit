@@ -65,11 +65,6 @@
     margin-right: 5px;
 }
 
-/*.tagger .badge:hover {*/
-/*    color: white;*/
-/*    background-color: #198754 !important;*/
-/*}*/
-
 .tagger .badge:hover {
     color: white !important;
     background-color: #198754 !important;
