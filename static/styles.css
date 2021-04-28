@@ -28,8 +28,13 @@
     padding-right: 60px !important;
 }
 
-.loginregister .btn-group{
+.loginregister .btn-group {
     float: right;
+}
+
+#brukernavn {
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
 #register {
@@ -61,7 +66,7 @@
 }
 
 .tagger .badge:hover {
-    color: white;
+    color: white !important;
     background-color: #198754 !important;
 }
 
@@ -86,9 +91,4 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
     color: white !important;
     background-color: #198754 !important;
     font-size: 0.8em;
-}
-
-.alert-container {
-    width: 25%;
-    z-index: 10;
 }
