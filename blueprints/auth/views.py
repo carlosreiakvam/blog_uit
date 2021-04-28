@@ -10,11 +10,6 @@ from models.bruker import Bruker
 router = Blueprint('auth', __name__, url_prefix="/auth")
 
 
-@router.route("/")
-def example():
-    return "hello from auth"
-
-
 @router.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
@@ -34,7 +29,7 @@ def register():
 
         bruker.insert_user()
 
-        return flask.redirect(url_for("auth.login"))
+        return redirect(url_for("auth.login"))
 
     for fieldName, error_messages in form.errors.items():
         for error_message in error_messages:
