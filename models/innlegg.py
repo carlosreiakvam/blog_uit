@@ -123,6 +123,7 @@ class Innlegg:
 
     @staticmethod
     def get_with_blog_prefix(blog_prefix :str) -> List["Innlegg"]:
+        print(blog_prefix)
         query = """
         select innlegg.innlegg_id,
             innlegg_tittel,
@@ -132,7 +133,7 @@ class Innlegg:
             innlegg_treff,
             innlegg.blog_prefix,
             blog.blog_navn
-        from innlegg, blog, tagger where blog.blog_prefix = innlegg.blog_prefix and tagger.innlegg_id = innlegg.innlegg_id and tagger.tag_navn = %s order by innlegg_dato
+        from innlegg, blog, tagger where blog.blog_prefix = %s and tagger.innlegg_id = innlegg.innlegg_id order by innlegg_dato
         """
         db.cursor.execute(query, (blog_prefix,))
         result = [Innlegg(*x) for x in db.cursor.fetchall()]
