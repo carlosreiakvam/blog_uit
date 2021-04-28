@@ -3,7 +3,8 @@ from flask import Blueprint, render_template, abort, flash, url_for, redirect, r
 from flask_login import login_user
 from urllib.parse import urlparse, urljoin
 from models.bruker import Bruker
-from blueprints.auth.forms import LoginForm
+from blueprints.auth.forms import LoginForm, RegisterForm
+from mysql.connector import errorcode, Error
 
 router = Blueprint('auth', __name__, url_prefix="/auth")
 
@@ -11,6 +12,34 @@ router = Blueprint('auth', __name__, url_prefix="/auth")
 @router.route("/")
 def example():
     return "hello from auth"
+
+
+@router.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        bruker = Bruker(brukernavn=form.brukernavn.data, epost=form.epost.data, opprettet=None,
+                        fornavn=form.fornavn.data, etternavn=form.etternavn.data)
+        bruker.hash_password(form.passord.data)
+
+        try:
+            bruker.insert_user()
+        except Error as err:
+            if err.errno == errorcode.ER_DUP_ENTRY:
+                flash("Brukernavn er allerede tatt", "danger")
+                return render_template('register.html', form=form)
+            else:
+                raise err
+
+        bruker.insert_user()
+
+        return flask.redirect(url_for("auth.login"))
+
+    for fieldName, error_messages in form.errors.items():
+        for error_message in error_messages:
+            flash(f"{error_message}", "danger")
+
+    return render_template('register.html', form=form)
 
 
 @router.route('/login', methods=['GET', 'POST'])

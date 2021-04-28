@@ -59,8 +59,8 @@
                         </ul>
                     </div>
                 {% else %}
-                    <a class="btn btn-outline-success" href="{{ url_for('auth.login') }}" role="button">Logg inn</a>
-                    <a class="btn btn-outline-success" id="register" href="" role="button">Ny bruker</a>
+                    <a href="{{ url_for('auth.login') }}"><button class="btn btn-outline-success" type="submit" id="login">Logg inn</button></a>
+                    <a href="{{ url_for('auth.register') }}"><button class="btn btn-outline-success" type="submit" id="register">Ny bruker</button></a>
                 {% endif %}
             </div>
         </div>
