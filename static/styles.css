@@ -28,11 +28,11 @@
     padding-right: 60px !important;
 }
 
-.loginregister .btn-group{
+.loginregister .btn-group {
     float: right;
 }
 
-#brukernavn{
+#brukernavn {
     font-weight: bold;
     font-size: 1.2em;
 }
@@ -65,8 +65,13 @@
     margin-right: 5px;
 }
 
+/*.tagger .badge:hover {*/
+/*    color: white;*/
+/*    background-color: #198754 !important;*/
+/*}*/
+
 .tagger .badge:hover {
-    color: white;
+    color: white !important;
     background-color: #198754 !important;
 }
 
