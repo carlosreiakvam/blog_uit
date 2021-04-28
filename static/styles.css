@@ -91,3 +91,8 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
     background-color: #198754 !important;
     font-size: 0.8em;
 }
+
+.blog_header {
+    text-align: center;
+    padding-top: 30px;
+}
