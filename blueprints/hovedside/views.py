@@ -1,7 +1,6 @@
 import flask
 from flask import Blueprint, render_template
 from models.innlegg import Innlegg
-
 from models.blog import Blog
 
 router = Blueprint('hovedside', __name__)
@@ -23,11 +22,4 @@ def tag(tag_navn: str):
                                innlegg=postswithtag)
     return flask.abort(404)
 
-@router.route("/<blog_prefix>")
-def blog(blog_prefix: str):
-    postswithtag = Innlegg.get_with_blog_prefix(blog_prefix)
-    blog = Blog.get_one(blog_prefix)
-    if postswithtag and len(postswithtag) > 0:
-        return render_template('blog.html', blog=blog,
-                               innlegg=postswithtag)
-    return flask.abort(404)
+
