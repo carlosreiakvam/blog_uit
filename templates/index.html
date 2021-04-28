@@ -3,17 +3,18 @@
     <div class="cards">
         {% if innlegg %}
             {% for x in innlegg %}
-                <div class="card text-dark bg-light mb-3">
+                <div class="card text-dark bg-light mb-3 frontpage-card">
                     <div class="card-header">{{ x.blog_navn }}<span class="innleggdato">{{ x.innlegg_dato }}</span>
                     </div>
                     <div class="card-body">
-                        <div class="tagger">
+                        <div class="tagger pb-4">
                             {% for tag in x.tagger %}
-                                <span class="tag"> {{ tag.tagnavn }}</span>
+                                <a href="{{ url_for('hovedside.tag', tag_navn=tag.tagnavn) }}"
+                                   class="badge border border-success text-success rounded-pill bg-white px-2 py-1 mr-3 text-decoration-none">{{ tag.tagnavn }}</a>
                             {% endfor %}
                         </div>
                         <h5 class="card-title">{{ x.innlegg_tittel }}</h5>
-                        <p class="card-text">{{ x.innlegg_innhold }}</p>
+                        <p class="card-text">{{ x.innlegg_innhold | safe }}</p>
                     </div>
                 </div>
             {% endfor %}

@@ -8,6 +8,7 @@
 
 .navbar-brand {
     vertical-align: center;
+
 }
 
 .container-fluid {
@@ -21,11 +22,19 @@
     width: 30%;
 }
 
-
 .loginregister {
     width: 15%;
     white-space: nowrap;
     padding-right: 60px !important;
+}
+
+.loginregister .btn-group{
+    float: right;
+}
+
+#brukernavn{
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
 #register {
@@ -42,22 +51,23 @@
     margin: auto;
 }
 
-.tagger {
-    padding-bottom: 20px;
-    font-size: 0.8em;
+.frontpage-card {
+    max-height: 20em;
+    overflow: hidden;
 }
 
-.tag {
-    border-radius: 25px;
-    border: 1px solid darkgray;
-    background: ghostwhite;
-    width: 200px;
-    height: auto;
-    padding-right: 12px;
-    padding-left: 12px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+.tagger {
+    padding-bottom: 20px;
+}
+
+/* Overstyrer bootstrap css på tag-knapper */
+.tagger .badge {
     margin-right: 5px;
+}
+
+.tagger .badge:hover {
+    color: white;
+    background-color: #198754 !important;
 }
 
 .innleggdato {
@@ -70,4 +80,20 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
     border-color: rgba(85, 107, 47, 0.8);
     box-shadow: 0 1px 1px rgba(85, 107, 47, 0.075) inset, 0 0 8px rgba(85, 107, 47, 0.6);
     outline: 0 none;
+}
+
+.available-tag {
+    font-size: 0.8em !important;
+}
+
+.available-tag:hover {
+    cursor: pointer;
+    color: white !important;
+    background-color: #198754 !important;
+    font-size: 0.8em;
+}
+
+.alert-container {
+    width: 25%;
+    z-index: 10;
 }

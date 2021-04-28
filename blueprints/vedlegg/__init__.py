@@ -1,0 +1,1 @@
+from blueprints.vedlegg.views import router

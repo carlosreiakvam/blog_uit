@@ -1,6 +1,7 @@
 Flask
 flask-login
 Flask-WTF
+flask-ckeditor
 mysql-connector-python
 python-dotenv
 email_validator

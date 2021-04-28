@@ -118,17 +118,14 @@ ENGINE = InnoDB
 
 TABLES["vedlegg"] = """
 CREATE TABLE `vedlegg` (
-  `vedlegg_id` INT NOT NULL AUTO_INCREMENT,
+  `vedlegg_id` VARCHAR(32),
   `vedlegg_navn` VARCHAR(45) NOT NULL,
-  `vedlegg_beskrivelse` VARCHAR(45) NULL,
-  `vedlegg_path` VARCHAR(100) NULL,
-  `innlegg_id` INT NOT NULL,
-  PRIMARY KEY (`vedlegg_id`, `innlegg_id`),
+  `bruker_navn` VARCHAR(24) NOT NULL,
+  PRIMARY KEY (`vedlegg_id`, `bruker_navn`),
   UNIQUE INDEX `vedlegg_id_UNIQUE` (`vedlegg_id` ASC),
-  INDEX `fk_vedlegg_innlegg1_idx` (`innlegg_id` ASC),
-  CONSTRAINT `fk_vedlegg_innlegg1`
-    FOREIGN KEY (`innlegg_id`)
-    REFERENCES `innlegg` (`innlegg_id`)
+  CONSTRAINT `fk_vedlegg_brukere1`
+    FOREIGN KEY (`bruker_navn`)
+    REFERENCES `brukere` (`bruker_navn`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
