@@ -1,17 +1,13 @@
-import flask
-from flask import Blueprint, render_template, abort, flash, url_for, redirect, request
-from flask_login import login_user
-from urllib.parse import urlparse, urljoin
-from models.bruker import Bruker
+from urllib.parse import urljoin, urlparse
+
+from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
+from flask_login import login_required, login_user, logout_user
+from mysql.connector import Error, errorcode
+
 from blueprints.auth.forms import LoginForm, RegisterForm
-from mysql.connector import errorcode, Error
+from models.bruker import Bruker
 
 router = Blueprint('auth', __name__, url_prefix="/auth")
-
-
-@router.route("/")
-def example():
-    return "hello from auth"
 
 
 @router.route('/register', methods=['GET', 'POST'])
@@ -33,7 +29,7 @@ def register():
 
         bruker.insert_user()
 
-        return flask.redirect(url_for("auth.login"))
+        return redirect(url_for("auth.login"))
 
     for fieldName, error_messages in form.errors.items():
         for error_message in error_messages:
@@ -49,19 +45,26 @@ def login():
 
         bruker = Bruker.get_user(form.username.data)
         if bruker is None or not bruker.check_password(form.password.data):
-            flash('Feil brukernavn og/eller passord', 'danger')
+            flash('Feil brukernavn og/eller passord', 'error')
             return render_template('login.html', form=form)
 
         login_user(bruker)
 
-        flash('Logged in successfully.', 'success')
+        flash('Logged in successfully.')
 
         next = request.args.get('next')
         if not is_safe_url(next):
-            return flask.abort(400)
+            return abort(400)
 
         return redirect(next or url_for("hovedside.index"))
     return render_template('login.html', form=form)
+
+
+@router.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("hovedside.index"))
 
 
 def is_safe_url(target):
