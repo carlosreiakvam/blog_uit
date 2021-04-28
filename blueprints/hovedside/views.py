@@ -20,3 +20,11 @@ def tag(tag_navn: str):
         return render_template('index.html',
                                innlegg=postswithtag)
     return flask.abort(404)
+
+@router.route("/<blog_prefix>")
+def blog(blog_prefix: str):
+    postswithtag = Innlegg.get_with_blog_prefix(blog_prefix)
+    if postswithtag and len(postswithtag) > 0:
+        return render_template('index.html',
+                               innlegg=postswithtag)
+    return flask.abort(404)
