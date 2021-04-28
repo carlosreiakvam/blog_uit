@@ -123,7 +123,6 @@ class Innlegg:
 
     @staticmethod
     def get_with_blog_prefix(blog_prefix :str) -> List["Innlegg"]:
-        print(blog_prefix)
         query = """
         select innlegg.innlegg_id,
             innlegg_tittel,
