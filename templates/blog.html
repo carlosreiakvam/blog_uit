@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block body %}
-    <div class="cards">
-        {% if innlegg %}
+    {% if innlegg %}
+
+         <div class="header-a">  {{ blog.blog_navn }}  </div>
+         <div class="cards">
             {% for x in innlegg %}
                 <div class="card text-dark bg-light mb-3 frontpage-card">
                     <div class="card-header">
-                        <a href="{{ url_for('blog.blog', blog_prefix=x.blog_prefix) }}"
-                        class="text-success px-2 py-1 mr-3 text-decoration-none">
-                        {{ x.blog_navn }}</a><span class="innleggdato">{{ x.innlegg_dato }}</span>
+                        {{ x.innlegg_tittel }}<span class="innleggdato">{{ x.innlegg_dato }}</span>
                     </div>
                     <div class="card-body">
                         <div class="tagger pb-4">

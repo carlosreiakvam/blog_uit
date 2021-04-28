@@ -1,4 +1,5 @@
-from flask import Blueprint, redirect, render_template, url_for, flash
+
+from flask import Blueprint, redirect, render_template, url_for, flash, abort
 
 from blueprints.blog.forms import InnleggForm
 from models.blog import Blog
@@ -36,3 +37,13 @@ def nytt_innlegg(blog_prefix: str):
         for error_message in error_messages:
             flash(f"{fieldName}: {error_message}", "danger")
     return render_template("nytt_innlegg.html", form=form, blog_prefix=blog_prefix, available_tags=available_tags)
+
+
+@router.route("/<blog_prefix>")
+def blog(blog_prefix: str):
+    postswithtag = Innlegg.get_with_blog_prefix(blog_prefix)
+    blog = Blog.get_one(blog_prefix)
+    if postswithtag and len(postswithtag) > 0:
+        return render_template('blog.html', blog=blog,
+                               innlegg=postswithtag)
+    return abort(404)

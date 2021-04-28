@@ -121,6 +121,24 @@ class Innlegg:
         result = [Innlegg(*x) for x in db.cursor.fetchall()]
         return result
 
+    @staticmethod
+    def get_with_blog_prefix(blog_prefix :str) -> List["Innlegg"]:
+        query = """
+        select innlegg.innlegg_id,
+            innlegg_tittel,
+            innlegg_innhold,
+            innlegg_dato,
+            innlegg_endret,
+            innlegg_treff,
+            innlegg.blog_prefix,
+            blog.blog_navn
+        from innlegg inner join blog on innlegg.blog_prefix = blog.blog_prefix where blog.blog_prefix = %s order by innlegg_dato  
+        """
+        db.cursor.execute(query, (blog_prefix,))
+        result = [Innlegg(*x) for x in db.cursor.fetchall()]
+        return result
+
+
     def insert(self) -> "Innlegg":
         query = """
         insert into innlegg(innlegg_tittel, innlegg_innhold, blog_prefix)
