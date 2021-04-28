@@ -13,7 +13,8 @@
     <link href="{{ url_for('static', filename='taginput/tagsinput.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
-{% include 'navbar.html' %}
+    {% include 'navbar.html' %}
+    {% include 'flash_messages.html' %}
 {% block body %}
 {% endblock %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"

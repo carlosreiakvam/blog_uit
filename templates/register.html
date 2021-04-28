@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="container mt-5">
+
+        <div class="row align-items-center">
+
+            <div class="card p-3 m-auto" style="width: 50%;">
+                <form method="POST" action="{{ url_for('auth.register') }}">
+                    {{ form.csrf_token }}
+
+                    <div class="row mb-3 g-2 justify-content-center">
+                        <div class="col-sm-3">
+                            {{ form.brukernavn.label(class_="col-form-label") }}
+                        </div>
+                        <div class="col-sm-9">
+                            {{ form.brukernavn(class="form-control") }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 g-2 justify-content-center">
+                        <div class="col-sm-3">
+                            {{ form.fornavn.label(class_="col-form-label") }}
+                        </div>
+                        <div class="col-sm-9">
+                            {{ form.fornavn(class="form-control") }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 g-2 justify-content-center">
+                        <div class="col-sm-3">
+                            {{ form.etternavn.label(class_="col-form-label") }}
+                        </div>
+                        <div class="col-sm-9">
+                            {{ form.etternavn(class="form-control") }}
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-3 g-2 justify-content-center">
+                        <div class="col-sm-3">
+                            {{ form.epost.label(class_="col-form-label") }}
+                        </div>
+                        <div class="col-sm-9">
+                            {{ form.epost(class="form-control") }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 g-2 justify-content-center">
+                        <div class="col-sm-3">
+                            {{ form.passord.label(class_="col-form-label") }}
+                        </div>
+                        <div class="col-sm-9">
+                            {{ form.passord(class="form-control") }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 g-2 justify-content-center">
+                        <div class="col-sm-3">
+                            {{ form.confirm.label(class_="col-form-label") }}
+                        </div>
+                        <div class="col-sm-9">
+                            {{ form.confirm(class="form-control") }}
+                        </div>
+                    </div>
+
+
+                    <div class="row justify-content-end">
+                        <div class="col-sm-2">
+                            {{ form.submit(class_="btn btn-success") }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

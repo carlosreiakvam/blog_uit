@@ -1,7 +1,7 @@
 <div class="navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light w-100 shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><h2 class="text-success"><img
+            <a class="navbar-brand" href={{ url_for('hovedside.index') }}><h2 class="text-success"><img
                     src="{{ url_for('static', filename='img/duckface.png') }}" height="40px"/> Le blöög</h2></a>
             <div class="linkmenu">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mob-navbar"
@@ -59,8 +59,8 @@
                         </ul>
                     </div>
                 {% else %}
-                    <a class="btn btn-outline-success" href="{{ url_for('auth.login') }}" role="button">Logg inn</a>
-                    <a class="btn btn-outline-success" id="register" href="" role="button">Ny bruker</a>
+                    <a href="{{ url_for('auth.login') }}"><button class="btn btn-outline-success" type="submit" id="login">Logg inn</button></a>
+                    <a href="{{ url_for('auth.register') }}"><button class="btn btn-outline-success" type="submit" id="register">Ny bruker</button></a>
                 {% endif %}
             </div>
         </div>
