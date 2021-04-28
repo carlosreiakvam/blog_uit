@@ -1,5 +1,5 @@
-import flask
-from flask import Blueprint, render_template
+
+from flask import Blueprint, render_template, abort
 from models.innlegg import Innlegg
 from models.blog import Blog
 
@@ -20,6 +20,6 @@ def tag(tag_navn: str):
     if postswithtag and len(postswithtag) > 0:
         return render_template('index.html',
                                innlegg=postswithtag)
-    return flask.abort(404)
+    return abort(404)
 
 

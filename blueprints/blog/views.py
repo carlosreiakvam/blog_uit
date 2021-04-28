@@ -1,4 +1,5 @@
-from flask import Blueprint, redirect, render_template, url_for, flash
+
+from flask import Blueprint, redirect, render_template, url_for, flash, abort
 
 from blueprints.blog.forms import InnleggForm
 from models.blog import Blog
@@ -45,4 +46,4 @@ def blog(blog_prefix: str):
     if postswithtag and len(postswithtag) > 0:
         return render_template('blog.html', blog=blog,
                                innlegg=postswithtag)
-    return flask.abort(404)
+    return abort(404)
