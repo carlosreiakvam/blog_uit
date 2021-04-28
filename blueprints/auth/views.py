@@ -23,7 +23,7 @@ def register():
         bruker.hash_password(form.passord.data)
         bruker.insert_user()
 
-        return 'Suksess!'
+        return flask.redirect(url_for("auth.login"))
 
     for fieldName, error_messages in form.errors.items():
         for error_message in error_messages:
