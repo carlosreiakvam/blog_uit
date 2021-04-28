@@ -1,18 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
     <div class="container mt-5">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="row justify-content-center">
-                        <div class="alert alert-danger alert-dismissible fade show col-sm-6" role="alert">
-                            {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
         <div class="row align-items-center">
             <div class="card p-3 m-auto" style="width: 50%;">
                 <form method="POST" action="{{ url_for('auth.login') }}">
