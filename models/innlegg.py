@@ -132,7 +132,7 @@ class Innlegg:
             innlegg_treff,
             innlegg.blog_prefix,
             blog.blog_navn
-        from innlegg, blog, tagger where blog.blog_prefix = %s and tagger.innlegg_id = innlegg.innlegg_id order by innlegg_dato
+        from innlegg inner join blog on innlegg.blog_prefix = blog.blog_prefix where blog.blog_prefix = %s order by innlegg_dato  
         """
         db.cursor.execute(query, (blog_prefix,))
         result = [Innlegg(*x) for x in db.cursor.fetchall()]
