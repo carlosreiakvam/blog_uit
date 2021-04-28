@@ -10,7 +10,7 @@ class LoginForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    brukernavn = StringField(
+    reg_brukernavn = StringField(
         label=('Brukernavn'),
         validators=[DataRequired(),
                     Length(min=5,

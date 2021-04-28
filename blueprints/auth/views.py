@@ -17,9 +17,8 @@ def example():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        bruker = Bruker(brukernavn=form.brukernavn.data, epost=form.epost.data, opprettet=None,
+        bruker = Bruker(brukernavn=form.reg_brukernavn.data, epost=form.epost.data, opprettet=None,
                         fornavn=form.fornavn.data, etternavn=form.etternavn.data)
-
         bruker.hash_password(form.passord.data)
         bruker.insert_user()
 
