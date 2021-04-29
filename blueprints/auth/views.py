@@ -27,13 +27,15 @@ def register():
             else:
                 raise err
 
+        flash("Registreringen var vellykket!")
+
         return redirect(url_for("auth.login"))
 
     for fieldName, error_messages in form.errors.items():
         for error_message in error_messages:
             flash(f"{error_message}", "danger")
 
-    return render_template('register.html', form=form, dynamic_title="Ny bruker")
+    return render_template('register.html', form=form)
 
 
 @router.route('/login', methods=['GET', 'POST'])
@@ -55,7 +57,7 @@ def login():
             return abort(400)
 
         return redirect(next or url_for("hovedside.index"))
-    return render_template('login.html', form=form, dynamic_title="Logg inn")
+    return render_template('login.html', form=form)
 
 
 @router.route("/logout")
