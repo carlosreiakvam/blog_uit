@@ -27,7 +27,6 @@ def register():
             else:
                 raise err
 
-        bruker.insert_user()
 
         return redirect(url_for("auth.login"))
 
