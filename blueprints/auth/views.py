@@ -27,6 +27,7 @@ def register():
             else:
                 raise err
 
+        flash("Registreringen var vellykket!")
 
         return redirect(url_for("auth.login"))
 
