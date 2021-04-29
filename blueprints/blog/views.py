@@ -1,7 +1,7 @@
 from flask import Blueprint, abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
-from blueprints.blog.forms import InnleggForm
+from blueprints.blog.forms import InnleggForm, KommentarForm
 from models.blog import Blog
 from models.innlegg import Innlegg
 from models.tagger import Tagger
@@ -41,3 +41,17 @@ def nytt_innlegg(blog_prefix: str):
         for error_message in error_messages:
             flash(f"{fieldName}: {error_message}", "danger")
     return render_template("nytt_innlegg.html", form=form, blog_prefix=blog_prefix, available_tags=available_tags)
+
+
+@router.route("/<blog_prefix>/<int:innlegg_id>", methods=["GET", "POST"])
+def vis_innlegg(blog_prefix: str, innlegg_id: int):
+    innlegg = Innlegg.get_one(innlegg_id)
+
+    if innlegg.blog_prefix != blog_prefix:
+        abort(404)
+
+    form = KommentarForm()
+    if form.validate_on_submit():
+        innlegg.add_kommentar(form.innhold.data, current_user.brukernavn)
+
+    return render_template("innlegg.html", innlegg=innlegg, form=form)
