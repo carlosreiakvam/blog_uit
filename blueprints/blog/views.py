@@ -1,4 +1,3 @@
-
 from flask import Blueprint, redirect, render_template, url_for, flash, abort
 
 from blueprints.blog.forms import InnleggForm
