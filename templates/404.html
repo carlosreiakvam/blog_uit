@@ -1,7 +1,14 @@
 {% extends "base.html" %}
-{% block title %}Page Not Found{% endblock %}
+{% block title %}
+    {% if dynamic_title %}
+        {{ dynamic_title }}
+    {% else %}
+        Le blöög
+    {% endif %}
+{% endblock %}
+
 {% block body %}
-  <h1>Page Not Found - 404</h1>
-  <p> Siden du prøvde å finne eksisterer dessverre ikke...
-  <p><a href="{{ url_for('hovedside.index') }}">Gå til hovedsiden heller, mye hyggeligere der! </a>
+    <h1>Page Not Found - 404</h1>
+    <p> Siden du prøvde å finne eksisterer dessverre ikke...
+    <p><a href="{{ url_for('hovedside.index') }}">Gå til hovedsiden heller, mye hyggeligere der! </a>
 {% endblock %}
