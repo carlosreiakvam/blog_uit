@@ -2,7 +2,7 @@ from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
 from wtforms import Field, StringField, SubmitField
 from wtforms.validators import DataRequired, Length
-from wtforms.widgets import TextInput
+from wtforms.widgets import TextArea, TextInput
 
 
 class TagListField(Field):
@@ -46,5 +46,5 @@ class InnleggForm(FlaskForm):
 
 
 class KommentarForm(FlaskForm):
-    innhold = StringField("Innhold", validators=[Length(max=255), DataRequired()])
+    innhold = StringField("Ny kommentar", widget=TextArea(), validators=[Length(max=255), DataRequired()])
     submit = SubmitField("Lagre")
