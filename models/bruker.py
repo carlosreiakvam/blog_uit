@@ -76,6 +76,24 @@ class Bruker:
             result = Bruker(*result)
         return result
 
+    @staticmethod
+    def get_user_for_blog(blog_prefix: str) -> "Bruker":
+        query = """
+        select brukere.bruker_navn,
+            bruker_epost,
+            bruker_opprettet,
+            bruker_fornavn,
+            bruker_etternavn
+        from brukere
+        join blog b on brukere.bruker_navn = b.bruker_navn
+        where b.blog_prefix = %s
+        """
+        db.cursor.execute(query, (blog_prefix,))
+        result = db.cursor.fetchone()
+        if result:
+            result = Bruker(*result)
+        return result
+
     def insert_user(self) -> "Bruker":
         query = """
         insert into brukere(bruker_navn,
