@@ -4,6 +4,7 @@ from os import abort
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from extensions import db
+from models.blog import Blog
 
 
 class Bruker:
@@ -31,6 +32,10 @@ class Bruker:
     @property
     def is_anonymous(self):
         return False
+
+    @property
+    def fullt_navn(self):
+        return f"{self.fornavn} {self.etternavn}"
 
     def get_id(self):
         return self.brukernavn
