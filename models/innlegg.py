@@ -3,6 +3,8 @@ from typing import List
 from extensions import db
 from flask import abort, url_for
 
+from models.blog import Blog
+from models.bruker import Bruker
 from models.kommentar import Kommentar
 from models.tagger import Tagger
 from models.vedlegg import Vedlegg
@@ -30,6 +32,8 @@ class Innlegg:
         self._kommentarer = None
         self._vedlegg = None
         self._tagger = None
+        self._blog = None
+        self._bruker = None
 
     @property
     def kommentarer(self) -> List[Kommentar]:
@@ -48,6 +52,18 @@ class Innlegg:
         if not self._vedlegg:
             self._vedlegg = Vedlegg.get_all(self.innlegg_id)
         return self._vedlegg
+
+    @property
+    def blog(self) -> Blog:
+        if not self._blog:
+            self._blog = Blog.get_one(self.blog_prefix)
+        return self._blog
+
+    @property
+    def bruker(self) -> Bruker:
+        if not self._bruker:
+            self._bruker = Bruker.get_user_for_blog(self.blog_prefix)
+        return self._bruker
 
     @property
     def url(self) -> str:
