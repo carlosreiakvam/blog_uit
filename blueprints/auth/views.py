@@ -35,7 +35,7 @@ def register():
         for error_message in error_messages:
             flash(f"{error_message}", "danger")
 
-    return render_template('register.html', form=form)
+    return render_template('register.html', form=form, dynamic_title="Ny bruker")
 
 
 @router.route('/login', methods=['GET', 'POST'])
@@ -57,7 +57,7 @@ def login():
             return abort(400)
 
         return redirect(next or url_for("hovedside.index"))
-    return render_template('login.html', form=form)
+    return render_template('login.html', form=form, dynamic_title="Logg inn")
 
 
 @router.route("/logout")
