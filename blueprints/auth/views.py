@@ -27,7 +27,6 @@ def register():
             else:
                 raise err
 
-        bruker.insert_user()
         flash("Registreringen var vellykket!")
 
         return redirect(url_for("auth.login"))
