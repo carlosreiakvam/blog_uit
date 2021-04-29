@@ -4,6 +4,7 @@ from flask_login import current_user, login_required
 from blueprints.blog.forms import InnleggForm, KommentarForm
 from models.blog import Blog
 from models.innlegg import Innlegg
+from models.kommentar import Kommentar
 from models.tagger import Tagger
 
 router = Blueprint('blog', __name__, url_prefix="/blog")
@@ -55,3 +56,15 @@ def vis_innlegg(blog_prefix: str, innlegg_id: int):
         innlegg.add_kommentar(form.innhold.data, current_user.brukernavn)
 
     return render_template("innlegg.html", innlegg=innlegg, form=form)
+
+
+@router.route("/slett_kommentar/<int:kommentar_id>")
+def slett_kommentar(kommentar_id: int):
+    kommentar = Kommentar.get_kommentar(kommentar_id)
+    innlegg = Innlegg.get_one(kommentar.innlegg_id)
+    if (kommentar.brukernavn == current_user.brukernavn) or (innlegg.bruker.brukernavn == current_user.brukernavn):
+        kommentar.delete_kommentar()
+        flash("Kommentar slettet!", "success")
+        return redirect(innlegg.url)
+    else:
+        abort(401)
