@@ -10,7 +10,7 @@ def index():
     new10 = Innlegg.get_ten_newest()
     if new10:
         return render_template('index.html',
-                               innlegg=new10, sidetittel="Le blöög")
+                               innlegg=new10)
 
 
 @router.route("/tag/<tag_navn>")
