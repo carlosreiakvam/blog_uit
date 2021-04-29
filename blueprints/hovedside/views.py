@@ -1,4 +1,3 @@
-
 from flask import Blueprint, render_template, abort
 from models.innlegg import Innlegg
 from models.blog import Blog
@@ -11,7 +10,7 @@ def index():
     new10 = Innlegg.get_ten_newest()
     if new10:
         return render_template('index.html',
-                               innlegg=new10)
+                               innlegg=new10, sidetittel="Le blöög")
 
 
 @router.route("/tag/<tag_navn>")
@@ -21,5 +20,3 @@ def tag(tag_navn: str):
         return render_template('index.html',
                                innlegg=postswithtag)
     return abort(404)
-
-
