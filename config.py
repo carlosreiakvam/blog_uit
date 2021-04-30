@@ -16,6 +16,7 @@ class Config:
     CKEDITOR_FILE_UPLOADER = "vedlegg.upload"
     CKEDITOR_ENABLE_CSRF = True
     CKEDITOR_HEIGHT = 400
+    CKEDITOR_SERVE_LOCAL = True
 
     @staticmethod
     def init_app(app):
