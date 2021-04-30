@@ -1,20 +1,13 @@
 {% extends "base.html" %}
-
 {#Deler av template hentet fra https://bootsnipp.com/snippets/VgBP3#}
 {% block body %}
-    <div class="page-wrap d-flex flex-row align-items-center">
-        <div class="four_o_four container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 text-center">
-                    <div class="error-template">
-                        <div class="col-md-12 text-center">
-                            <span class="display-1 d-block">404</span>
-                            <div class="mb-4 lead">Siden du prøvde å finne eksisterer dessverre ikke...</div>
-                            <a class="text-decoration-none" href="{{ url_for('hovedside.index') }}">
-                                Gå til hovedsiden heller, mye hyggeligere der! </a>
-                        </div>
-                    </div>
-                </div>
+    <div class="four_o_four container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <span class="display-1 d-block">404</span>
+                <div class="mb-4 lead">Siden du prøvde å finne eksisterer dessverre ikke...</div>
+                <a class="text-decoration-none" href="{{ url_for('hovedside.index') }}">
+                    Gå til hovedsiden heller, mye hyggeligere der! </a>
             </div>
         </div>
     </div>
