@@ -49,7 +49,10 @@
                             {{ current_user.brukernavn }}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">...</a></li>
+                            <li><a class="dropdown-item"
+                                    {#//TODO: Endre blog_prefix til faktisk blog prefix istedet for current_user.brukernavn#}
+                                   href="{{ url_for('blog.nytt_innlegg', blog_prefix = current_user.brukernavn) }}">Nytt
+                                innlegg</a></li>
                             <li><a class="dropdown-item" href="#">...</a></li>
                             <li><a class="dropdown-item" href="#">...</a></li>
                             <li>
@@ -59,8 +62,12 @@
                         </ul>
                     </div>
                 {% else %}
-                    <a href="{{ url_for('auth.login') }}"><button class="btn btn-outline-success" type="submit" id="login">Logg inn</button></a>
-                    <a href="{{ url_for('auth.register') }}"><button class="btn btn-outline-success" type="submit" id="register">Ny bruker</button></a>
+                    <a href="{{ url_for('auth.login') }}">
+                        <button class="btn btn-outline-success" type="submit" id="login">Logg inn</button>
+                    </a>
+                    <a href="{{ url_for('auth.register') }}">
+                        <button class="btn btn-outline-success" type="submit" id="register">Ny bruker</button>
+                    </a>
                 {% endif %}
             </div>
         </div>
