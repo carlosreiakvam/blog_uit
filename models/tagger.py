@@ -44,3 +44,15 @@ class Tagger:
         db.cursor.execute(query)
         result = [x[0] for x in db.cursor.fetchall()]
         return result
+
+    @staticmethod
+    def get_all_available_tags_not_used_in_post(innlegg_id: int) -> List[str]:
+        query = """
+            select distinct tag_navn from tagger
+            where tag_navn not in (
+                select tag_navn from tagger where innlegg_id = %s
+            )
+            """
+        db.cursor.execute(query, (innlegg_id,))
+        result = [x[0] for x in db.cursor.fetchall()]
+        return result
