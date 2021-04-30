@@ -37,11 +37,49 @@ def nytt_innlegg(blog_prefix: str):
         for tag in form.tagger.data:
             tag = Tagger(tagnavn=tag, innleggid=innlegg.innlegg_id)
             tag.add_tag()
-        return redirect(url_for('hovedside.index'))
+        return redirect(url_for('blog.vis_innlegg', blog_prefix=blog_prefix, innlegg_id=innlegg.innlegg_id))
     for fieldName, error_messages in form.errors.items():
         for error_message in error_messages:
             flash(f"{fieldName}: {error_message}", "danger")
     return render_template("nytt_innlegg.html", form=form, blog_prefix=blog_prefix, available_tags=available_tags)
+
+
+@router.route("/<blog_prefix>/<int:innlegg_id>/rediger", methods=["GET", "POST"])
+@login_required
+def rediger_innlegg(blog_prefix: str, innlegg_id: int):
+    form = InnleggForm()
+    blog = Blog.get_one(blog_prefix)
+    if blog.blog_bruker_navn != current_user.brukernavn:
+        abort(401)
+
+    if form.validate_on_submit():
+        innlegg = Innlegg.get_one(innlegg_id)
+        innlegg.innlegg_tittel = form.tittel.data
+        innlegg.innlegg_innhold = form.innhold.data
+        innlegg = innlegg.update()
+        tagger = [tag.tagnavn for tag in innlegg.tagger]
+        for tag in form.tagger.data:
+            if tag not in tagger:
+                tag = Tagger(tagnavn=tag, innleggid=innlegg.innlegg_id)
+                tag.add_tag()
+        for tag in innlegg.tagger:
+            if tag.tagnavn not in form.tagger.data:
+                tag.delete_tag()
+        return redirect(url_for('blog.vis_innlegg', blog_prefix=blog_prefix, innlegg_id=innlegg_id))
+
+    for fieldName, error_messages in form.errors.items():
+        for error_message in error_messages:
+            flash(f"{fieldName}: {error_message}", "danger")
+
+    innlegg = Innlegg.get_one(innlegg_id)
+    form.tagger.data = [tag.tagnavn for tag in innlegg.tagger]
+    form.tittel.data = innlegg.innlegg_tittel
+    form.innhold.data = innlegg.innlegg_innhold
+
+    available_tags = Tagger.get_all_available_tags_not_used_in_post(innlegg_id)
+
+    return render_template("nytt_innlegg.html", form=form, blog_prefix=blog_prefix, available_tags=available_tags,
+                           innlegg_id=innlegg_id)
 
 
 @router.route("/<blog_prefix>/<int:innlegg_id>", methods=["GET", "POST"])
@@ -56,6 +94,19 @@ def vis_innlegg(blog_prefix: str, innlegg_id: int):
         innlegg.add_kommentar(form.innhold.data, current_user.brukernavn)
 
     return render_template("innlegg.html", innlegg=innlegg, form=form)
+
+
+@router.route("/<blog_prefix>/<int:innlegg_id>/slett")
+def slett_innlegg(blog_prefix: str, innlegg_id: int):
+    innlegg = Innlegg.get_one(innlegg_id)
+
+    if innlegg.blog_prefix != blog_prefix:
+        abort(404)
+
+    innlegg.delete()
+    flash("Innlegget er slettet!", 'success')
+
+    return redirect(url_for("blog.blog", blog_prefix=blog_prefix))
 
 
 @router.route("/slett_kommentar/<int:kommentar_id>")
