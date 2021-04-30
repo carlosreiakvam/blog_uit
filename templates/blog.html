@@ -5,20 +5,24 @@
 
         <div class="h2 text-success blog_header">  {{ blog.blog_navn }}  </div>
         <div class="cards">
-        {% for x in innlegg %}
+        {% for _innlegg in innlegg %}
             <div class="card text-dark bg-light mb-3 frontpage-card">
                 <div class="card-header">
-                    {{ x.innlegg_tittel }}<span class="innleggdato">{{ x.innlegg_dato }}</span>
+                    {{ _innlegg.innlegg_tittel }}
+                    <small><a class="text-success px-2 py-1 mr-3 text-decoration-none"
+                              href="{{ url_for('blog.vis_innlegg', blog_prefix=_innlegg.blog_prefix, innlegg_id=_innlegg.innlegg_id) }}">Vis
+                        innlegg</a></small>
+                    <span class="innleggdato">{{ _innlegg.innlegg_dato }}</span>
                 </div>
                 <div class="card-body">
                     <div class="tagger pb-4">
-                        {% for tag in x.tagger %}
+                        {% for tag in _innlegg.tagger %}
                             <a href="{{ url_for('hovedside.tag', tag_navn=tag.tagnavn) }}"
                                class="badge border border-success text-success rounded-pill bg-white px-2 py-1 mr-3 text-decoration-none">{{ tag.tagnavn }}</a>
                         {% endfor %}
                     </div>
-                    <h5 class="card-title">{{ x.innlegg_tittel }}</h5>
-                    <p class="card-text">{{ x.innlegg_innhold | safe }}</p>
+                    <h5 class="card-title">{{ _innlegg.innlegg_tittel }}</h5>
+                    <p class="card-text">{{ _innlegg.innlegg_innhold | safe }}</p>
                 </div>
             </div>
         {% endfor %}

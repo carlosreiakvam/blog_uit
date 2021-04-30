@@ -96,3 +96,12 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
     text-align: center;
     padding-top: 30px;
 }
+
+.post-comment {
+    height: 100px !important;
+}
+
+.alert-container {
+    width: 20%;
+    z-index: 10;
+}

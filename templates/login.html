@@ -4,7 +4,7 @@
     <div class="container mt-5">
         <div class="row align-items-center">
             <div class="card p-3 m-auto" style="width: 50%;">
-                <form method="POST" action="{{ url_for('auth.login') }}">
+                <form method="POST">
                     {{ form.csrf_token }}
                     <div class="row mb-3 g-2 justify-content-center">
                         <div class="col-sm-2">

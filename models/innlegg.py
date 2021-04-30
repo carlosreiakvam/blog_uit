@@ -1,8 +1,10 @@
 from datetime import datetime
 from typing import List
 from extensions import db
-from flask import abort
+from flask import abort, url_for
 
+from models.blog import Blog
+from models.bruker import Bruker
 from models.kommentar import Kommentar
 from models.tagger import Tagger
 from models.vedlegg import Vedlegg
@@ -30,6 +32,8 @@ class Innlegg:
         self._kommentarer = None
         self._vedlegg = None
         self._tagger = None
+        self._blog = None
+        self._bruker = None
 
     @property
     def kommentarer(self) -> List[Kommentar]:
@@ -48,6 +52,22 @@ class Innlegg:
         if not self._vedlegg:
             self._vedlegg = Vedlegg.get_all(self.innlegg_id)
         return self._vedlegg
+
+    @property
+    def blog(self) -> Blog:
+        if not self._blog:
+            self._blog = Blog.get_one(self.blog_prefix)
+        return self._blog
+
+    @property
+    def bruker(self) -> Bruker:
+        if not self._bruker:
+            self._bruker = Bruker.get_user_for_blog(self.blog_prefix)
+        return self._bruker
+
+    @property
+    def url(self) -> str:
+        return url_for("blog.vis_innlegg", blog_prefix=self.blog_prefix, innlegg_id=self.innlegg_id)
 
     @staticmethod
     def get_all(blog_navn: str) -> List["Innlegg"]:
@@ -105,7 +125,7 @@ class Innlegg:
         return result
 
     @staticmethod
-    def get_with_tag(tag_navn :str) -> List["Innlegg"]:
+    def get_with_tag(tag_navn: str) -> List["Innlegg"]:
         query = """
         select innlegg.innlegg_id,
             innlegg_tittel,
@@ -122,7 +142,7 @@ class Innlegg:
         return result
 
     @staticmethod
-    def get_with_blog_prefix(blog_prefix :str) -> List["Innlegg"]:
+    def get_with_blog_prefix(blog_prefix: str) -> List["Innlegg"]:
         query = """
         select innlegg.innlegg_id,
             innlegg_tittel,
@@ -137,7 +157,6 @@ class Innlegg:
         db.cursor.execute(query, (blog_prefix,))
         result = [Innlegg(*x) for x in db.cursor.fetchall()]
         return result
-
 
     def insert(self) -> "Innlegg":
         query = """

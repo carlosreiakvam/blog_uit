@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="container">
+        <h1 class="display-1 mt-5 mb-3 text-center">{{ innlegg.innlegg_tittel }}</h1>
+        <h5 class="text-center mb-3">
+            Postet den:
+            <small class="text-muted">{{ innlegg.innlegg_dato }}</small>
+        </h5>
+        {% if current_user.brukernavn == innlegg.bruker.brukernavn %}
+            <div class="d-flex flex-row justify-content-center mb-4">
+                <a href="#" class="font-weight-bold link-success mx-2">
+                    Rediger
+                </a>
+            </div>
+        {% endif %}
+        {{ innlegg.innlegg_innhold | safe }}
+        <hr/>
+        <h5 class="mt-4">Kommentarer:</h5>
+        <div class="container my-5">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8">
+                    {% for kommentar in innlegg.kommentarer %}
+                        <div class="card p-3 mt-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex flex-row align-items-center">
+                                    <span class="font-weight-bold text-primary">
+                                        {{ kommentar.bruker.fullt_navn }}
+                                    </span>
+                                    <span>&nbsp;</span>
+                                    {% if current_user.brukernavn == innlegg.blog.blog_bruker_navn or current_user.brukernavn == kommentar.brukernavn %}
+                                        <small><a
+                                                href="{{ url_for('blog.slett_kommentar', kommentar_id = kommentar.id) }}"
+                                                class="font-weight-bold link-danger">Slett</a></small>
+                                    {% endif %}
+                                </div>
+                                <small>{{ kommentar.dato }}</small>
+                            </div>
+                            <div class="action d-flex justify-content-between mt-2 align-items-center">
+                                {{ kommentar.innhold }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% if current_user.is_authenticated %}
+                        <div class="card p-3 mt-2">
+                            <form method="POST">
+                                {{ form.csrf_token }}
+                                <div class="mb-3 form-floating">
+                                    {{ form.innhold(class_="form-control post-comment", placeholder="Leave a comment here") }}
+                                    {{ form.innhold.label }}
+                                </div>
+                                {{ form.submit(class_="btn btn-success") }}
+                            </form>
+                        </div>
+                    {% else %}
+                        <div class="text-center mt-3">
+                            <a href="{{ url_for('auth.login', next=innlegg.url) }}"
+                               class="link-success">Logg inn</a>
+                            eller
+                            <a href="{{ url_for('auth.register') }}" class="link-success">registrer deg</a>
+                            for å legge igjen en kommentar
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

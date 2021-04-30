@@ -15,6 +15,29 @@ KOMMENTARER = [
 def opprett_innlegg():
     innlegg = [
         {
+            "innlegg_tittel": "Innlegg med lang tekst",
+            "innlegg_innhold": """
+        <p>
+        As hermit crabs grow, they require larger shells. Since suitable intact gastropod shells are sometimes a limited resource, vigorous competition often occurs among hermit crabs for shells. The availability of empty shells at any given place depends on the relative abundance of gastropods and hermit crabs, matched for size. An equally important issue is the population of organisms that prey upon gastropods and leave the shells intact.[8] Hermit crabs kept together may fight or kill a competitor to gain access to the shell they favour. However, if the crabs vary significantly in size, the occurrence of fights over empty shells will decrease or remain nonexistent.[9] Hermit crabs with too-small shells cannot grow as fast as those with well-fitting shells, and are more likely to be eaten if they cannot retract completely into the shell.[10]
+        Several Hermit crabs on the beach at Amami Ōshima in Japan.
+        </p}
+        <br>
+        <p>
+        As the hermit crab grows in size, it must find a larger shell and abandon the previous one. Several hermit crab species, both terrestrial and marine, have been observed forming a vacancy chain to exchange shells.[9] When an individual crab finds a new empty shell it will leave its own shell and inspect the vacant shell for size. If the shell is found to be too large, the crab goes back to its own shell and then waits by the vacant shell for up to 8 hours. As new crabs arrive they also inspect the shell and, if it is too big, wait with the others, forming a group of up to 20 individuals, holding onto each other in a line from the largest to the smallest crab. As soon as a crab arrives that is the right size for the vacant shell and claims it, leaving its old shell vacant, then all the crabs in the queue swiftly exchange shells in sequence, each one moving up to the next size.[11] Hermit crabs often "gang up" on one of their species with what they perceive to be a better shell, and pry its shell away from it before competing for it until one takes it over.[12]
+        </p}
+        <br>
+        <p>
+        There are cases when seashells are not available and hermit crabs will use alternatives such as tin cans, custom-made shells, or any other types of debris, which often proves fatal to the hermit crabs (as they can climb into, but not out of, slippery plastic debris).[13] This can even create a chain reaction of fatality, because a dead hermit crab will release a signal to tell others that a shell is available, luring more hermit crabs to their deaths.
+        </p}
+        <br>
+        <p>
+        For some larger marine species, supporting one or more sea anemones on the shell can scare away predators. The sea anemone benefits, because it is in position to consume fragments of the hermit crab's meals. Other very close symbiotic relationships are known from encrusting bryozoans and hermit crabs forming bryoliths.[14] 
+        </p>
+       <br> 
+        <p> Tekst hentet fra wikipedia</p>
+        """
+        },
+        {
             "innlegg_tittel": "Heia bloggen!",
             "innlegg_innhold": """
             <h1>DTE-2509</h1>

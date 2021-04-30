@@ -45,19 +45,19 @@ def login():
 
         bruker = Bruker.get_user(form.username.data)
         if bruker is None or not bruker.check_password(form.password.data):
-            flash('Feil brukernavn og/eller passord', 'error')
+            flash('Feil brukernavn og/eller passord', 'danger')
             return render_template('login.html', form=form)
 
         login_user(bruker)
 
-        flash('Logged in successfully.')
+        flash('Logged in successfully.', 'success')
 
-        next = request.args.get('next')
-        if not is_safe_url(next):
+        next_url = request.args.get('next')
+        if not is_safe_url(next_url):
             return abort(400)
-
-        return redirect(next or url_for("hovedside.index"))
-    return render_template('login.html', form=form, title="Logg inn")
+        print(next_url)
+        return redirect(next_url or url_for("hovedside.index"))
+    return render_template('login.html', form=form, title="login")
 
 
 @router.route("/logout")

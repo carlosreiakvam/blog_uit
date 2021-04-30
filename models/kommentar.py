@@ -2,6 +2,8 @@ from typing import List
 from extensions import db
 from flask import abort
 
+from models.bruker import Bruker
+
 
 class Kommentar:
     def __init__(self,
@@ -15,6 +17,13 @@ class Kommentar:
         self.dato = dato
         self.brukernavn = brukernavn
         self.innlegg_id = innlegg_id
+        self._bruker = None
+
+    @property
+    def bruker(self) -> Bruker:
+        if not self._bruker:
+            self._bruker = Bruker.get_user(self.brukernavn)
+        return self._bruker
 
     @staticmethod
     def get_all(innlegg_id: int) -> List["Kommentar"]:
