@@ -1,4 +1,3 @@
-
 from flask import Blueprint, render_template, abort
 from models.innlegg import Innlegg
 from models.blog import Blog
@@ -21,5 +20,3 @@ def tag(tag_navn: str):
         return render_template('index.html',
                                innlegg=postswithtag)
     return abort(404)
-
-
