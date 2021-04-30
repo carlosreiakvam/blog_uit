@@ -1,8 +1,10 @@
 from datetime import datetime
 from typing import List
-from extensions import db
-from flask import abort, url_for
 
+from flask import abort, url_for
+from mysql.connector import Error
+
+from extensions import db
 from models.blog import Blog
 from models.bruker import Bruker
 from models.kommentar import Kommentar
@@ -152,7 +154,8 @@ class Innlegg:
             innlegg_treff,
             innlegg.blog_prefix,
             blog.blog_navn
-        from innlegg inner join blog on innlegg.blog_prefix = blog.blog_prefix where blog.blog_prefix = %s order by innlegg_dato  
+        from innlegg inner join blog on innlegg.blog_prefix = blog.blog_prefix 
+        where blog.blog_prefix = %s order by innlegg_dato  
         """
         db.cursor.execute(query, (blog_prefix,))
         result = [Innlegg(*x) for x in db.cursor.fetchall()]
@@ -168,13 +171,42 @@ class Innlegg:
 
         return Innlegg.get_one(db.cursor.lastrowid)
 
+    def update(self) -> "Innlegg":
+        query = """
+        update innlegg set innlegg_tittel = %s, innlegg_innhold = %s, innlegg_endret = CURRENT_TIMESTAMP
+        where innlegg_id = %s
+        """
+        db.cursor.execute(query, (self.innlegg_tittel, self.innlegg_innhold, self.innlegg_id))
+        db.connection.commit()
+
+        return Innlegg.get_one(self.innlegg_id)
+
     def delete(self):
         query = """
         delete from innlegg 
         where innlegg_id = %s
         """
-        db.cursor.execute(query, (self.innlegg_id,))
-        db.connection.commit()
+        delete_tags = """
+        delete from tagger
+        where innlegg_id = %s
+        """
+        delete_comments = """
+        delete from kommentarer
+        where innlegg_id = %s
+        """
+        delete_comment_log = """
+        delete from kommentar_logg
+        where innlegg_id = %s
+        """
+        try:
+            db.cursor.execute(delete_tags, (self.innlegg_id,))
+            db.cursor.execute(delete_comments, (self.innlegg_id,))
+            db.cursor.execute(delete_comment_log, (self.innlegg_id,))
+            db.cursor.execute(query, (self.innlegg_id,))
+            db.connection.commit()
+        except Error as err:
+            db.connection.rollback()
+            raise err
 
     def add_tag(self, tag_navn):
         tag = Tagger(tagnavn=tag_navn, innleggid=self.innlegg_id)
