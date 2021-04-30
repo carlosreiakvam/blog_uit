@@ -4,6 +4,7 @@ from os import abort
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from extensions import db
+from models.blog import Blog
 
 
 class Bruker:
@@ -31,6 +32,10 @@ class Bruker:
     @property
     def is_anonymous(self):
         return False
+
+    @property
+    def fullt_navn(self):
+        return f"{self.fornavn} {self.etternavn}"
 
     def get_id(self):
         return self.brukernavn
@@ -66,6 +71,24 @@ class Bruker:
         where bruker_navn = %s
         """
         db.cursor.execute(query, (username,))
+        result = db.cursor.fetchone()
+        if result:
+            result = Bruker(*result)
+        return result
+
+    @staticmethod
+    def get_user_for_blog(blog_prefix: str) -> "Bruker":
+        query = """
+        select brukere.bruker_navn,
+            bruker_epost,
+            bruker_opprettet,
+            bruker_fornavn,
+            bruker_etternavn
+        from brukere
+        join blog b on brukere.bruker_navn = b.bruker_navn
+        where b.blog_prefix = %s
+        """
+        db.cursor.execute(query, (blog_prefix,))
         result = db.cursor.fetchone()
         if result:
             result = Bruker(*result)

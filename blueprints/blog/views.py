@@ -1,18 +1,23 @@
+from flask import Blueprint, abort, flash, redirect, render_template, url_for
+from flask_login import current_user, login_required
 
-from flask import Blueprint, redirect, render_template, url_for, flash, abort
-
-from blueprints.blog.forms import InnleggForm
+from blueprints.blog.forms import InnleggForm, KommentarForm
 from models.blog import Blog
 from models.innlegg import Innlegg
+from models.kommentar import Kommentar
 from models.tagger import Tagger
-from flask_login import current_user, login_required
 
 router = Blueprint('blog', __name__, url_prefix="/blog")
 
 
-@router.route("/")
-def example():
-    return "hello from blog"
+@router.route("/<blog_prefix>")
+def blog(blog_prefix: str):
+    postswithtag = Innlegg.get_with_blog_prefix(blog_prefix)
+    blog = Blog.get_one(blog_prefix)
+    if postswithtag and len(postswithtag) > 0:
+        return render_template('blog.html', blog=blog,
+                               innlegg=postswithtag)
+    return abort(404)
 
 
 @router.route("/<blog_prefix>/new", methods=["GET", "POST"])
@@ -39,11 +44,27 @@ def nytt_innlegg(blog_prefix: str):
     return render_template("nytt_innlegg.html", form=form, blog_prefix=blog_prefix, available_tags=available_tags)
 
 
-@router.route("/<blog_prefix>")
-def blog(blog_prefix: str):
-    postswithtag = Innlegg.get_with_blog_prefix(blog_prefix)
-    blog = Blog.get_one(blog_prefix)
-    if postswithtag and len(postswithtag) > 0:
-        return render_template('blog.html', blog=blog,
-                               innlegg=postswithtag)
-    return abort(404)
+@router.route("/<blog_prefix>/<int:innlegg_id>", methods=["GET", "POST"])
+def vis_innlegg(blog_prefix: str, innlegg_id: int):
+    innlegg = Innlegg.get_one(innlegg_id)
+
+    if innlegg.blog_prefix != blog_prefix:
+        abort(404)
+
+    form = KommentarForm()
+    if form.validate_on_submit():
+        innlegg.add_kommentar(form.innhold.data, current_user.brukernavn)
+
+    return render_template("innlegg.html", innlegg=innlegg, form=form)
+
+
+@router.route("/slett_kommentar/<int:kommentar_id>")
+def slett_kommentar(kommentar_id: int):
+    kommentar = Kommentar.get_kommentar(kommentar_id)
+    innlegg = Innlegg.get_one(kommentar.innlegg_id)
+    if (kommentar.brukernavn == current_user.brukernavn) or (innlegg.bruker.brukernavn == current_user.brukernavn):
+        kommentar.delete_kommentar()
+        flash("Kommentar slettet!", "success")
+        return redirect(innlegg.url)
+    else:
+        abort(401)
