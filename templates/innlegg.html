@@ -10,8 +10,13 @@
         </h5>
         {% if current_user.brukernavn == innlegg.bruker.brukernavn %}
             <div class="d-flex flex-row justify-content-center mb-4">
-                <a href="#" class="font-weight-bold link-success mx-2">
+                <a href="{{ url_for('blog.rediger_innlegg',blog_prefix=innlegg.blog_prefix, innlegg_id=innlegg.innlegg_id ) }}"
+                   class="font-weight-bold link-success mx-2">
                     Rediger
+                </a>
+                <a href="{{ url_for('blog.slett_innlegg',blog_prefix=innlegg.blog_prefix, innlegg_id=innlegg.innlegg_id ) }}"
+                   class="font-weight-bold link-success mx-2">
+                    Slett
                 </a>
             </div>
         {% endif %}
@@ -66,4 +71,6 @@
             </div>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js') }}"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 {% endblock %}
