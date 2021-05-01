@@ -1,5 +1,8 @@
-from models.innlegg import Innlegg
 import random
+
+from flask import current_app
+
+from models.innlegg import Innlegg
 
 BLOGGER = ["tyt005", "jbi017", "hro047", "cre032"]
 TAGGER = ["Rosa", "Matlaging", "Kaker", "Duckface", "Sol", "Varme", "Eksamen", "Narvik", "UiT", "Programmering",
@@ -79,19 +82,19 @@ def opprett_innlegg():
             "innlegg_innhold": """
             <h1>DTE-2509</h1>
 
-            <p><img alt="" src="/vedlegg/c7719253eb944556a4954c7d9c83f512" style="height:73px; width:400px" /></p>
+            <p><img alt="" src="{}/vedlegg/c7719253eb944556a4954c7d9c83f512" style="height:73px; width:400px" /></p>
             
             <p>&nbsp;</p>
             
             <p>Datateknikk ved UiT er topp!</p>
             
             <p>&nbsp;</p>
-            """
+            """.format(current_app.config['URL_PREFIX'])
         },
         {
             "innlegg_tittel": "Heia igjen Bloggen!",
             "innlegg_innhold": """
-            <p><img alt="hei hei" src="/vedlegg/e59aaab51e73433dba83ab3f1b00b831" style="height:390px; width:694px" /></p>
+            <p><img alt="hei hei" src="{}/vedlegg/e59aaab51e73433dba83ab3f1b00b831" style="height:390px; width:694px" /></p>
 
             <p>Heia bloggen, se s&aring; fine bilder jeg fant p&aring; nettet</p>
             
@@ -104,7 +107,7 @@ def opprett_innlegg():
             <p><code>monospace font ogs&aring;</code></p>
             
             <p>&nbsp;</p>
-            """
+            """.format(current_app.config['URL_PREFIX'])
         },
         {
             "innlegg_tittel": "Hvor mye rosa er for mye rosa?",
