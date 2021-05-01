@@ -145,3 +145,4 @@ cython_debug/
 upload/*
 !upload/c7719253eb944556a4954c7d9c83f512
 !upload/e59aaab51e73433dba83ab3f1b00b831
+!static/ckeditor/plugins/codesnippet/lib
