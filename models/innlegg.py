@@ -125,6 +125,16 @@ class Innlegg:
         return result
 
     @staticmethod
+    def update_hit(innlegg_id: int):
+        query = """
+        update innlegg set innlegg_treff=innlegg_treff+1 where innlegg_id = (%s);
+        """
+        db.cursor.execute(query, (innlegg_id,))
+        db.connection.commit()
+
+
+
+    @staticmethod
     def get_with_tag(tag_navn: str) -> List["Innlegg"]:
         query = """
         select innlegg.innlegg_id,

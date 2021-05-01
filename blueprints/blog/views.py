@@ -51,6 +51,8 @@ def vis_innlegg(blog_prefix: str, innlegg_id: int):
     if innlegg.blog_prefix != blog_prefix:
         abort(404)
 
+    Innlegg.update_hit(innlegg_id)
+
     form = KommentarForm()
     if form.validate_on_submit():
         innlegg.add_kommentar(form.innhold.data, current_user.brukernavn)

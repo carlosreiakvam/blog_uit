@@ -5,6 +5,8 @@
         <h5 class="text-center mb-3">
             Postet den:
             <small class="text-muted">{{ innlegg.innlegg_dato }}</small>
+            Antall treff:
+            <small class="text-muted">{{ innlegg.innlegg_treff }}</small>
         </h5>
         {% if current_user.brukernavn == innlegg.bruker.brukernavn %}
             <div class="d-flex flex-row justify-content-center mb-4">
