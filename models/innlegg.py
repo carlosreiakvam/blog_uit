@@ -134,8 +134,6 @@ class Innlegg:
         db.cursor.execute(query, (innlegg_id,))
         db.connection.commit()
 
-
-
     @staticmethod
     def get_with_tag(tag_navn: str) -> List["Innlegg"]:
         query = """
@@ -147,7 +145,10 @@ class Innlegg:
             innlegg_treff,
             innlegg.blog_prefix,
             blog.blog_navn
-        from innlegg, blog, tagger where blog.blog_prefix = innlegg.blog_prefix and tagger.innlegg_id = innlegg.innlegg_id and tagger.tag_navn = %s order by innlegg_dato
+        from innlegg, blog, tagger 
+        where blog.blog_prefix = innlegg.blog_prefix 
+            and tagger.innlegg_id = innlegg.innlegg_id 
+            and tagger.tag_navn = %s order by innlegg_dato
         """
         db.cursor.execute(query, (tag_navn,))
         result = [Innlegg(*x) for x in db.cursor.fetchall()]
@@ -164,10 +165,32 @@ class Innlegg:
             innlegg_treff,
             innlegg.blog_prefix,
             blog.blog_navn
-        from innlegg inner join blog on innlegg.blog_prefix = blog.blog_prefix 
-        where blog.blog_prefix = %s order by innlegg_dato  
+        from innlegg 
+            inner join blog on innlegg.blog_prefix = blog.blog_prefix 
+        where blog.blog_prefix = %s 
+        order by innlegg_dato desc 
         """
         db.cursor.execute(query, (blog_prefix,))
+        result = [Innlegg(*x) for x in db.cursor.fetchall()]
+        return result
+
+    @staticmethod
+    def search(search_string: str) -> List["Innlegg"]:
+        query = """
+        select innlegg.innlegg_id,
+            innlegg_tittel,
+            innlegg_innhold,
+            innlegg_dato,
+            innlegg_endret,
+            innlegg_treff,
+            innlegg.blog_prefix,
+            blog.blog_navn
+        from innlegg 
+            inner join blog on innlegg.blog_prefix = blog.blog_prefix 
+        where MATCH(innlegg_innhold) against(%s IN NATURAL LANGUAGE MODE)
+           or MATCH(innlegg_tittel) against(%s IN NATURAL LANGUAGE MODE)
+        """
+        db.cursor.execute(query, (search_string, search_string))
         result = [Innlegg(*x) for x in db.cursor.fetchall()]
         return result
 

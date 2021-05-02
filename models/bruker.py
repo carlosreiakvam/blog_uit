@@ -20,6 +20,7 @@ class Bruker:
         self.opprettet = opprettet
         self.fornavn = fornavn
         self.etternavn = etternavn
+        self._blog = None
 
     @property
     def is_active(self):
@@ -36,6 +37,12 @@ class Bruker:
     @property
     def fullt_navn(self):
         return f"{self.fornavn} {self.etternavn}"
+
+    @property
+    def blog(self):
+        if not self._blog:
+            self._blog = Blog.get_blog_for_user(self.brukernavn)
+        return self._blog
 
     def get_id(self):
         return self.brukernavn

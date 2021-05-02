@@ -14,11 +14,9 @@
                    class="font-weight-bold link-success mx-2">
                     Rediger
                 </a>
-                <a href="{{ url_for('blog.slett_innlegg',blog_prefix=innlegg.blog_prefix, innlegg_id=innlegg.innlegg_id ) }}"
-                   class="font-weight-bold link-success mx-2">
-                    Slett
-                </a>
+                 <a href="#" class="font-weight-bold link-success mx-2" onclick="deleteQuestion()">Slett</a>
             </div>
+
         {% endif %}
         {{ innlegg.innlegg_innhold | safe }}
         <hr/>
@@ -30,9 +28,16 @@
                         <div class="card p-3 mt-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex flex-row align-items-center">
-                                    <span class="font-weight-bold text-primary">
+                                    {% if kommentar.bruker.blog %}
+                                        <a href="{{ url_for('blog.blog', blog_prefix=kommentar.bruker.blog.blog_prefix) }}"
+                                           class="font-weight-bold link-primary">
+                                            {{ kommentar.bruker.fullt_navn }}
+                                        </a>
+                                    {% else %}
+                                        <span class="font-weight-bold text-primary">
                                         {{ kommentar.bruker.fullt_navn }}
-                                    </span>
+                                         </span>
+                                    {% endif %}
                                     <span>&nbsp;</span>
                                     {% if current_user.brukernavn == innlegg.blog.blog_bruker_navn or current_user.brukernavn == kommentar.brukernavn %}
                                         <small><a
@@ -73,4 +78,15 @@
     </div>
     <script src="{{ url_for('static', filename='ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js') }}"></script>
     <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+
+    function deleteQuestion() {
+    var r = confirm("Vil du virkelig slette innlegget?");
+    if (r == true) {
+     window.location.href = "{{ url_for('blog.slett_innlegg',blog_prefix=innlegg.blog_prefix, innlegg_id=innlegg.innlegg_id ) }}";
+    }
+    }
+    </script>
+
+
 {% endblock %}
