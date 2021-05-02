@@ -10,7 +10,7 @@ from models.tagger import Tagger
 router = Blueprint('blog', __name__, url_prefix="/blog")
 
 
-@router.route("/listall")
+@router.route("/list_all")
 def listallblogs():
     allblogs = Blog.get_all()
 
