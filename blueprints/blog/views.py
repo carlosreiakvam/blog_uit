@@ -1,7 +1,7 @@
 from flask import Blueprint, abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
-from blueprints.blog.forms import InnleggForm, KommentarForm
+from blueprints.blog.forms import InnleggForm, KommentarForm, BloggForm
 from models.blog import Blog
 from models.innlegg import Innlegg
 from models.kommentar import Kommentar
@@ -18,6 +18,14 @@ def blog(blog_prefix: str):
         return render_template('blog.html', blog=blog,
                                innlegg=postswithtag)
     return abort(404)
+
+
+# @router.route("/new_blog", methods=["GET", "POST"])
+@router.route("/new_blog")
+@login_required
+def ny_blogg():
+    form = BloggForm()
+    return render_template('ny_blogg.html', form=form)
 
 
 @router.route("/<blog_prefix>/new", methods=["GET", "POST"])
