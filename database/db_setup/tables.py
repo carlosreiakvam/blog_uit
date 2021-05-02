@@ -46,6 +46,8 @@ CREATE TABLE `innlegg` (
   PRIMARY KEY (`innlegg_id`),
   UNIQUE INDEX `innlegg_id_UNIQUE` (`innlegg_id` ASC),
   INDEX `fk_innlegg_blog1_idx` (`blog_prefix` ASC),
+  FULLTEXT INDEX `idx_innlegg_tittel_FULLTEXT` (`innlegg_tittel`),
+  FULLTEXT INDEX `idx_innlegg_innhold_FULLTEXT` (`innlegg_innhold`),
   CONSTRAINT `fk_innlegg_blog1`
     FOREIGN KEY (`blog_prefix`)
     REFERENCES `blog` (`blog_prefix`)
