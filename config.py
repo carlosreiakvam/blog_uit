@@ -1,6 +1,5 @@
-import os
 import binascii
-
+import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -17,6 +16,7 @@ class Config:
     CKEDITOR_ENABLE_CSRF = True
     CKEDITOR_HEIGHT = 400
     CKEDITOR_SERVE_LOCAL = True
+    URL_PREFIX = os.environ.get("URL_PREFIX", "")
 
     @staticmethod
     def init_app(app):

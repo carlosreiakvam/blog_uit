@@ -164,8 +164,7 @@ class Innlegg:
             innlegg_treff,
             innlegg.blog_prefix,
             blog.blog_navn
-        from innlegg inner join blog on innlegg.blog_prefix = blog.blog_prefix 
-        where blog.blog_prefix = %s order by innlegg_dato  
+        from innlegg inner join blog on innlegg.blog_prefix = blog.blog_prefix where blog.blog_prefix = %s order by innlegg_dato desc 
         """
         db.cursor.execute(query, (blog_prefix,))
         result = [Innlegg(*x) for x in db.cursor.fetchall()]
