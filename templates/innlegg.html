@@ -30,10 +30,17 @@
                         <div class="card p-3 mt-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex flex-row align-items-center">
-                                    <span class="font-weight-bold text-primary">
+                                    {% if kommentar.bruker.blog %}
+                                        <a href="{{ url_for('blog.blog', blog_prefix=kommentar.bruker.blog.blog_prefix) }}"
+                                           class="font-weight-bold link-primary">
+                                            {{ kommentar.bruker.fullt_navn }}
+                                        </a>
+                                    {% else %}
+                                        <span class="font-weight-bold text-primary">
                                         {{ kommentar.bruker.fullt_navn }}
-                                    </span>
-                                    <span>&nbsp;</span>
+                                         </span>
+                                    {% endif %}
+
                                     {% if current_user.brukernavn == innlegg.blog.blog_bruker_navn or current_user.brukernavn == kommentar.brukernavn %}
                                         <small><a
                                                 href="{{ url_for('blog.slett_kommentar', kommentar_id = kommentar.id) }}"
