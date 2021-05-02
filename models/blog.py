@@ -32,7 +32,6 @@ class Blog:
         result = [Blog(*x) for x in db.cursor.fetchall()]
         return result
 
-
     @staticmethod
     def get_one(blog_prefix: str) -> "Blog":
         query = """
@@ -49,6 +48,21 @@ class Blog:
             return Blog(*result)
         else:
             abort(404)
+
+    @staticmethod
+    def get_blog_for_user(username: str) -> "Blog":
+        query = """
+        select blog_prefix,
+               blog_navn,
+               bruker_navn,
+               blog_opprettet
+        from blog where bruker_navn = %s
+        """
+        db.cursor.execute(query, (username,))
+        result = db.cursor.fetchone()
+        if result:
+            result = Blog(*result)
+        return result
 
     def insert_blog(self) -> "Blog":
         query = """
