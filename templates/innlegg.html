@@ -40,7 +40,7 @@
                                         {{ kommentar.bruker.fullt_navn }}
                                          </span>
                                     {% endif %}
-
+                                    <span>&nbsp;</span>
                                     {% if current_user.brukernavn == innlegg.blog.blog_bruker_navn or current_user.brukernavn == kommentar.brukernavn %}
                                         <small><a
                                                 href="{{ url_for('blog.slett_kommentar', kommentar_id = kommentar.id) }}"
