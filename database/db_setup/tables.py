@@ -23,9 +23,8 @@ CREATE TABLE `blog` (
   `blog_navn` VARCHAR(45) NOT NULL,
   `bruker_navn` VARCHAR(24) NOT NULL,
   `blog_opprettet` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`blog_prefix`),
-  UNIQUE INDEX `blog_navn_UNIQUE` (`blog_prefix` ASC),
-  INDEX `fk_blog_brukere_idx` (`bruker_navn` ASC),
+  PRIMARY KEY (`blog_prefix`, `bruker_navn`),
+  UNIQUE INDEX `blog_prefix_UNIQUE` (`blog_prefix` ASC),
   CONSTRAINT `fk_blog_brukere`
     FOREIGN KEY (`bruker_navn`)
     REFERENCES `brukere` (`bruker_navn`)
