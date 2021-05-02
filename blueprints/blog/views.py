@@ -10,6 +10,14 @@ from models.tagger import Tagger
 router = Blueprint('blog', __name__, url_prefix="/blog")
 
 
+@router.route("/listall")
+def listallblogs():
+    allblogs = Blog.get_all()
+
+    return render_template('bloglist.html', allblogs=allblogs)
+
+
+
 @router.route("/<blog_prefix>")
 def blog(blog_prefix: str):
     postswithtag = Innlegg.get_with_blog_prefix(blog_prefix)
