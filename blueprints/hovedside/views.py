@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, abort, render_template, request
+
 from models.innlegg import Innlegg
-from models.blog import Blog
 
 router = Blueprint('hovedside', __name__)
 
@@ -20,3 +20,10 @@ def tag(tag_navn: str):
         return render_template('index.html',
                                innlegg=postswithtag)
     return abort(404)
+
+
+@router.route("/search", methods=["GET", "POST"])
+def search():
+    search_string = request.form.get("search-string", "")
+    search_result = Innlegg.search(search_string)
+    return render_template("index.html", innlegg=search_result)
