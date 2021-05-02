@@ -14,11 +14,9 @@
                    class="font-weight-bold link-success mx-2">
                     Rediger
                 </a>
-                <a href="{{ url_for('blog.slett_innlegg',blog_prefix=innlegg.blog_prefix, innlegg_id=innlegg.innlegg_id ) }}"
-                   class="font-weight-bold link-success mx-2">
-                    Slett
-                </a>
+                 <a class="font-weight-bold link-success mx-2" onclick="deleteQuestion()">Slett</a>
             </div>
+
         {% endif %}
         {{ innlegg.innlegg_innhold | safe }}
         <hr/>
@@ -80,4 +78,15 @@
     </div>
     <script src="{{ url_for('static', filename='ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js') }}"></script>
     <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+
+    function deleteQuestion() {
+    var r = confirm("Vil du virkelig slette innlegget?");
+    if (r == true) {
+     window.location.href = "{{ url_for('blog.slett_innlegg',blog_prefix=innlegg.blog_prefix, innlegg_id=innlegg.innlegg_id ) }}";
+    }
+    }
+    </script>
+
+
 {% endblock %}
