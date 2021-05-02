@@ -1,8 +1,10 @@
 from datetime import datetime
 from typing import List
-from extensions import db
-from flask import abort, url_for
 
+from flask import abort, url_for
+from mysql.connector import Error
+
+from extensions import db
 from models.blog import Blog
 from models.bruker import Bruker
 from models.kommentar import Kommentar
@@ -125,6 +127,16 @@ class Innlegg:
         return result
 
     @staticmethod
+    def update_hit(innlegg_id: int):
+        query = """
+        update innlegg set innlegg_treff=innlegg_treff+1 where innlegg_id = (%s);
+        """
+        db.cursor.execute(query, (innlegg_id,))
+        db.connection.commit()
+
+
+
+    @staticmethod
     def get_with_tag(tag_navn: str) -> List["Innlegg"]:
         query = """
         select innlegg.innlegg_id,
@@ -168,13 +180,42 @@ class Innlegg:
 
         return Innlegg.get_one(db.cursor.lastrowid)
 
+    def update(self) -> "Innlegg":
+        query = """
+        update innlegg set innlegg_tittel = %s, innlegg_innhold = %s, innlegg_endret = CURRENT_TIMESTAMP
+        where innlegg_id = %s
+        """
+        db.cursor.execute(query, (self.innlegg_tittel, self.innlegg_innhold, self.innlegg_id))
+        db.connection.commit()
+
+        return Innlegg.get_one(self.innlegg_id)
+
     def delete(self):
         query = """
         delete from innlegg 
         where innlegg_id = %s
         """
-        db.cursor.execute(query, (self.innlegg_id,))
-        db.connection.commit()
+        delete_tags = """
+        delete from tagger
+        where innlegg_id = %s
+        """
+        delete_comments = """
+        delete from kommentarer
+        where innlegg_id = %s
+        """
+        delete_comment_log = """
+        delete from kommentar_logg
+        where innlegg_id = %s
+        """
+        try:
+            db.cursor.execute(delete_tags, (self.innlegg_id,))
+            db.cursor.execute(delete_comments, (self.innlegg_id,))
+            db.cursor.execute(delete_comment_log, (self.innlegg_id,))
+            db.cursor.execute(query, (self.innlegg_id,))
+            db.connection.commit()
+        except Error as err:
+            db.connection.rollback()
+            raise err
 
     def add_tag(self, tag_navn):
         tag = Tagger(tagnavn=tag_navn, innleggid=self.innlegg_id)
