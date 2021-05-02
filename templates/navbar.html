@@ -36,8 +36,9 @@
                 </div>
             </div>
             <div class="search">
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Søk" aria-label="Search">
+                <form class="d-flex" method="post" action="{{ url_for('hovedside.search') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <input class="form-control me-2" type="search" placeholder="Søk" name="search-string" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Søk</button>
                 </form>
             </div>
@@ -59,8 +60,12 @@
                         </ul>
                     </div>
                 {% else %}
-                    <a href="{{ url_for('auth.login') }}"><button class="btn btn-outline-success" type="submit" id="login">Logg inn</button></a>
-                    <a href="{{ url_for('auth.register') }}"><button class="btn btn-outline-success" type="submit" id="register">Ny bruker</button></a>
+                    <a href="{{ url_for('auth.login') }}">
+                        <button class="btn btn-outline-success" type="submit" id="login">Logg inn</button>
+                    </a>
+                    <a href="{{ url_for('auth.register') }}">
+                        <button class="btn btn-outline-success" type="submit" id="register">Ny bruker</button>
+                    </a>
                 {% endif %}
             </div>
         </div>
