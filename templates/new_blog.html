@@ -5,7 +5,7 @@
         <div class="row align-items-center">
             <div class="card p-3 m-auto">
                 <h2>Ny blogg</h2>
-                <form method="POST" action="{{ url_for('blog.nytt_innlegg', blog_prefix=blog_prefix) }}"
+                <form method="POST" action="{{ url_for('blog.new_blog') }}"
                       class="post-edit-form">
                     {{ form.csrf_token }}
                     <div class="mb-3">

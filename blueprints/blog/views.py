@@ -17,7 +17,6 @@ def listallblogs():
     return render_template('bloglist.html', allblogs=allblogs)
 
 
-
 @router.route("/<blog_prefix>")
 def blog(blog_prefix: str):
     postswithtag = Innlegg.get_with_blog_prefix(blog_prefix)
@@ -28,12 +27,16 @@ def blog(blog_prefix: str):
     return abort(404)
 
 
-# @router.route("/new_blog", methods=["GET", "POST"])
-@router.route("/new_blog")
+@router.route("/new_blog", methods=["GET", "POST"])
 @login_required
-def ny_blogg():
+def new_blog():
     form = BloggForm()
-    return render_template('ny_blogg.html', form=form)
+    if form.validate_on_submit():
+        blog = Blog(blog_prefix=form.blogg_navn, blog_navn=form.blogg_navn, bruker_navn=current_user.brukernavn)
+        blog.insert_blog()
+        return redirect(url_for("hovedside.index"))
+
+    return render_template('new_blog.html', form=form)
 
 
 @router.route("/<blog_prefix>/new", methods=["GET", "POST"])
