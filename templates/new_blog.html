@@ -4,13 +4,15 @@
     <div class="container mt-5">
         <div class="row align-items-center">
             <div class="card p-3 m-auto">
-                <form method="POST" action="{{ url_for('blog.new_blog') }}"
+                <form method="POST" action="{{ url_for('blog.blog', blog_prefix=blog_prefix) }}"
                       class="post-edit-form">
                     {{ form.csrf_token }}
+
                     <div class="mb-3">
                         {{ form.blogg_navn.label(class_="form-label") }}
                         {{ form.blogg_navn(class_="form-control") }}
                     </div>
+
                     <div class="row justify-content-end">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <input type="button" value="Tilbake" onclick="history.back()"
