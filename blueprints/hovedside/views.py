@@ -31,7 +31,7 @@ def search():
                            no_result_message="Søket ga desverre ingen resultater...")
 
 @router.route("/tag/list_all")
-def listallblogs():
+def listalltags():
     alltags = Tagger.get_all_available_tags()
 
     return render_template('taglist.html', alltags=alltags)
