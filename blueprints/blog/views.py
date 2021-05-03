@@ -30,11 +30,9 @@ def blog(blog_prefix: str):
 @router.route("/new_blog", methods=["GET", "POST"])
 @login_required
 def new_blog():
-
     form = BloggForm()
     if form.validate_on_submit():
-        blog_prefix = current_user.brukernavn
-        blog = Blog(blog_navn=form.blogg_navn.data, blog_prefix=blog_prefix, bruker_navn=current_user.brukernavn)
+        blog = Blog(blog_navn=form.blogg_navn.data, blog_prefix=form.blogg_prefix, bruker_navn=current_user.brukernavn)
         blog.insert_blog()
         return redirect(url_for("hovedside.index"))
 
