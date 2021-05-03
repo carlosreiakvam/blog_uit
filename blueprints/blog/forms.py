@@ -39,6 +39,11 @@ class TagListField(Field):
                 yield item
 
 
+class BloggForm(FlaskForm):
+    blog_navn = StringField("Bloggnavn", validators=[Length(min=2, max=45)])
+    blog_prefix = StringField("Blogg-prefix", validators=[Length(min=2, max=45)])
+
+
 class InnleggForm(FlaskForm):
     tittel = StringField("Tittel", validators=[Length(min=2, max=50)])
     innhold = CKEditorField("Innhold", validators=[DataRequired()])
