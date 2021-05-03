@@ -50,6 +50,14 @@
     margin: auto;
 }
 
+.card-body span{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border: none;
+}
+
 .frontpage-card {
     max-height: 20em;
     overflow: hidden;
