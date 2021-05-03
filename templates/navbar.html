@@ -1,88 +1,70 @@
-<div class="navbar">
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light w-100 shadow-sm">
-        <div class="container-fluid">
-            <a class="navbar-brand" href={{ url_for('hovedside.index') }}><h2 class="text-success"><img
-                    src="{{ url_for('static', filename='img/duckface.png') }}" height="40px"/> Le blöög</h2></a>
-            <div class="linkmenu">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mob-navbar"
-                        aria-label="Toggle">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="mob-navbar">
-                    <ul class="navbar-nav mb-2 mb-lg-0 mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ url_for('blog.listallblogs') }}">Alle blogger</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ url_for('hovedside.listalltags') }}">Alle tagger</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Dropdown 1</a></li>
-                                <li><a class="dropdown-item" href="#">Dropdown 2</a></li>
-                                <li><a class="dropdown-item" href="#">Dropdown 3</a></li>
-                                <li>
-                                    <hr class="dropdown-divider"/>
-                                </li>
-                                <li><a class="dropdown-item" href="#">Dropdown 4</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link 3</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="search">
-                <form class="d-flex" method="post" action="{{ url_for('hovedside.search') }}">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <input class="form-control me-2" type="search" placeholder="Søk" name="search-string"
-                           aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Søk</button>
-                </form>
-            </div>
-            <div class="loginregister">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-sm justify-content-between p-0">
+    <div class="container-fluid g-0">
+        <a class="navbar-brand text-success ms-3 fs-3" href={{ url_for('hovedside.index') }}><img
+                src="{{ url_for('static', filename='img/duckface.png') }}" height="30"/> Le blöög</a>
+
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mob-navbar"
+                aria-label="Toggle">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mob-navbar">
+            <form class="d-flex ms-auto w-25" method="post" action="{{ url_for('hovedside.search') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input class="form-control me-2" type="search" placeholder="Søk" name="search-string"
+                       aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Søk</button>
+            </form>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('blog.listallblogs') }}">Alle blogger</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('hovedside.listalltags') }}">Alle tagger</a>
+                </li>
+
                 {% if current_user.is_authenticated %}
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                            {{ current_user.brukernavn }}
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            {% if current_user.blog %}
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="btn btn-outline-success dropdown-toggle mx-3" href="#" role="button"
+                               id="dropdownMenuLink"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ current_user.brukernavn }}
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item"
                                        href="{{ url_for('blog.nytt_innlegg', blog_prefix = current_user.blog.blog_prefix) }}">
                                     Nytt Innlegg</a>
                                 </li>
-                            {% endif %}
 
-                            {% if current_user.blog %}
-                                <li><a class="dropdown-item"
-                                       href="{{ url_for('blog.blog',blog_prefix=current_user.blog.blog_prefix) }}">
-                                    Min blogg</a>
-                                </li>
-                            {% else %}
-                                <li><a class="dropdown-item" href="{{ url_for('blog.new_blog') }}">Opprett blogg</a>
-                                </li>
-                            {% endif %}
+                                {% if current_user.blog %}
+                                    <li><a class="dropdown-item"
+                                           href="{{ url_for('blog.blog',blog_prefix=current_user.blog.blog_prefix) }}">
+                                        Min blogg</a>
+                                    </li>
+                                {% else %}
+                                    <li><a class="dropdown-item" href="{{ url_for('blog.new_blog') }}">Opprett
+                                        blogg</a>
+                                    </li>
+                                {% endif %}
 
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logg ut</a></li>
-                        </ul>
-                    </div>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logg ut</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 {% else %}
-                    <a href="{{ url_for('auth.login') }}">
-                        <button class="btn btn-outline-success" type="submit" id="login">Logg inn</button>
-                    </a>
-                    <a href="{{ url_for('auth.register') }}">
-                        <button class="btn btn-outline-success" type="submit" id="register">Ny bruker</button>
-                    </a>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-success mx-1" href="{{ url_for('auth.register') }}">Ny bruker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-success mx-1" href="{{ url_for('auth.login') }}">Logg inn</a>
+                    </li>
                 {% endif %}
-            </div>
+            </ul>
         </div>
-    </nav>
-</div>
+    </div>
+</nav>
