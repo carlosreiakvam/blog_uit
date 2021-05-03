@@ -54,7 +54,9 @@
                             <li><a class="dropdown-item" href="#">...</a></li>
 
                             {% if current_user.blog %}
-                                <li><a class="dropdown-item" href="{{ url_for('hovedside.index') }}">Min blogg</a>
+                                <li><a class="dropdown-item"
+                                       href="{{ url_for('blog.blog',blog_prefix=current_user.blog_prefix) }}">
+                                    Min blogg</a>
                                 </li>
                             {% else %}
                                 <li><a class="dropdown-item" href="{{ url_for('blog.new_blog') }}">Opprett blogg</a>
