@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
 {% block body %}
     <div class="row d-flex justify-content-center">
-        <div class="col-md-3">
-            <div class="h2 text-success">Alle tagger</div>
-            <div class="tagger pb-4">
+        <div class="col-md-4">
+            <h2 class="display-1 text-center mb-4 text-success">Alle tagger</h2>
+            <div class="tagger pb-4 text-center">
                 {% for _tag in alltags %}
-                    <a href="{{ url_for('hovedside.tag', tag_navn=_tag) }}"
-                       class="badge border border-success text-success rounded-pill bg-white px-2 py-1 mr-3 text-decoration-none">{{ _tag }}</a>
+                    {% set size = _tag.antallbruk | int %}
+                    {% if size > 10 %}
+                    <a href="{{ url_for('hovedside.tag', tag_navn=_tag.tagnavn) }}"
+                       class="badge border border-success text-success rounded-pill bg-white px-2 py-1 my-3 me-2 text-decoration-none"
+                       style="font-size: {{ _tag.antallbruk }}px; margin: 3px; vertical-align: middle">{{ _tag.tagnavn }}</a>
+                    {% else %}
+                    <a href="{{ url_for('hovedside.tag', tag_navn=_tag.tagnavn) }}"
+                       class="badge border border-success text-success rounded-pill bg-white px-2 py-1 my-3 me-2 text-decoration-none"
+                       style="font-size: 10px; margin: 3px; vertical-align: middle" >{{ _tag.tagnavn }}</a>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
