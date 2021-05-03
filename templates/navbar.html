@@ -53,7 +53,7 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="#">...</a></li>
 
-                            {% if blog_not_created %}
+                            {% if current_user.blog %}
                                 <li><a class="dropdown-item" href="{{ url_for('hovedside.index') }}">Min blogg</a>
                                 </li>
                             {% else %}
