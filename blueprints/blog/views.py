@@ -33,9 +33,8 @@ def new_blog():
     form = BloggForm()
     if form.validate_on_submit():
         blog_prefix = current_user.brukernavn
-        # TODO: Generer blogprefix som fungerer som url
-        blogster = Blog(blog_navn=form.blogg_navn.data, blog_prefix=blog_prefix, bruker_navn=current_user.brukernavn)
-        blogster.insert_blog()
+        blog = Blog(blog_navn=form.blogg_navn.data, blog_prefix=blog_prefix, bruker_navn=current_user.brukernavn)
+        blog.insert_blog()
         return redirect(url_for("hovedside.index"))
 
     return render_template('new_blog.html', form=form)
