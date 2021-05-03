@@ -8,6 +8,7 @@ class Tagger:
                  innleggid: int = None):
         self.tagnavn = tagnavn
         self.innleggid = innleggid
+        self._antallbruk = None
 
     def add_tag(self):
         query = """
@@ -18,6 +19,11 @@ class Tagger:
         db.connection.commit()
         return self.get_tags(db.cursor.lastrowid)
 
+    @property
+    def tagusage(self) -> List["Tagger"]:
+        if not self._antallbruk:
+            self._antallbruk = Tagger.tag_usage()
+        return self._antallbruk
 
     @staticmethod
     def tag_usage() -> List["Tagger"]:
