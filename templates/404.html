@@ -1,7 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Page Not Found{% endblock %}
+{#Deler av template hentet fra https://bootsnipp.com/snippets/VgBP3#}
 {% block body %}
-  <h1>Page Not Found - 404</h1>
-  <p> Siden du prøvde å finne eksisterer dessverre ikke...
-  <p><a href="{{ url_for('hovedside.index') }}">Gå til hovedsiden heller, mye hyggeligere der! </a>
+    <div class="four_o_four container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <span class="display-1 d-block">404</span>
+                <img src="{{ url_for('static', filename='img/deadduck.png') }}" height="200px"/>
+                <div class="mb-4 lead">Siden du prøvde å finne eksisterer dessverre ikke...</div>
+                <a class="text-decoration-none" href="{{ url_for('hovedside.index') }}">
+                    Gå til hovedsiden heller, mye hyggeligere der! </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

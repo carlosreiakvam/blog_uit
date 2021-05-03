@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row align-items-center">
+            <div class="card p-3 m-auto">
+                <form method="POST" action="{{ url_for('blog.new_blog') }}"
+                      class="post-edit-form">
+                    {{ form.csrf_token }}
+
+                    <div class="mb-3">
+                        {{ form.blog_navn.label(class_="form-label") }}
+                        {{ form.blog_navn(class_="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.blog_prefix.label(class_="form-label") }}
+                        {{ form.blog_prefix(class_="form-control") }}
+                    </div>
+
+                    <div class="row justify-content-end">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <input type="button" value="Tilbake" onclick="history.back()"
+                                   class="btn btn-outline-success">
+                            <input type="submit" value="Opprett blogg" class="btn btn-success">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

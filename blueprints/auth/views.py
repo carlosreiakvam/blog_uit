@@ -35,7 +35,7 @@ def register():
         for error_message in error_messages:
             flash(f"{error_message}", "danger")
 
-    return render_template('register.html', form=form)
+    return render_template('register.html', form=form, title="Ny bruker")
 
 
 @router.route('/login', methods=['GET', 'POST'])
