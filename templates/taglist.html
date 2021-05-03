@@ -11,18 +11,4 @@
             </div>
         </div>
     </div>
-{% block body %}
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-3">
-            <h2 class="display-2 text-success my-4 text-center">Alle tagger</h2>
-            <div class="tagger mt-5 row ">
-                {% for _tag in alltags %}
-                    <div class="{% if loop.index <= 3 %}col-3{% else %}col{% endif %} justify-items-center text-center">
-                        <a href="{{ url_for('hovedside.tag', tag_navn=_tag) }}"
-                           class="badge border border-success text-success rounded-pill bg-white px-3 py-2 mr-3 my-2 fs-6 text-decoration-none flex-item">{{ _tag }}</a>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
 {% endblock %}
