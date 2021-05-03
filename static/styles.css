@@ -50,6 +50,15 @@
     margin: auto;
 }
 
+.card-body span{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border: 0.5px lightgrey;
+    border-top-style: solid;
+}
+
 .frontpage-card {
     max-height: 20em;
     min-height: 20em;
@@ -61,7 +70,7 @@
     height: 100%;
     position: absolute;
     left: 0;
-    top: 30%;
+    top: 23%;
     background: linear-gradient(to bottom, transparent 5%, #f7f7f7 65%);
 }
 
