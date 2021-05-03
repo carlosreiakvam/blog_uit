@@ -18,6 +18,19 @@ class Tagger:
         db.connection.commit()
         return self.get_tags(db.cursor.lastrowid)
 
+
+    @staticmethod
+    def tag_usage() -> List["Tagger"]:
+        query = """
+        select tag_navn,
+        Round(((COUNT(innlegg.innlegg_id)/(SELECT COUNT(innlegg.innlegg_id) from innlegg))*50),0),
+         from innlegg, tagger
+         where innlegg.innlegg_id = tagger.innlegg_id GROUP BY tagger.tag_navn
+         """
+        db.cursor.execute(query)
+        result = [Tagger(*tagger) for tagger in db.cursor.fetchall()]
+        return result
+
     @staticmethod
     def get_tags(innlegg_id) -> List["Tagger"]:
         query = """

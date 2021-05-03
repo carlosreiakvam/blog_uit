@@ -14,9 +14,8 @@
                    class="font-weight-bold link-success mx-2">
                     Rediger
                 </a>
-                 <a href="#" class="font-weight-bold link-success mx-2" onclick="deleteQuestion()">Slett</a>
+                <a href="#" class="font-weight-bold link-success mx-2" onclick="deleteQuestion()">Slett</a>
             </div>
-
         {% endif %}
         {{ innlegg.innlegg_innhold | safe }}
         <hr/>
@@ -80,12 +79,12 @@
     <script>hljs.initHighlightingOnLoad();</script>
     <script>
 
-    function deleteQuestion() {
-    var r = confirm("Vil du virkelig slette innlegget?");
-    if (r == true) {
-     window.location.href = "{{ url_for('blog.slett_innlegg',blog_prefix=innlegg.blog_prefix, innlegg_id=innlegg.innlegg_id ) }}";
-    }
-    }
+        function deleteQuestion() {
+            var r = confirm("Vil du virkelig slette innlegget?");
+            if (r == true) {
+                window.location.href = "{{ url_for('blog.slett_innlegg',blog_prefix=innlegg.blog_prefix, innlegg_id=innlegg.innlegg_id ) }}";
+            }
+        }
     </script>
 
 
