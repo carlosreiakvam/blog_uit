@@ -51,7 +51,10 @@
                             {{ current_user.brukernavn }}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">...</a></li>
+                            <li><a class="dropdown-item"
+                                   href="{{ url_for('blog.nytt_innlegg', blog_prefix = current_user.blog.blog_prefix) }}">
+                                Nytt Innlegg</a>
+                            </li>
 
                             {% if current_user.blog %}
                                 <li><a class="dropdown-item"
