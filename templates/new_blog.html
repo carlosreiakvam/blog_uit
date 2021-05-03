@@ -9,8 +9,12 @@
                     {{ form.csrf_token }}
 
                     <div class="mb-3">
-                        {{ form.blogg_navn.label(class_="form-label") }}
-                        {{ form.blogg_navn(class_="form-control") }}
+                        {{ form.blog_navn.label(class_="form-label") }}
+                        {{ form.blog_navn(class_="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.blog_prefix.label(class_="form-label") }}
+                        {{ form.blog_prefix(class_="form-control") }}
                     </div>
 
                     <div class="row justify-content-end">
