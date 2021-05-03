@@ -30,10 +30,6 @@ def blog(blog_prefix: str):
 @router.route("/new_blog", methods=["GET", "POST"])
 @login_required
 def new_blog():
-    # TODO: Send til egen blogg eller hovedside hvis blogg eksisterer
-    # blog = Blog.get_blog_for_user(current_user.brukernavn)
-    # if blog.blog_prefix:
-    #     return redirect(url_for('hovedside.index'))
 
     form = BloggForm()
     if form.validate_on_submit():
