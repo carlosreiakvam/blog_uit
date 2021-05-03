@@ -55,7 +55,7 @@
 
                             {% if current_user.blog %}
                                 <li><a class="dropdown-item"
-                                       href="{{ url_for('blog.blog',blog_prefix=current_user.blog_prefix) }}">
+                                       href="{{ url_for('blog.blog',blog_prefix=current_user.blog.blog_prefix) }}">
                                     Min blogg</a>
                                 </li>
                             {% else %}
