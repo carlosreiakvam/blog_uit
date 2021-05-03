@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <div class="cards">
+    <div class="container">
         {% if innlegg | length > 0 %}
             {% for _innlegg in innlegg %}
                 <div class="card text-dark bg-light mb-3 frontpage-card">
