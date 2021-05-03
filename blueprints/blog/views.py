@@ -1,7 +1,7 @@
 from flask import Blueprint, abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
-from blueprints.blog.forms import InnleggForm, KommentarForm
+from blueprints.blog.forms import InnleggForm, KommentarForm, BloggForm
 from models.blog import Blog
 from models.innlegg import Innlegg
 from models.kommentar import Kommentar
@@ -17,7 +17,6 @@ def listallblogs():
     return render_template('bloglist.html', allblogs=allblogs)
 
 
-
 @router.route("/<blog_prefix>")
 def blog(blog_prefix: str):
     postswithtag = Innlegg.get_with_blog_prefix(blog_prefix)
@@ -26,6 +25,19 @@ def blog(blog_prefix: str):
         return render_template('blog.html', blog=blog,
                                innlegg=postswithtag)
     return abort(404)
+
+
+@router.route("/new_blog", methods=["GET", "POST"])
+@login_required
+def new_blog():
+    form = BloggForm()
+    if form.validate_on_submit():
+        blog = Blog(blog_navn=form.blog_navn.data, blog_prefix=form.blog_prefix.data,
+                    bruker_navn=current_user.brukernavn)
+        blog.insert_blog()
+        return redirect(url_for("hovedside.index"))
+
+    return render_template('new_blog.html', form=form)
 
 
 @router.route("/<blog_prefix>/new", methods=["GET", "POST"])
