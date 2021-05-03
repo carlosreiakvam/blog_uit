@@ -32,7 +32,8 @@ def blog(blog_prefix: str):
 def new_blog():
     form = BloggForm()
     if form.validate_on_submit():
-        blog = Blog(blog_navn=form.blogg_navn.data, blog_prefix=form.blogg_prefix, bruker_navn=current_user.brukernavn)
+        blog = Blog(blog_navn=form.blog_navn.data, blog_prefix=form.blog_prefix.data,
+                    bruker_navn=current_user.brukernavn)
         blog.insert_blog()
         return redirect(url_for("hovedside.index"))
 
