@@ -148,7 +148,7 @@ class Innlegg:
         from innlegg, blog, tagger 
         where blog.blog_prefix = innlegg.blog_prefix 
             and tagger.innlegg_id = innlegg.innlegg_id 
-            and tagger.tag_navn = %s order by innlegg_dato
+            and tagger.tag_navn = %s order by innlegg_dato desc
         """
         db.cursor.execute(query, (tag_navn,))
         result = [Innlegg(*x) for x in db.cursor.fetchall()]
