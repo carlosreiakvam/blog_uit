@@ -40,7 +40,8 @@ class TagListField(Field):
 
 
 class BloggForm(FlaskForm):
-    blogg_navn = StringField("Bloggnavn", validators=[Length(min=2, max=50)])
+    blogg_navn = StringField("Bloggnavn", validators=[Length(min=2, max=45)])
+    blogg_prefix = StringField("Blogg-prefix", validators=[Length(min=2, max=45)])
 
 
 class InnleggForm(FlaskForm):
