@@ -52,6 +52,7 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="#">...</a></li>
+
                             {% if blog_not_created %}
                                 <li><a class="dropdown-item" href="{{ url_for('hovedside.index') }}">Min blogg</a>
                                 </li>
@@ -59,6 +60,7 @@
                                 <li><a class="dropdown-item" href="{{ url_for('blog.new_blog') }}">Opprett blogg</a>
                                 </li>
                             {% endif %}
+
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

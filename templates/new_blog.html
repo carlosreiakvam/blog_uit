@@ -4,7 +4,7 @@
     <div class="container mt-5">
         <div class="row align-items-center">
             <div class="card p-3 m-auto">
-                <form method="POST" action="{{ url_for('blog.blog', blog_prefix=blog_prefix) }}"
+                <form method="POST" action="{{ url_for('blog.new_blog') }}"
                       class="post-edit-form">
                     {{ form.csrf_token }}
 
