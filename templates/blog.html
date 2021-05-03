@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
 {% block body %}
-    {% if innlegg %}
-
         <div class="h2 text-success blog_header">  {{ blog.blog_navn }}  </div>
+        {% if innlegg %}
         <div class="cards">
         {% for _innlegg in innlegg %}
             <div class="card text-dark bg-light mb-3 frontpage-card">
@@ -26,6 +25,11 @@
                 </div>
             </div>
         {% endfor %}
+    {% else %}
+        <div class="text-success px-2 py-1 mr-3 text-decoration-none">
+    ....denne bloggen har for tiden ingen innlegg. Prøv igjen senere!
+        </div>
     {% endif %}
 </div>
+
 {% endblock %}
