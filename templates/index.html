@@ -24,7 +24,7 @@
                         </div>
                         <h5 class="card-title">{{ _innlegg.innlegg_tittel }}</h5>
                         <p class="card-text">{{ _innlegg.innlegg_innhold | safe }}
-                            <span class="card text-dark bg-light">Treff: {{ _innlegg.innlegg_treff }} | Kommentarer: {{ _innlegg.kommentarer | length }}</span></p>
+                            <span class="card-header text-success text-center">Treff: {{ _innlegg.innlegg_treff }} | Kommentarer: {{ _innlegg.kommentarer | length }}</span></p>
                     </div>
                 </div>
             {% endfor %}
