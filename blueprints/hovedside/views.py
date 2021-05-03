@@ -1,6 +1,7 @@
 from flask import Blueprint, abort, render_template, request
 
 from models.innlegg import Innlegg
+from models.tagger import Tagger
 
 router = Blueprint('hovedside', __name__)
 
@@ -28,3 +29,9 @@ def search():
     search_result = Innlegg.search(search_string)
     return render_template("index.html", innlegg=search_result,
                            no_result_message="Søket ga desverre ingen resultater...")
+
+@router.route("/tag/list_all")
+def listalltags():
+    alltags = Tagger.get_all_available_tags()
+
+    return render_template('taglist.html', alltags=alltags)
