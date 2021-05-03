@@ -5,10 +5,11 @@ from extensions import db
 class Tagger:
     def __init__(self,
                  tagnavn: str = None,
-                 innleggid: int = None):
+                 innleggid: int = None,
+                 antallbruk: int = None):
         self.tagnavn = tagnavn
         self.innleggid = innleggid
-        self._antallbruk = None
+        self.antallbruk = antallbruk
 
     def add_tag(self):
         query = """
@@ -19,17 +20,12 @@ class Tagger:
         db.connection.commit()
         return self.get_tags(db.cursor.lastrowid)
 
-    @property
-    def tagusage(self) -> List["Tagger"]:
-        if not self._antallbruk:
-            self._antallbruk = Tagger.tag_usage()
-        return self._antallbruk
-
     @staticmethod
     def tag_usage() -> List["Tagger"]:
         query = """
         select tag_navn,
-        Round(((COUNT(innlegg.innlegg_id)/(SELECT COUNT(innlegg.innlegg_id) from innlegg))*50),0),
+        innlegg.innlegg_id,
+        Round(((COUNT(innlegg.innlegg_id)/(SELECT COUNT(innlegg.innlegg_id) from innlegg))*150),0) as antallbruk
          from innlegg, tagger
          where innlegg.innlegg_id = tagger.innlegg_id GROUP BY tagger.tag_navn
          """
@@ -38,7 +34,7 @@ class Tagger:
         return result
 
     @staticmethod
-    def get_tags(innlegg_id) -> List["Tagger"]:
+    def get_tags(innlegg_id) -> List[str]:
         query = """
         select tag_navn
         from tagger

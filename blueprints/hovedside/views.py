@@ -32,6 +32,6 @@ def search():
 
 @router.route("/tag/list_all")
 def listalltags():
-    alltags = Tagger.get_all_available_tags()
+    alltags = Tagger.tag_usage()
 
     return render_template('taglist.html', alltags=alltags)
