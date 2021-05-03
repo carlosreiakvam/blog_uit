@@ -60,7 +60,17 @@
 
 .frontpage-card {
     max-height: 20em;
+    min-height: 20em;
     overflow: hidden;
+}
+.frontpage-card:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    background: linear-gradient(to bottom, transparent 5%, #f7f7f7 65%);
 }
 
 .tagger {
@@ -112,4 +122,8 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 .alert-container {
     width: 20%;
     z-index: 10;
+}
+
+.four_o_four {
+    margin-top: 100px;
 }
