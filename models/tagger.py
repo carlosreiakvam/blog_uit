@@ -27,7 +27,7 @@ class Tagger:
         innlegg.innlegg_id,
         Round(((COUNT(innlegg.innlegg_id)/(SELECT COUNT(innlegg.innlegg_id) from innlegg))*150),0) as antallbruk
          from innlegg, tagger
-         where innlegg.innlegg_id = tagger.innlegg_id GROUP BY tagger.tag_navn
+         where innlegg.innlegg_id = tagger.innlegg_id GROUP BY tagger.tag_navn order by RAND()
          """
         db.cursor.execute(query)
         result = [Tagger(*tagger) for tagger in db.cursor.fetchall()]
