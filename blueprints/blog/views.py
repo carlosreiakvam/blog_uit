@@ -24,6 +24,9 @@ def blog(blog_prefix: str):
     if postswithtag and len(postswithtag) > 0:
         return render_template('blog.html', blog=blog,
                                innlegg=postswithtag)
+    if len(postswithtag) == 0:
+        return render_template('blog.html', blog=blog, innlegg=None)
+
     return abort(404)
 
 

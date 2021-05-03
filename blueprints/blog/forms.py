@@ -1,7 +1,7 @@
 from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
 from wtforms import Field, StringField, SubmitField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, ValidationError
 from wtforms.widgets import TextArea, TextInput
 
 
@@ -39,6 +39,18 @@ class TagListField(Field):
                 yield item
 
 
+def ItemLength(min_length=-1, max_length=-1):
+    message = f"Taggene må være mellom {min_length} og {max_length} karakterer"
+
+    def _length(form, field):
+        for i in field.data:
+            l = len(i)
+            if l < min_length or max_length != -1 and l > max_length:
+                raise ValidationError(message)
+
+    return _length
+
+
 class BloggForm(FlaskForm):
     blog_navn = StringField("Bloggnavn", validators=[Length(min=2, max=45)])
     blog_prefix = StringField("Blogg-prefix", validators=[Length(min=2, max=45)])
@@ -47,7 +59,8 @@ class BloggForm(FlaskForm):
 class InnleggForm(FlaskForm):
     tittel = StringField("Tittel", validators=[Length(min=2, max=50)])
     innhold = CKEditorField("Innhold", validators=[DataRequired()])
-    tagger = TagListField("Tagger", validators=[Length(max=8, message="You can only use up to 8 tags.")])
+    tagger = TagListField("Tagger", validators=[Length(max=8, message="You can only use up to 8 tags."),
+                                                ItemLength(min_length=2, max_length=45)])
 
 
 class KommentarForm(FlaskForm):
