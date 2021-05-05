@@ -45,9 +45,9 @@ class Blog:
         db.cursor.execute(query, (blog_prefix,))
         result = db.cursor.fetchone()
         if result:
-            return Blog(*result)
-        else:
-            abort(404)
+            result = Blog(*result)
+
+        return result
 
     @staticmethod
     def get_blog_for_user(username: str) -> "Blog":
