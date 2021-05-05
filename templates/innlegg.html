@@ -28,7 +28,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex flex-row align-items-center">
                                     {% if kommentar.bruker.blog %}
-                                        <a href="{{ url_for('blog.blog', blog_prefix=kommentar.bruker.blog.blog_prefix) }}"
+                                        <a href="{{ url_for('blog.show_blog', blog_prefix=kommentar.bruker.blog.blog_prefix) }}"
                                            class="font-weight-bold link-primary">
                                             {{ kommentar.bruker.fullt_navn }}
                                         </a>

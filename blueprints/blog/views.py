@@ -11,20 +11,20 @@ router = Blueprint('blog', __name__, url_prefix="/blog")
 
 
 @router.route("/list_all")
-def listallblogs():
-    allblogs = Blog.get_all()
+def list_all_blogs():
+    all_blogs = Blog.get_all()
 
-    return render_template('bloglist.html', allblogs=allblogs)
+    return render_template('bloglist.html', allblogs=all_blogs)
 
 
 @router.route("/<blog_prefix>")
-def blog(blog_prefix: str):
-    postswithtag = Innlegg.get_with_blog_prefix(blog_prefix)
+def show_blog(blog_prefix: str):
+    posts_with_tag = Innlegg.get_with_blog_prefix(blog_prefix)
     blog = Blog.get_one(blog_prefix)
-    if postswithtag and len(postswithtag) > 0:
+    if posts_with_tag and len(posts_with_tag) > 0:
         return render_template('blog.html', blog=blog,
-                               innlegg=postswithtag)
-    if len(postswithtag) == 0:
+                               innlegg=posts_with_tag)
+    if len(posts_with_tag) == 0:
         return render_template('blog.html', blog=blog, innlegg=None)
 
     return abort(404)
