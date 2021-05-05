@@ -2,11 +2,16 @@
 {% block body %}
     <div class="container">
         <h1 class="display-1 mt-5 mb-3 text-center">{{ innlegg.innlegg_tittel }}</h1>
-        <h5 class="text-center mb-3">
-            Postet den:
+            <h5 class="text-center mb-3">
+            Skrevet av:
+            <small class="text-muted">{{ innlegg.blog.blog_bruker_navn }}</small>
+            på:
+            <small class="text-muted">{{ innlegg.blog.blog_navn }}</small>
+            <h6 class="text-center mb-3">
             <small class="text-muted">{{ innlegg.innlegg_dato }}</small>
-            Antall treff:
+            antall treff:
             <small class="text-muted">{{ innlegg.innlegg_treff }}</small>
+            </h6>
         </h5>
         {% if current_user.brukernavn == innlegg.bruker.brukernavn %}
             <div class="d-flex flex-row justify-content-center mb-4">
