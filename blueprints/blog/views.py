@@ -21,13 +21,15 @@ def list_all_blogs():
 def show_blog(blog_prefix: str):
     posts_with_tag = Innlegg.get_with_blog_prefix(blog_prefix)
     blog = Blog.get_one(blog_prefix)
+    if not blog:
+        abort(404)
     if posts_with_tag and len(posts_with_tag) > 0:
         return render_template('blog.html', blog=blog,
                                innlegg=posts_with_tag)
     if len(posts_with_tag) == 0:
         return render_template('blog.html', blog=blog, innlegg=None)
 
-    return abort(404)
+    abort(404)
 
 
 @router.route("/new_blog", methods=["GET", "POST"])
