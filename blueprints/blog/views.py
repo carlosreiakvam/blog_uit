@@ -35,6 +35,10 @@ def show_blog(blog_prefix: str):
 def new_blog():
     form = BloggForm()
     if form.validate_on_submit():
+        blog = Blog.get_one(form.blog_prefix.data)
+        if blog:
+            flash("Dette prefikset er allerede tatt", 'danger')
+            return render_template('new_blog.html', form=form)
         blog = Blog(blog_navn=form.blog_navn.data, blog_prefix=form.blog_prefix.data,
                     bruker_navn=current_user.brukernavn)
         blog.insert_blog()
