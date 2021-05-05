@@ -53,7 +53,7 @@ def ItemLength(min_length=-1, max_length=-1):
 
 class BloggForm(FlaskForm):
     blog_navn = StringField("Bloggnavn", validators=[Length(min=2, max=45)])
-    blog_prefix = StringField("Blogg-prefix", validators=[Length(min=2, max=45)])
+    blog_prefix = StringField("Blogg URL", validators=[Length(min=2, max=45)])
 
 
 class InnleggForm(FlaskForm):

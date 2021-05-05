@@ -17,9 +17,9 @@ def index():
 
 @router.route("/tag/<tag_navn>")
 def tag(tag_navn: str):
-    postswithtag = Innlegg.get_with_tag(tag_navn)
+    posts_with_tag = Innlegg.get_with_tag(tag_navn)
     return render_template('index.html',
-                           innlegg=postswithtag,
+                           innlegg=posts_with_tag,
                            no_result_message="Denne taggen har ingen innlegg...")
 
 
@@ -31,7 +31,7 @@ def search():
                            no_result_message="Søket ga desverre ingen resultater...")
 
 @router.route("/tag/list_all")
-def listalltags():
-    alltags = Tagger.tag_usage()
+def list_all_tags():
+    all_tags = Tagger.tag_usage()
 
-    return render_template('taglist.html', alltags=alltags)
+    return render_template('taglist.html', alltags=all_tags)

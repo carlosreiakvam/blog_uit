@@ -3,7 +3,7 @@
 {% block body %}
     <div class="container mt-5">
         <div class="row align-items-center">
-            <div class="card p-3 m-auto">
+            <div class="card p-3 m-auto col-lg-6">
                 <form method="POST" action="{{ url_for('blog.new_blog') }}"
                       class="post-edit-form">
                     {{ form.csrf_token }}
@@ -12,8 +12,10 @@
                         {{ form.blog_navn.label(class_="form-label") }}
                         {{ form.blog_navn(class_="form-control") }}
                     </div>
-                    <div class="mb-3">
-                        {{ form.blog_prefix.label(class_="form-label") }}
+
+                    {{ form.blog_prefix.label(class_="form-label") }}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">{{ request.url | replace('new_blog', '') }}</span>
                         {{ form.blog_prefix(class_="form-control") }}
                     </div>
 

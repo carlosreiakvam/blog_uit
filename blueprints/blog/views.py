@@ -11,23 +11,25 @@ router = Blueprint('blog', __name__, url_prefix="/blog")
 
 
 @router.route("/list_all")
-def listallblogs():
-    allblogs = Blog.get_all()
+def list_all_blogs():
+    all_blogs = Blog.get_all()
 
-    return render_template('bloglist.html', allblogs=allblogs)
+    return render_template('bloglist.html', allblogs=all_blogs)
 
 
 @router.route("/<blog_prefix>")
-def blog(blog_prefix: str):
-    postswithtag = Innlegg.get_with_blog_prefix(blog_prefix)
+def show_blog(blog_prefix: str):
+    posts_with_tag = Innlegg.get_with_blog_prefix(blog_prefix)
     blog = Blog.get_one(blog_prefix)
-    if postswithtag and len(postswithtag) > 0:
+    if not blog:
+        abort(404)
+    if posts_with_tag and len(posts_with_tag) > 0:
         return render_template('blog.html', blog=blog,
-                               innlegg=postswithtag)
-    if len(postswithtag) == 0:
+                               innlegg=posts_with_tag)
+    if len(posts_with_tag) == 0:
         return render_template('blog.html', blog=blog, innlegg=None)
 
-    return abort(404)
+    abort(404)
 
 
 @router.route("/new_blog", methods=["GET", "POST"])
@@ -35,6 +37,10 @@ def blog(blog_prefix: str):
 def new_blog():
     form = BloggForm()
     if form.validate_on_submit():
+        blog = Blog.get_one(form.blog_prefix.data)
+        if blog:
+            flash("Dette prefikset er allerede tatt", 'danger')
+            return render_template('new_blog.html', form=form)
         blog = Blog(blog_navn=form.blog_navn.data, blog_prefix=form.blog_prefix.data,
                     bruker_navn=current_user.brukernavn)
         blog.insert_blog()
