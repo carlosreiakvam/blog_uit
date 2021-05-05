@@ -17,10 +17,12 @@
             </form>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url_for('blog.list_all_blogs') }}">Alle blogger</a>
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('blog.list_all_blogs') }}">Alle
+                        blogger</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url_for('hovedside.list_all_tags') }}">Alle tagger</a>
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('hovedside.list_all_tags') }}">Alle
+                        tagger</a>
                 </li>
 
                 {% if current_user.is_authenticated %}
@@ -33,10 +35,12 @@
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item"
-                                       href="{{ url_for('blog.nytt_innlegg', blog_prefix = current_user.blog.blog_prefix) }}">
-                                    Nytt Innlegg</a>
-                                </li>
+                                {% if current_user.blog %}
+                                    <li><a class="dropdown-item"
+                                           href="{{ url_for('blog.nytt_innlegg', blog_prefix = current_user.blog.blog_prefix) }}">
+                                        Nytt Innlegg</a>
+                                    </li>
+                                {% endif %}
 
                                 {% if current_user.blog %}
                                     <li><a class="dropdown-item"
