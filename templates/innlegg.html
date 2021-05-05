@@ -2,11 +2,12 @@
 {% block body %}
     <div class="container">
         <h1 class="display-1 mt-5 mb-3 text-center">{{ innlegg.innlegg_tittel }}</h1>
-            <h5 class="text-center mb-3">
+        <h5 class="text-center mb-3">
             Skrevet av:
             <small class="text-muted">{{ innlegg.bruker.fullt_navn }}</small>
             på:
-            <small class="text-muted"><a href="{{ url_for('blog.show_blog', blog_prefix=innlegg.blog.blog_prefix) }}">{{ innlegg.blog.blog_navn }}</a></small>
+            <small class="text-muted"><a
+                    href="{{ url_for('blog.show_blog', blog_prefix=innlegg.blog.blog_prefix) }}">{{ innlegg.blog.blog_navn }}</a></small>
             |
             <small class="text-muted">{{ innlegg.innlegg_dato }}</small>
             antall treff:
