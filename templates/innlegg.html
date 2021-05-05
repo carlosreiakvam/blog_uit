@@ -2,17 +2,18 @@
 {% block body %}
     <div class="container">
         <h1 class="display-1 mt-5 mb-3 text-center">{{ innlegg.innlegg_tittel }}</h1>
-        <h5 class="text-center mb-3">
+        <h5 class="text-center">
             Skrevet av:
             <small class="text-muted">{{ innlegg.bruker.fullt_navn }}</small>
             på:
             <small class="text-muted"><a
                     href="{{ url_for('blog.show_blog', blog_prefix=innlegg.blog.blog_prefix) }}">{{ innlegg.blog.blog_navn }}</a></small>
-            |
+        </h5>
+        <h6 class="text-center mb-4">
             <small class="text-muted">{{ innlegg.innlegg_dato }}</small>
             antall treff:
             <small class="text-muted">{{ innlegg.innlegg_treff }}</small>
-        </h5>
+        </h6>
         {% if current_user.brukernavn == innlegg.bruker.brukernavn %}
             <div class="d-flex flex-row justify-content-center mb-4">
                 <a href="{{ url_for('blog.rediger_innlegg',blog_prefix=innlegg.blog_prefix, innlegg_id=innlegg.innlegg_id ) }}"
