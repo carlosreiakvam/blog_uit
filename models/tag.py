@@ -13,7 +13,7 @@ class Tagger:
 
     def add_tag(self):
         query = """
-        insert into tagger(tag_navn, innlegg_id)
+        insert into tag(tag_navn, innlegg_id)
         values (%s, %s)
         """
         db.cursor.execute(query, (self.tagnavn, self.innleggid))
@@ -26,8 +26,8 @@ class Tagger:
         select tag_navn,
         innlegg.innlegg_id,
         Round(((COUNT(innlegg.innlegg_id)/(SELECT COUNT(innlegg.innlegg_id) from innlegg))*150),0) as antallbruk
-         from innlegg, tagger
-         where innlegg.innlegg_id = tagger.innlegg_id GROUP BY tagger.tag_navn order by RAND()
+         from innlegg, tag
+         where innlegg.innlegg_id = tag.innlegg_id GROUP BY tag.tag_navn order by RAND()
          """
         db.cursor.execute(query)
         result = [Tagger(*tagger) for tagger in db.cursor.fetchall()]
@@ -37,7 +37,7 @@ class Tagger:
     def get_tags(innlegg_id) -> List[str]:
         query = """
         select tag_navn
-        from tagger
+        from tag
         where innlegg_id = %s
         """
         db.cursor.execute(query, (innlegg_id,))
@@ -46,7 +46,7 @@ class Tagger:
 
     def delete_tag(self):
         query = """
-        delete from tagger
+        delete from tag
         where tag_navn = %s and innlegg_id = %s"""
         db.cursor.execute(query, (self.tagnavn, self.innleggid))
         db.connection.commit()
@@ -54,7 +54,7 @@ class Tagger:
     @staticmethod
     def get_all_available_tags() -> List[str]:
         query = """
-        select distinct tag_navn from tagger 
+        select distinct tag_navn from tag 
         """
         db.cursor.execute(query)
         result = [x[0] for x in db.cursor.fetchall()]
@@ -63,9 +63,9 @@ class Tagger:
     @staticmethod
     def get_all_available_tags_not_used_in_post(innlegg_id: int) -> List[str]:
         query = """
-            select distinct tag_navn from tagger
+            select distinct tag_navn from tag
             where tag_navn not in (
-                select tag_navn from tagger where innlegg_id = %s
+                select tag_navn from tag where innlegg_id = %s
             )
             """
         db.cursor.execute(query, (innlegg_id,))
