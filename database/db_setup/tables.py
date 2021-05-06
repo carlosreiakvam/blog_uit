@@ -4,8 +4,8 @@ from flask import current_app
 
 TABLES = {}
 
-TABLES["brukere"] = """
-CREATE TABLE `brukere` (
+TABLES["bruker"] = """
+CREATE TABLE `bruker` (
   `bruker_navn` VARCHAR(24) NOT NULL,
   `bruker_epost` VARCHAR(45) NOT NULL,
   `bruker_passord_hash` VARCHAR(100) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE `blog` (
   UNIQUE INDEX `blog_prefix_UNIQUE` (`blog_prefix` ASC),
   CONSTRAINT `fk_blog_brukere`
     FOREIGN KEY (`bruker_navn`)
-    REFERENCES `brukere` (`bruker_navn`)
+    REFERENCES `bruker` (`bruker_navn`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -55,23 +55,23 @@ CREATE TABLE `innlegg` (
 ENGINE = InnoDB
 """
 
-TABLES["kommentarer"] = """
-CREATE TABLE `kommentarer` (
+TABLES["kommentar"] = """
+CREATE TABLE `kommentar` (
   `kommentar_id` INT NOT NULL AUTO_INCREMENT,
   `kommentar_innhold` TINYTEXT NULL,
   `kommentar_dato` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `bruker_navn` VARCHAR(24) NOT NULL,
   `innlegg_id` INT NOT NULL,
   PRIMARY KEY (`kommentar_id`, `bruker_navn`, `innlegg_id`),
-  INDEX `fk_kommentarer_brukere1_idx` (`bruker_navn` ASC),
-  INDEX `fk_kommentarer_innlegg1_idx` (`innlegg_id` ASC),
+  INDEX `fk_kommentar_brukere1_idx` (`bruker_navn` ASC),
+  INDEX `fk_kommentar_innlegg1_idx` (`innlegg_id` ASC),
   UNIQUE INDEX `kommentar_id_UNIQUE` (`kommentar_id` ASC),
-  CONSTRAINT `fk_kommentarer_brukere1`
+  CONSTRAINT `fk_kommentar_brukere1`
     FOREIGN KEY (`bruker_navn`)
     REFERENCES `brukere` (`bruker_navn`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_kommentarer_innlegg1`
+  CONSTRAINT `fk_kommentar_innlegg1`
     FOREIGN KEY (`innlegg_id`)
     REFERENCES `innlegg` (`innlegg_id`)
     ON DELETE NO ACTION
@@ -79,13 +79,13 @@ CREATE TABLE `kommentarer` (
 ENGINE = InnoDB
 """
 
-TABLES["tagger"] = """
-CREATE TABLE `tagger` (
+TABLES["tag"] = """
+CREATE TABLE `tag` (
   `tag_navn` VARCHAR(45) NOT NULL,
   `innlegg_id` INT NOT NULL,
   PRIMARY KEY (`innlegg_id`, `tag_navn`),
-  INDEX `fk_tagger_innlegg1_idx` (`innlegg_id` ASC),
-  CONSTRAINT `fk_tagger_innlegg1`
+  INDEX `fk_tag_innlegg1_idx` (`innlegg_id` ASC),
+  CONSTRAINT `fk_tag_innlegg1`
     FOREIGN KEY (`innlegg_id`)
     REFERENCES `innlegg` (`innlegg_id`)
     ON DELETE NO ACTION
@@ -154,7 +154,7 @@ def create_tables():
 def drop_tables():
     cursor = db.connection.cursor()
     cursor.execute("USE {}".format(current_app.config['DATABASE_NAME']))
-    tables = ["vedlegg", "kommentar_logg", "tagger", "kommentarer", "innlegg", "blog", "brukere"]
+    tables = ["vedlegg", "kommentar_logg", "tag", "kommentar", "innlegg", "blog", "bruker"]
     for table_name in tables:
         try:
             print(f"Dropping table {table_name}: ", end="")
