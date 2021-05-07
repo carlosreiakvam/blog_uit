@@ -68,7 +68,7 @@ CREATE TABLE `kommentar` (
   UNIQUE INDEX `kommentar_id_UNIQUE` (`kommentar_id` ASC),
   CONSTRAINT `fk_kommentar_brukere1`
     FOREIGN KEY (`bruker_navn`)
-    REFERENCES `brukere` (`bruker_navn`)
+    REFERENCES `bruker` (`bruker_navn`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_kommentar_innlegg1`
@@ -106,7 +106,7 @@ CREATE TABLE `kommentar_logg` (
   INDEX `fk_kommentarer_innlegg1_idx` (`innlegg_id` ASC),
   CONSTRAINT `fk_kommentarer_brukere10`
     FOREIGN KEY (`bruker_navn`)
-    REFERENCES `brukere` (`bruker_navn`)
+    REFERENCES `bruker` (`bruker_navn`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_kommentarer_innlegg10`
@@ -126,7 +126,7 @@ CREATE TABLE `vedlegg` (
   UNIQUE INDEX `vedlegg_id_UNIQUE` (`vedlegg_id` ASC),
   CONSTRAINT `fk_vedlegg_brukere1`
     FOREIGN KEY (`bruker_navn`)
-    REFERENCES `brukere` (`bruker_navn`)
+    REFERENCES `bruker` (`bruker_navn`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
