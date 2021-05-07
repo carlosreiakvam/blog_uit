@@ -25,7 +25,7 @@ CREATE TABLE `blog` (
   `blog_opprettet` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`blog_prefix`, `bruker_navn`),
   UNIQUE INDEX `blog_prefix_UNIQUE` (`blog_prefix` ASC),
-  CONSTRAINT `fk_blog_brukere`
+  CONSTRAINT `fk_blog_bruker`
     FOREIGN KEY (`bruker_navn`)
     REFERENCES `bruker` (`bruker_navn`)
     ON DELETE NO ACTION
@@ -63,10 +63,10 @@ CREATE TABLE `kommentar` (
   `bruker_navn` VARCHAR(24) NOT NULL,
   `innlegg_id` INT NOT NULL,
   PRIMARY KEY (`kommentar_id`, `bruker_navn`, `innlegg_id`),
-  INDEX `fk_kommentar_brukere1_idx` (`bruker_navn` ASC),
+  INDEX `fk_kommentar_bruker1_idx` (`bruker_navn` ASC),
   INDEX `fk_kommentar_innlegg1_idx` (`innlegg_id` ASC),
   UNIQUE INDEX `kommentar_id_UNIQUE` (`kommentar_id` ASC),
-  CONSTRAINT `fk_kommentar_brukere1`
+  CONSTRAINT `fk_kommentar_bruker1`
     FOREIGN KEY (`bruker_navn`)
     REFERENCES `bruker` (`bruker_navn`)
     ON DELETE NO ACTION
@@ -102,9 +102,9 @@ CREATE TABLE `kommentar_logg` (
   `innlegg_id` INT NOT NULL,
   `slettet_dato` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`kommentar_id`, `bruker_navn`, `innlegg_id`),
-  INDEX `fk_kommentarer_brukere1_idx` (`bruker_navn` ASC),
+  INDEX `fk_kommentarer_bruker1_idx` (`bruker_navn` ASC),
   INDEX `fk_kommentarer_innlegg1_idx` (`innlegg_id` ASC),
-  CONSTRAINT `fk_kommentarer_brukere10`
+  CONSTRAINT `fk_kommentarer_bruker10`
     FOREIGN KEY (`bruker_navn`)
     REFERENCES `bruker` (`bruker_navn`)
     ON DELETE NO ACTION
@@ -124,7 +124,7 @@ CREATE TABLE `vedlegg` (
   `bruker_navn` VARCHAR(24) NOT NULL,
   PRIMARY KEY (`vedlegg_id`, `bruker_navn`),
   UNIQUE INDEX `vedlegg_id_UNIQUE` (`vedlegg_id` ASC),
-  CONSTRAINT `fk_vedlegg_brukere1`
+  CONSTRAINT `fk_vedlegg_bruker1`
     FOREIGN KEY (`bruker_navn`)
     REFERENCES `bruker` (`bruker_navn`)
     ON DELETE NO ACTION
@@ -154,7 +154,8 @@ def create_tables():
 def drop_tables():
     cursor = db.connection.cursor()
     cursor.execute("USE {}".format(current_app.config['DATABASE_NAME']))
-    tables = ["vedlegg", "kommentar_logg", "tag", "kommentar", "innlegg", "blog", "bruker"]
+    tables = ["vedlegg", "kommentar_logg", "tag", "kommentar", "innlegg", "blog", "bruker", "brukere", "kommentarer",
+              "tagger"]
     for table_name in tables:
         try:
             print(f"Dropping table {table_name}: ", end="")
