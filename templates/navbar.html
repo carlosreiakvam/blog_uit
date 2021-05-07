@@ -65,7 +65,7 @@
                         <a class="btn btn-outline-success mx-1" href="{{ url_for('auth.register') }}">Ny bruker</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-success mx-1" href="{{ url_for('auth.login') }}">Logg inn</a>
+                        <a class="btn btn-outline-success mx-1" href="{{ url_for('auth.login', next=request.url) }}">Logg inn</a>
                     </li>
                 {% endif %}
             </ul>
