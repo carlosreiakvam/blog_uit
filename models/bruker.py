@@ -56,7 +56,7 @@ class Bruker:
     def _get_password(self) -> str:
         query = """
         select bruker_passord_hash
-        from brukere
+        from bruker
         where bruker_navn = %s
         """
         db.cursor.execute(query, (self.brukernavn,))
@@ -74,7 +74,7 @@ class Bruker:
             bruker_opprettet,
             bruker_fornavn,
             bruker_etternavn
-        from brukere
+        from bruker
         where bruker_navn = %s
         """
         db.cursor.execute(query, (username,))
@@ -86,13 +86,13 @@ class Bruker:
     @staticmethod
     def get_user_for_blog(blog_prefix: str) -> "Bruker":
         query = """
-        select brukere.bruker_navn,
+        select bruker.bruker_navn,
             bruker_epost,
             bruker_opprettet,
             bruker_fornavn,
             bruker_etternavn
-        from brukere
-        join blog b on brukere.bruker_navn = b.bruker_navn
+        from bruker
+        join blog b on bruker.bruker_navn = b.bruker_navn
         where b.blog_prefix = %s
         """
         db.cursor.execute(query, (blog_prefix,))
@@ -103,7 +103,7 @@ class Bruker:
 
     def insert_user(self) -> "Bruker":
         query = """
-        insert into brukere(bruker_navn,
+        insert into bruker(bruker_navn,
             bruker_epost,
             bruker_passord_hash,
             bruker_fornavn,

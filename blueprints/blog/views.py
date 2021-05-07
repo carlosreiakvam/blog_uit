@@ -5,7 +5,7 @@ from blueprints.blog.forms import InnleggForm, KommentarForm, BloggForm
 from models.blog import Blog
 from models.innlegg import Innlegg
 from models.kommentar import Kommentar
-from models.tagger import Tagger
+from models.tag import Tagger
 
 router = Blueprint('blog', __name__, url_prefix="/blog")
 
