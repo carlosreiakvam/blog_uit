@@ -40,4 +40,4 @@ def list_all_tags():
 def most_hit_posts():
     most_hits = Innlegg.get_ten_most_hits()
 
-    return render_template('index.html.html', mosthits=most_hits)
+    return render_template('index.html', innlegg=most_hits)
