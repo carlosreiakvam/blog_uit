@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-sm justify-content-between p-0 px-4">
     <div class="container-fluid g-0">
         <a class="navbar-brand text-success ms-3 fs-3" href={{ url_for('hovedside.index') }}><img
-                src="{{ url_for('static', filename='img/duckface.png') }}" alt="duckface"  height="30"/> Le blöög</a>
+                src="{{ url_for('static', filename='img/duckface.png') }}" alt="duckface" height="30"/> Le blöög</a>
 
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mob-navbar"
@@ -23,6 +23,20 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ url_for('hovedside.list_all_tags') }}">Alle
                         tagger</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Innlegg
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ url_for('hovedside.most_hit_posts') }}">Flest
+                            visninger</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('hovedside.most_commented_posts') }}">Mest
+                            engasjerende</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('hovedside.newest_posts') }}">Nyeste</a></li>
+                    </ul>
                 </li>
 
                 {% if current_user.is_authenticated %}
@@ -65,7 +79,8 @@
                         <a class="btn btn-outline-success mx-1" href="{{ url_for('auth.register') }}">Ny bruker</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-success mx-1" href="{{ url_for('auth.login', next=request.url) }}">Logg inn</a>
+                        <a class="btn btn-outline-success mx-1" href="{{ url_for('auth.login', next=request.url) }}">Logg
+                            inn</a>
                     </li>
                 {% endif %}
             </ul>
