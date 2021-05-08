@@ -155,7 +155,7 @@ class Innlegg:
             innlegg_treff,
             innlegg.blog_prefix,
             blog.blog_navn
-         from innlegg, kommentarer, blog where blog.blog_prefix = innlegg.blog_prefix group by innlegg.innlegg_id order by COUNT(kommentarer.kommentar_id) DESC limit 10
+         from innlegg, kommentarer, blog where blog.blog_prefix = innlegg.blog_prefix and innlegg.innlegg_id = kommentarer.innlegg_id group by innlegg.innlegg_id order by COUNT(kommentarer.kommentar_id) DESC limit 10
          """
 
         db.cursor.execute(query)
