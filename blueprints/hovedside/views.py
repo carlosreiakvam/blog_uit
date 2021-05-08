@@ -30,11 +30,13 @@ def search():
     return render_template("index.html", innlegg=search_result,
                            no_result_message="Søket ga desverre ingen resultater...")
 
+
 @router.route("/tag/list_all")
 def list_all_tags():
     all_tags = Tagger.tag_usage()
 
     return render_template('taglist.html', alltags=all_tags)
+
 
 @router.route("/most_views")
 def most_hit_posts():
@@ -42,11 +44,13 @@ def most_hit_posts():
 
     return render_template('index.html', innlegg=most_hits)
 
+
 @router.route("/newest_posts")
 def newest_posts():
     newest_posts = Innlegg.get_ten_newest()
 
     return render_template('index.html', innlegg=newest_posts)
+
 
 @router.route("/most_comments")
 def most_commented_posts():
