@@ -35,3 +35,9 @@ def list_all_tags():
     all_tags = Tagger.tag_usage()
 
     return render_template('taglist.html', alltags=all_tags)
+
+@router.route("/most_views")
+def most_hit_posts():
+    most_hits = Innlegg.get_ten_most_hits()
+
+    return render_template('index.html.html', mosthits=most_hits)
