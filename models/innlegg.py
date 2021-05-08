@@ -8,7 +8,7 @@ from extensions import db
 from models.blog import Blog
 from models.bruker import Bruker
 from models.kommentar import Kommentar
-from models.tagger import Tagger
+from models.tag import Tagger
 from models.vedlegg import Vedlegg
 
 
@@ -181,10 +181,10 @@ class Innlegg:
             innlegg_treff,
             innlegg.blog_prefix,
             blog.blog_navn
-        from innlegg, blog, tagger 
+        from innlegg, blog, tag 
         where blog.blog_prefix = innlegg.blog_prefix 
-            and tagger.innlegg_id = innlegg.innlegg_id 
-            and tagger.tag_navn = %s order by innlegg_dato desc
+            and tag.innlegg_id = innlegg.innlegg_id 
+            and tag.tag_navn = %s order by innlegg_dato desc
         """
         db.cursor.execute(query, (tag_navn,))
         result = [Innlegg(*x) for x in db.cursor.fetchall()]
@@ -256,11 +256,11 @@ class Innlegg:
         where innlegg_id = %s
         """
         delete_tags = """
-        delete from tagger
+        delete from tag
         where innlegg_id = %s
         """
         delete_comments = """
-        delete from kommentarer
+        delete from kommentar
         where innlegg_id = %s
         """
         delete_comment_log = """

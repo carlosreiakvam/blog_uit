@@ -1,7 +1,7 @@
 from flask import Blueprint, abort, render_template, request
 
 from models.innlegg import Innlegg
-from models.tagger import Tagger
+from models.tag import Tagger
 
 router = Blueprint('hovedside', __name__)
 

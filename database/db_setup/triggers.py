@@ -4,10 +4,10 @@ from flask import current_app
 
 TRIGGERS = {}
 
-TRIGGERS["kommentarer_BEFORE_DELETE"] = """
+TRIGGERS["kommentar_BEFORE_DELETE"] = """
 CREATE TRIGGER 
-`kommentarer_BEFORE_DELETE` 
-BEFORE DELETE ON `kommentarer` FOR EACH ROW
+`kommentar_BEFORE_DELETE` 
+BEFORE DELETE ON `kommentar` FOR EACH ROW
 BEGIN
     insert into `kommentar_logg` (kommentar_id, kommentar_innhold, kommentar_dato, bruker_navn, innlegg_id, slettet_dato)
     values (OLD.kommentar_id, OLD.kommentar_innhold, OLD.kommentar_dato, OLD.bruker_navn, OLD.innlegg_id, CURRENT_TIMESTAMP); 

@@ -30,7 +30,7 @@ class Kommentar:
         query = """
         select 
             kommentar_id, kommentar_innhold, kommentar_dato, bruker_navn, innlegg_id
-        from kommentarer
+        from kommentar
         where innlegg_id = %s
         order by kommentar_dato
         """
@@ -43,7 +43,7 @@ class Kommentar:
         query = """
         select 
             kommentar_id, kommentar_innhold, kommentar_dato, bruker_navn, innlegg_id
-        from kommentarer 
+        from kommentar
         where kommentar_id = %s
         """
         db.cursor.execute(query, (kommentar_id,))
@@ -55,7 +55,7 @@ class Kommentar:
 
     def insert_kommentar(self) -> "Kommentar":
         query = """
-        insert into kommentarer(kommentar_innhold, bruker_navn, innlegg_id )
+        insert into kommentar(kommentar_innhold, bruker_navn, innlegg_id )
         values(%s, %s, %s) 
         """
         db.cursor.execute(query, (self.innhold, self.brukernavn, self.innlegg_id))
@@ -64,7 +64,7 @@ class Kommentar:
 
     def delete_kommentar(self):
         query = """ 
-        delete from kommentarer 
+        delete from kommentar
         where kommentar_id = %s"""
         db.cursor.execute(query, (self.id,))
         db.connection.commit()

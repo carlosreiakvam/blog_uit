@@ -23,9 +23,12 @@
                             {% endfor %}
                         </div>
                         <h5 class="card-title">{{ _innlegg.innlegg_tittel }}</h5>
-                        <p class="card-text">{{ _innlegg.innlegg_innhold | safe }}
-                            <span class="card-header text-success text-center">Visninger: {{ _innlegg.innlegg_treff }} | Kommentarer: {{ _innlegg.kommentarer | length }}</span>
-                        </p>
+                        <div class="card-text">
+                            {{ _innlegg.innlegg_innhold | safe }}
+                        </div>
+                        <div >
+                            <span class="card-footer text-success text-center">Visninger: {{ _innlegg.innlegg_treff }} | Kommentarer: {{ _innlegg.kommentarer | length }}</span>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
@@ -34,7 +37,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12 text-center">
                         <span class="display-1 d-block">Ingen innlegg</span>
-                        <img src="{{ url_for('static', filename='img/deadduck.png') }}" alt="deadduck" height="200px"/>
+                        <img src="{{ url_for('static', filename='img/deadduck.png') }}" alt="deadduck" height="200"/>
                         <div class="mb-4 lead">{{ no_result_message }}</div>
                         <a class="text-decoration-none" href="{{ url_for('hovedside.index') }}">
                             Trykk her for å gå til til hovedsiden! </a>
