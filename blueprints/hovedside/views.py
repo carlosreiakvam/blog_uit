@@ -43,7 +43,7 @@ def most_hit_posts():
     return render_template('index.html', innlegg=most_hits)
 
 @router.route("/newest_posts")
-def most_hit_posts():
-    newest_posts = Innlegg.get_ten_most_hits()
+def newest_posts():
+    newest_posts = Innlegg.get_ten_newest()
 
     return render_template('index.html', innlegg=newest_posts)

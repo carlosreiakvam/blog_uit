@@ -32,7 +32,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ url_for('hovedside.most_hit_posts') }}">Flest visninger</a></li>
                         <li><a class="dropdown-item" href="#">Mest engasjerende</a></li>
-                        <li><a class="dropdown-item" href="#">Nyeste</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('hovedside.newest_posts') }}">Nyeste</a></li>
                     </ul>
                 </li>
                 {% if current_user.is_authenticated %}
