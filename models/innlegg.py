@@ -127,6 +127,24 @@ class Innlegg:
         return result
 
     @staticmethod
+    def get_ten_most_hits() -> List["Innlegg"]:
+        query = """
+         select innlegg.innlegg_id, 
+            innlegg_tittel, 
+            innlegg_innhold, 
+            innlegg_dato, 
+            innlegg_endret, 
+            innlegg_treff,
+            innlegg.blog_prefix,
+            blog.blog_navn
+         from innlegg, blog where blog.blog_prefix = innlegg.blog_prefix order by innlegg_treff desc limit 10
+         """
+
+        db.cursor.execute(query)
+        result = [Innlegg(*x) for x in db.cursor.fetchall()]
+        return result
+
+    @staticmethod
     def update_hit(innlegg_id: int):
         query = """
         update innlegg set innlegg_treff=innlegg_treff+1 where innlegg_id = (%s);
