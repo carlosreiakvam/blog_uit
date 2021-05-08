@@ -137,7 +137,7 @@ def slett_innlegg(blog_prefix: str, innlegg_id: int):
     innlegg.delete()
     flash("Innlegget er slettet!", 'success')
 
-    return redirect(url_for("blog.blog", blog_prefix=blog_prefix))
+    return redirect(url_for("blog.show_blog", blog_prefix=blog_prefix))
 
 
 @router.route("/slett_kommentar/<int:kommentar_id>")
