@@ -85,3 +85,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 .bloglist_text {
     font-size: 2rem;
 }
+
+.list_header {
+    margin-bottom: 40px;
+}
