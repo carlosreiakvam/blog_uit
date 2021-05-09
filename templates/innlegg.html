@@ -2,6 +2,14 @@
 {% block body %}
     <div class="container">
         <h1 class="display-1 mt-5 mb-3 text-center">{{ innlegg.innlegg_tittel }}</h1>
+
+        <div class="tagger pb-4 text-center">
+            {% for tag in innlegg.tagger %}
+                <a href="{{ url_for('hovedside.tag', tag_navn=tag.tagnavn) }}"
+                   class="badge border border-success text-success rounded-pill bg-white px-2 py-1 mr-3 text-decoration-none">{{ tag.tagnavn }}</a>
+            {% endfor %}
+        </div>
+
         <h5 class="text-center">
             Skrevet av:
             <small class="text-muted">{{ innlegg.bruker.fullt_navn }}</small>
