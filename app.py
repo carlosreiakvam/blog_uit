@@ -5,7 +5,7 @@ from blueprints.blog import router as blog_blueprint
 from blueprints.hovedside import router as hovedside_blueprint
 from blueprints.vedlegg import router as vedlegg_blueprint
 from config import config
-from errors import page_not_found
+from errors import page_not_found, unauthorized, internal_server_error
 from extensions import ck, csrf, db, login_manager
 from models.bruker import Bruker
 
@@ -27,7 +27,10 @@ def create_app(config_name="default"):
     app.register_blueprint(hovedside_blueprint)
     app.register_blueprint(blog_blueprint)
     app.register_blueprint(vedlegg_blueprint)
+
     app.register_error_handler(404, page_not_found)
+    app.register_error_handler(401, unauthorized)
+    app.register_error_handler(500, internal_server_error)
 
     return app
 

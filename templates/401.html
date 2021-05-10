@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="four_o_four container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <img src="{{ url_for('static', filename='img/no-no-no.gif') }}" alt="no-no-no" height="500"/>
+                <div class="mb-4 lead">Du har ikke tilgang til denne siden...</div>
+                <a class="text-decoration-none" href="{{ url_for('hovedside.index') }}">
+                    Gå til hovedsiden heller, det har du lov til! </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}a
