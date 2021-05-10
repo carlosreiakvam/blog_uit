@@ -123,6 +123,7 @@ def vis_innlegg(blog_prefix: str, innlegg_id: int):
     form = KommentarForm()
     if form.validate_on_submit():
         innlegg.add_kommentar(form.innhold.data, current_user.brukernavn)
+        return redirect(url_for("blog.vis_innlegg", blog_prefix=blog_prefix, innlegg_id=innlegg_id))
 
     return render_template("innlegg.html", innlegg=innlegg, form=form)
 
