@@ -13,10 +13,10 @@ app = create_app()
 database_cli = AppGroup("db")
 
 MIMETYPER = {
-    "png": "image/png",
-    "jpg": "image/jpeg",
-    "jpeg": "image/jpeg",
-    "gif": "image/gif"
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".gif": "image/gif"
 }
 
 
