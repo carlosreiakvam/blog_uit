@@ -223,8 +223,8 @@ class Innlegg:
             blog.blog_navn
         from innlegg 
             inner join blog on innlegg.blog_prefix = blog.blog_prefix 
-        where MATCH(innlegg_innhold) against(%s IN NATURAL LANGUAGE MODE)
-           or MATCH(innlegg_tittel) against(%s IN NATURAL LANGUAGE MODE)
+        where innlegg_innhold like CONCAT('%', %s, '%') 
+           or innlegg_tittel like CONCAT('%', %s, '%') 
         """
         db.cursor.execute(query, (search_string, search_string))
         result = [Innlegg(*x) for x in db.cursor.fetchall()]
