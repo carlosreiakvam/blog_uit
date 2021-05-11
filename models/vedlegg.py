@@ -7,22 +7,24 @@ class Vedlegg:
     def __init__(self,
                  vedlegg_id=None,
                  vedlegg_navn=None,
+                 vedlegg_mimetype=None,
                  bruker_navn=None
                  ):
         self.vedlegg_id = vedlegg_id
         self.vedlegg_navn = vedlegg_navn
+        self.vedlegg_mimetype = vedlegg_mimetype
         self.bruker_navn = bruker_navn
 
     @staticmethod
-    def get_all(vedlegg_id: int) -> List["Vedlegg"]:
+    def get_all() -> List["Vedlegg"]:
         query = """
         select vedlegg_id, 
                vedlegg_navn,
+               vedlegg_mimetype,
                bruker_navn
         from vedlegg
-        where vedlegg_id = %s
         """
-        db.cursor.execute(query, (vedlegg_id,))
+        db.cursor.execute(query)
         result = [Vedlegg(*vedlegg) for vedlegg in db.cursor.fetchall()]
         return result
 
@@ -31,6 +33,7 @@ class Vedlegg:
         query = """
                 select vedlegg_id, 
                        vedlegg_navn,
+                       vedlegg_mimetype,
                        bruker_navn
                 from vedlegg
                 where vedlegg_id = %s
@@ -44,10 +47,10 @@ class Vedlegg:
 
     def insert(self) -> "Vedlegg":
         query = """
-        insert into vedlegg(vedlegg_id, vedlegg_navn, bruker_navn)
-        values (%s, %s, %s)
+        insert into vedlegg(vedlegg_id, vedlegg_navn, vedlegg_mimetype, bruker_navn)
+        values (%s, %s, %s, %s)
         """
-        db.cursor.execute(query, (self.vedlegg_id, self.vedlegg_navn, self.bruker_navn))
+        db.cursor.execute(query, (self.vedlegg_id, self.vedlegg_navn, self.vedlegg_mimetype, self.bruker_navn))
         db.connection.commit()
         return Vedlegg.get_by_id(db.cursor.lastrowid)
 
@@ -57,3 +60,11 @@ class Vedlegg:
         where vedlegg_id = %s
         """
         db.cursor.execute(query, (self.vedlegg_id,))
+
+    def update(self):
+        query = """
+        update vedlegg set vedlegg_mimetype = %s, vedlegg_navn = %s
+        where vedlegg_id = %s
+        """
+        db.cursor.execute(query, (self.vedlegg_mimetype, self.vedlegg_navn, self.vedlegg_id))
+        db.connection.commit()
