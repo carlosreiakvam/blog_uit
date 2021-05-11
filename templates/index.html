@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
 {% block body %}
+    {% block heading %}
+        <div class="styled_heading display-1 text-success">
+            {{ heading }}
+        </div>
+    {% endblock %}
     <div class="container px-lg-5">
         {% if innlegg | length > 0 %}
             {% for _innlegg in innlegg %}
@@ -26,7 +31,7 @@
                         <div class="card-text">
                             {{ _innlegg.innlegg_innhold | safe }}
                         </div>
-                        <div >
+                        <div>
                             <span class="card-footer text-success text-center">Visninger: {{ _innlegg.innlegg_treff }} | Kommentarer: {{ _innlegg.kommentarer | length }}</span>
                         </div>
                     </div>

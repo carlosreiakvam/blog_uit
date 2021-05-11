@@ -14,7 +14,7 @@ router = Blueprint('blog', __name__, url_prefix="/blog")
 def list_all_blogs():
     all_blogs = Blog.get_all()
 
-    return render_template('bloglist.html', allblogs=all_blogs)
+    return render_template('bloglist.html', allblogs=all_blogs, heading="Alle blogger")
 
 
 @router.route("/<blog_prefix>")

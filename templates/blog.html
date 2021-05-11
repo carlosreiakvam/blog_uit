@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block body %}
-        <div class="h2 text-success blog_header">  {{ blog.blog_navn }}  </div>
-        {% if innlegg %}
+    <div class="h2 text-success blog_header">  {{ blog.blog_navn }}  </div>
+    {% if innlegg %}
         <div class="container px-lg-5">
         {% for _innlegg in innlegg %}
             <div class="card text-dark bg-light mb-3 frontpage-card  mx-lg-5">
@@ -29,7 +29,7 @@
         {% endfor %}
     {% else %}
         <div class="text-success px-2 py-1 mr-3 text-decoration-none text-center">
-    ....denne bloggen har for tiden ingen innlegg. Prøv igjen senere!
+            ....denne bloggen har for tiden ingen innlegg. Prøv igjen senere!
         </div>
     {% endif %}
 </div>

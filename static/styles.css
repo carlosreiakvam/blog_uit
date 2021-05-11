@@ -89,3 +89,9 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 .list_header {
     margin-bottom: 40px;
 }
+
+.styled_heading {
+    text-align: center;
+    margin: 30px;
+}
+

@@ -35,25 +35,25 @@ def search():
 def list_all_tags():
     all_tags = Tagger.tag_usage()
 
-    return render_template('taglist.html', alltags=all_tags)
+    return render_template('taglist.html', alltags=all_tags, heading="Alle tagger")
 
 
 @router.route("/most_views")
 def most_hit_posts():
     most_hits = Innlegg.get_ten_most_hits()
 
-    return render_template('index.html', innlegg=most_hits)
+    return render_template('index.html', innlegg=most_hits, heading="Flest visninger")
 
 
 @router.route("/newest_posts")
 def newest_posts():
     newest_posts = Innlegg.get_ten_newest()
 
-    return render_template('index.html', innlegg=newest_posts)
+    return render_template('index.html', innlegg=newest_posts, heading="Siste blogger")
 
 
 @router.route("/most_comments")
 def most_commented_posts():
     most_comments = Innlegg.get_ten_most_commented()
 
-    return render_template('index.html', innlegg=most_comments)
+    return render_template('index.html', innlegg=most_comments, heading="Mest engasjerende")
