@@ -42,18 +42,18 @@ def list_all_tags():
 def most_hit_posts():
     most_hits = Innlegg.get_ten_most_hits()
 
-    return render_template('index.html', innlegg=most_hits, heading="Flest visninger")
+    return render_template('index.html', innlegg=most_hits, heading="10 mest viste innlegg")
 
 
 @router.route("/newest_posts")
 def newest_posts():
     newest_posts = Innlegg.get_ten_newest()
 
-    return render_template('index.html', innlegg=newest_posts, heading="Siste blogger")
+    return render_template('index.html', innlegg=newest_posts, heading="10 nyeste innlegg")
 
 
 @router.route("/most_comments")
 def most_commented_posts():
     most_comments = Innlegg.get_ten_most_commented()
 
-    return render_template('index.html', innlegg=most_comments, heading="Mest engasjerende")
+    return render_template('index.html', innlegg=most_comments, heading="10 mest engasjerende innlegg")
