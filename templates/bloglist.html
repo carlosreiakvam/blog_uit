@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    {% block heading %}
-        <div class="styled_heading display-3 text-success">
-            {{ heading }}
-        </div>
-    {% endblock %}
+
+    {% if heading %}
+        <h2 class="styled_heading display-3 text-center text-success py-4">  {{ heading }}  </h2>
+    {% endif %}
+
     <div class="row d-flex justify-content-center">
         <div class="col-md-3">
             {% for _blog in allblogs %}

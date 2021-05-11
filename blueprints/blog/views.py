@@ -24,10 +24,10 @@ def show_blog(blog_prefix: str):
     if not blog:
         abort(404)
     if posts_with_tag and len(posts_with_tag) > 0:
-        return render_template('blog.html', blog=blog,
-                               innlegg=posts_with_tag,heading=blog.blog_navn)
+        return render_template('index.html', blog=blog,
+                               innlegg=posts_with_tag, heading=blog.blog_navn)
     if len(posts_with_tag) == 0:
-        return render_template('blog.html', blog=blog, innlegg=None)
+        return render_template('index.html', blog=blog, innlegg=None, heading=blog.blog_navn)
 
     abort(404)
 
@@ -40,13 +40,13 @@ def new_blog():
         blog = Blog.get_one(form.blog_prefix.data)
         if blog:
             flash("Dette prefikset er allerede tatt", 'danger')
-            return render_template('new_blog.html', form=form)
+            return render_template('new_blog.html', form=form, heading="Opprett blogg")
         blog = Blog(blog_navn=form.blog_navn.data, blog_prefix=form.blog_prefix.data,
                     bruker_navn=current_user.brukernavn)
         blog.insert_blog()
         return redirect(url_for("hovedside.index"))
 
-    return render_template('new_blog.html', form=form)
+    return render_template('new_blog.html', form=form, heading="Opprett blogg")
 
 
 @router.route("/<blog_prefix>/new", methods=["GET", "POST"])
