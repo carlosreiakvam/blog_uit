@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <div class="h2 text-success blog_header">  {{ blog.blog_navn }}  </div>
+
+    {% block heading %}
+        <div class="styled_heading display-3 text-success">
+            {{ heading }}
+        </div>
+    {% endblock %}
+
     {% if innlegg %}
         <div class="container px-lg-5">
         {% for _innlegg in innlegg %}

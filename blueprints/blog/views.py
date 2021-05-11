@@ -25,7 +25,7 @@ def show_blog(blog_prefix: str):
         abort(404)
     if posts_with_tag and len(posts_with_tag) > 0:
         return render_template('blog.html', blog=blog,
-                               innlegg=posts_with_tag)
+                               innlegg=posts_with_tag,heading=blog.blog_navn)
     if len(posts_with_tag) == 0:
         return render_template('blog.html', blog=blog, innlegg=None)
 
