@@ -16,16 +16,15 @@ class Vedlegg:
         self.bruker_navn = bruker_navn
 
     @staticmethod
-    def get_all(vedlegg_id: int) -> List["Vedlegg"]:
+    def get_all() -> List["Vedlegg"]:
         query = """
         select vedlegg_id, 
                vedlegg_navn,
                vedlegg_mimetype,
                bruker_navn
         from vedlegg
-        where vedlegg_id = %s
         """
-        db.cursor.execute(query, (vedlegg_id,))
+        db.cursor.execute(query)
         result = [Vedlegg(*vedlegg) for vedlegg in db.cursor.fetchall()]
         return result
 
@@ -65,6 +64,7 @@ class Vedlegg:
     def update(self):
         query = """
         update vedlegg set vedlegg_mimetype = %s, vedlegg_navn = %s
+        where vedlegg_id = %s
         """
-        db.cursor.execute(query, (self.vedlegg_mimetype, self.vedlegg_navn))
+        db.cursor.execute(query, (self.vedlegg_mimetype, self.vedlegg_navn, self.vedlegg_id))
         db.connection.commit()
