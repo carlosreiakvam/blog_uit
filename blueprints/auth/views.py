@@ -17,7 +17,7 @@ def register():
         bruker = Bruker.get_user(form.brukernavn.data)
         if bruker:
             flash("Brukernavn er allerede tatt", "danger")
-            return render_template('register.html', form=form)
+            return render_template('register.html', form=form, heading="Registrer ny bruker")
         bruker = Bruker(brukernavn=form.brukernavn.data, epost=form.epost.data, opprettet=None,
                         fornavn=form.fornavn.data, etternavn=form.etternavn.data)
         bruker.hash_password(form.passord.data)
@@ -32,7 +32,7 @@ def register():
         for error_message in error_messages:
             flash(f"{error_message}", "danger")
 
-    return render_template('register.html', form=form, title="Ny bruker")
+    return render_template('register.html', form=form, title="Ny bruker", heading="Registrer ny bruker")
 
 
 @router.route('/login', methods=['GET', 'POST'])
@@ -43,7 +43,7 @@ def login():
         bruker = Bruker.get_user(form.username.data)
         if bruker is None or not bruker.check_password(form.password.data):
             flash('Feil brukernavn og/eller passord', 'danger')
-            return render_template('login.html', form=form)
+            return render_template('login.html', form=form, heading="Logg inn")
 
         login_user(bruker)
 
@@ -54,7 +54,7 @@ def login():
             return abort(400)
         print(next_url)
         return redirect(next_url or url_for("hovedside.index"))
-    return render_template('login.html', form=form, title="login")
+    return render_template('login.html', form=form, title="login", heading="Logg inn")
 
 
 @router.route("/logout")

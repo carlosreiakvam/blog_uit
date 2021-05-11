@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 
 {% block body %}
+    {% if innlegg_id %}
+        <h2 class="styled_heading display-3 text-center text-success py-4"> Rediger innlegg #{{ innlegg_id }}  </h2>
+    {% else %}
+        <h2 class="styled_heading display-3 text-center text-success py-4"> Nytt innlegg </h2>
+    {% endif %}
+
     <div class="container mt-5">
         <div class="row align-items-center">
             <div class="card p-3 m-auto">
                 {% if innlegg_id %}
-                    <h2>Rediger innlegg #{{ innlegg_id }}</h2>
                     <form method="POST"
                           action="{{ url_for('blog.rediger_innlegg', blog_prefix=blog_prefix, innlegg_id=innlegg_id) }}"
                           class="post-edit-form">
                 {% else %}
-                    <h2>Nytt innlegg</h2>
                     <form method="POST" action="{{ url_for('blog.nytt_innlegg', blog_prefix=blog_prefix) }}"
                           class="post-edit-form">
                 {% endif %}
