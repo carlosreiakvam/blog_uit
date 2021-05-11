@@ -61,3 +61,10 @@ class Vedlegg:
         where vedlegg_id = %s
         """
         db.cursor.execute(query, (self.vedlegg_id,))
+
+    def update(self):
+        query = """
+        update vedlegg set vedlegg_mimetype = %s, vedlegg_navn = %s
+        """
+        db.cursor.execute(query, (self.vedlegg_mimetype, self.vedlegg_navn))
+        db.connection.commit()
