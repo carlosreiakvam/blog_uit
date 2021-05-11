@@ -121,6 +121,7 @@ TABLES["vedlegg"] = """
 CREATE TABLE `vedlegg` (
   `vedlegg_id` VARCHAR(32),
   `vedlegg_navn` VARCHAR(45) NOT NULL,
+  `vedlegg_mimetype` VARCHAR(45) NOT NULL,
   `bruker_navn` VARCHAR(24) NOT NULL,
   PRIMARY KEY (`vedlegg_id`, `bruker_navn`),
   UNIQUE INDEX `vedlegg_id_UNIQUE` (`vedlegg_id` ASC),

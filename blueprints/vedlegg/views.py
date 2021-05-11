@@ -17,7 +17,12 @@ def upload():
     if extension not in ['.jpg', '.gif', '.png', '.jpeg']:
         return upload_fail(message='Image only!')
     file_uuid = uuid.uuid4().hex
-    vedlegg = Vedlegg(vedlegg_id=file_uuid, vedlegg_navn=f.filename, bruker_navn=current_user.brukernavn)
+    vedlegg = Vedlegg(
+        vedlegg_id=file_uuid,
+        vedlegg_navn=f.filename,
+        vedlegg_mimetype=f.mimetype,
+        bruker_navn=current_user.brukernavn
+    )
     vedlegg.insert()
     f.save(os.path.join(upload_dir, file_uuid))
     url = url_for('vedlegg.uploaded_files', file_uuid=file_uuid)
@@ -28,4 +33,6 @@ def upload():
 def uploaded_files(file_uuid):
     upload_dir = current_app.config.get("UPLOAD_DIR")
     vedlegg = Vedlegg.get_by_id(file_uuid)
-    return send_from_directory(upload_dir, file_uuid, attachment_filename=vedlegg.vedlegg_navn)
+    return send_from_directory(
+        upload_dir, file_uuid, attachment_filename=vedlegg.vedlegg_navn, mimetype=vedlegg.vedlegg_mimetype
+    )

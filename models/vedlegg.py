@@ -7,10 +7,12 @@ class Vedlegg:
     def __init__(self,
                  vedlegg_id=None,
                  vedlegg_navn=None,
+                 vedlegg_mimetype=None,
                  bruker_navn=None
                  ):
         self.vedlegg_id = vedlegg_id
         self.vedlegg_navn = vedlegg_navn
+        self.vedlegg_mimetype = vedlegg_mimetype
         self.bruker_navn = bruker_navn
 
     @staticmethod
@@ -18,6 +20,7 @@ class Vedlegg:
         query = """
         select vedlegg_id, 
                vedlegg_navn,
+               vedlegg_mimetype,
                bruker_navn
         from vedlegg
         where vedlegg_id = %s
@@ -31,6 +34,7 @@ class Vedlegg:
         query = """
                 select vedlegg_id, 
                        vedlegg_navn,
+                       vedlegg_mimetype,
                        bruker_navn
                 from vedlegg
                 where vedlegg_id = %s
@@ -44,10 +48,10 @@ class Vedlegg:
 
     def insert(self) -> "Vedlegg":
         query = """
-        insert into vedlegg(vedlegg_id, vedlegg_navn, bruker_navn)
-        values (%s, %s, %s)
+        insert into vedlegg(vedlegg_id, vedlegg_navn, vedlegg_mimetype, bruker_navn)
+        values (%s, %s, %s, %s)
         """
-        db.cursor.execute(query, (self.vedlegg_id, self.vedlegg_navn, self.bruker_navn))
+        db.cursor.execute(query, (self.vedlegg_id, self.vedlegg_navn, self.vedlegg_mimetype, self.bruker_navn))
         db.connection.commit()
         return Vedlegg.get_by_id(db.cursor.lastrowid)
 
